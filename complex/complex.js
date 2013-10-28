@@ -14,14 +14,15 @@
     _world : null,
     setWorld : function(world)
     {
+        cx.Core.setupWorld(world);
         this._world = world;
+        
     },
     
     getWorld : function()
     {
         return this._world;
     },
-
 };
 
 cx.Util = {
@@ -67,6 +68,11 @@ cx.World = function()
                 return this._components[componentName];
             }
         }    
+    }
+    
+    this.getEntity = function(id)
+    {
+        return _entities[id];
     }
     
     this.addEntity = function(entity)
@@ -125,6 +131,16 @@ cx.World = function()
     }
 }
 
+
+cx.Manager = function(name, data)
+{
+    data.name = name;
+    Class.define(name, data);
+}
+
+/**
+ *  Define the Component class. Component is available with 'name' 
+ */
 cx.Component = function(name, data)
 {
     data.name = name; 
@@ -143,4 +159,29 @@ cx.System = function(name, components, data)
 
     data.name = name; 
     Class.define(name, data)
+};
+
+/**
+ *  Preset Classes
+ */
+ cx.Core = {
+    setupWorld : function(world)
+    {
+        cx.Manager("TagManager", {
+            _entities : [],
+            
+            register : function(entity, tag)
+            {
+                this._entities[tag] = entity.id;
+            },
+            
+            load : function(tag)
+            {
+                return cx.getWorld().getEntity(this._entities[tag]);
+            }
+        }); 
+        
+        world.setSystem(new TagManager());
+    }
+
 };
