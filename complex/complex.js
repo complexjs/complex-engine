@@ -1,4 +1,16 @@
-var cx = {
+/**
+ * ComplexJS
+ * A pure JS based Component Entity System Framework
+ * 
+ * Author: Fabio Gianini
+ * Version: 0.2
+ * License: GNU
+ * Mail: faebeee@gmail.com
+ * Repo: https://github.com/faebeee/complexJS
+ * 
+ */
+ 
+ var cx = {
     _world : null,
     setWorld : function(world)
     {
@@ -17,6 +29,8 @@ cx.Util = {
         console.log(data);
     }
 }
+
+
 cx.World = function()
 {
     this._systems = [];
@@ -117,6 +131,9 @@ cx.Component = function(name, data)
     Class.define(name, data)
 }
 
+/**
+ * Define a new System. Available as class with name 'name'
+ */
 cx.System = function(name, components, data)
 {
     if(!data.update)
