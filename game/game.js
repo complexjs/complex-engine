@@ -4,8 +4,6 @@ world.setSystem(new DrawSystem(document.getElementById("screen")));
 world.setSystem(new StatsSystem());
 world.setSystem(new Box2DSystem());
 
-
- 
 var playerEntity = world.createEntity();
 playerEntity.addComponent(new DrawComponent(10, 10, 10, 10));
 

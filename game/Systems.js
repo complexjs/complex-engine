@@ -52,9 +52,25 @@ cx.System('DrawSystem', ['DrawComponent'], {
 	}
 });
 
+cx.System('Box2DSystem', [], {
+   
+   world : null,
+   
+   constructor : function()
+   {
+       var worldAABB = Box2D.b2AABB();
+        worldAABB.minVertex.Set(-1000, -1000);
+	    worldAABB.maxVertex.Set(1000, 1000);
+	    
+		this.world = new Box2D.b2World(worldAABB, new Box2D.b2Vec2(0, 300), true); 
+		
+   }
+});
+
 /**
  * Box2DSystem
  */
+ /*
 cx.System("Box2DSystem", [], {
 	world : null,
 
@@ -91,3 +107,4 @@ cx.System("Box2DSystem", [], {
 		return circleBd;
 	},
 });
+*/
