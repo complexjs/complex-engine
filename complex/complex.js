@@ -54,13 +54,11 @@ cx.World = function()
     
     this.createEntity = function()
     {
-        cx.Util.log("Create entity");
         return {
             id: null,
             _components : [],
             addComponent : function(component)
             {
-                cx.Util.log("Add component "+component.name)
                 this._components[component.name] = component;
             },
             getComponent : function(componentName)
@@ -81,14 +79,12 @@ cx.World = function()
         {
             if(this._entities[e] === null)
             {
-                cx.Util.log("Add Entity "+e);
                 entity.id = e;
                 this._entities[e] = entity;
                 return entity;
             }
         }
 
-        cx.Util.log("Add Entity");
         entity.id = this._entities.length;
         this._entities.push(entity);
         return entity;
@@ -96,7 +92,6 @@ cx.World = function()
     
     this.removeFromWorld = function(entity)
     {
-        cx.Util.Log("Remove "+entity.id);
         delete this._entities[entity.id];
     }
     

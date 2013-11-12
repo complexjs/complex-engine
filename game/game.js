@@ -9,7 +9,11 @@ playerEntity.addComponent(new DrawComponent(10, 10, 10, 10));
 
 box2DSystem = world.getSystem("Box2DSystem");
 
-playerEntity.addComponent(new Box2DComponent(box2DSystem.createCircle(100, 100, 20)));
+var circleBody = new Box2D.b2Body();
+
+
+
+playerEntity.addComponent(new Box2DComponent());
 
 playerEntity.addEntity
 
