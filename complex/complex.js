@@ -26,7 +26,7 @@
 };
 
 cx.Util = {
-    Log : function(data){
+    log : function(data){
         console.log(data);
     }
 }
@@ -54,13 +54,13 @@ cx.World = function()
     
     this.createEntity = function()
     {
-        cx.Util.Log("Create entity");
+        cx.Util.log("Create entity");
         return {
             id: null,
             _components : [],
             addComponent : function(component)
             {
-                cx.Util.Log("Add component "+component.name)
+                cx.Util.log("Add component "+component.name)
                 this._components[component.name] = component;
             },
             getComponent : function(componentName)
@@ -81,14 +81,14 @@ cx.World = function()
         {
             if(this._entities[e] === null)
             {
-                cx.Util.Log("Add Entity "+e);
+                cx.Util.log("Add Entity "+e);
                 entity.id = e;
                 this._entities[e] = entity;
                 return entity;
             }
         }
 
-        cx.Util.Log("Add Entity");
+        cx.Util.log("Add Entity");
         entity.id = this._entities.length;
         this._entities.push(entity);
         return entity;

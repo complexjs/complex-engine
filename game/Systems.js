@@ -52,19 +52,37 @@ cx.System('DrawSystem', ['DrawComponent'], {
 	}
 });
 
-cx.System('Box2DSystem', [], {
+cx.System('Box2DSystem', [], 
+{
+    world : null,
    
-   world : null,
-   
-   constructor : function()
-   {
-       var worldAABB = Box2D.b2AABB();
-        worldAABB.minVertex.Set(-1000, -1000);
-	    worldAABB.maxVertex.Set(1000, 1000);
+    constructor : function()
+    {
+        var worldAABB = new Box2D.b2AABB();
+        console.log(worldAABB);
+        
+        worldAABB.set_lowerBound(0, 0);
+	    worldAABB.set_upperBound(1000, 1000);
 	    
-		this.world = new Box2D.b2World(worldAABB, new Box2D.b2Vec2(0, 300), true); 
-		
-   }
+		this.world = new Box2D.b2World(worldAABB, new Box2D.b2Vec2(0, 300), true);
+    },
+   
+   
+    createCircle : function(x, y, radius)
+    {
+        var circleShape = new Box2D.b2CircleShape();
+        
+        circleShape.set_m_radius(radius);
+        
+    	var circleBody = new Box2D.b2BodyDef();
+    	cx.Util.log(circleBody);
+    	circleBody.AddShape(circleShape);
+    	circleBody.set_position(x,y);
+    
+    	this.world.CreateBody(circleBody);
+    
+    	return circleBody;   
+    }
 });
 
 /**
