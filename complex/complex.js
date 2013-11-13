@@ -10,35 +10,87 @@
  * 
  */
  
- var cx = {
-    _world : null,
-    setWorld : function(world)
+var cx = {
+    init : function(loader)
     {
-        cx.Core.setupWorld(world);
-        this._world = world;
-        
-    },
-    
-    getWorld : function()
-    {
-        return this._world;
-    },
+        loader();
+    }
 };
 
-cx.Util = {
-    log : function(data){
-        console.log(data);
+cx.Engine = {
+    currentScreen : null,
+    world : null,
+    setScreen : function(screen)
+    {
+        cx.Util.log("Set screen to "+screen.name)
+        this.currentScreen = screen;
+    },
+
+    /** makes the world accessable for the systems */
+    setWorld : function(world)
+    {
+        this.world = world;
+    },
+
+    update : function()
+    {
+        if(cx.Engine.currentScreen != null)
+        {
+            cx.Engine.currentScreen.update();
+        }
+    },
+}
+
+//ToDO
+/**
+ * [Input description]
+ * @type {[type]}
+ */
+cx.Input = 
+{
+    isKeyDown : function()
+    {
+
     }
 }
 
+/**
+ *
+ * @type {{log: Function}}
+ */
+cx.Util = {
+    log : function(data){
+        console.log("cx", data);
+    },
 
+    load : function(file)
+    {
+        var script = document.createElement("script");
+        script.src = file;
+        document.getElementsByTagName("head")[0].appendChild(script);
+    }
+}
+
+/**
+ * class cx.World
+ * @constructor
+ */
 cx.World = function()
 {
     this._systems = [];
     this._entities = [];
-    
+
+    /**
+     * Add new system to the world
+     * @param system
+     */
     this.setSystem = function(system)
     {
+        cx.Util.log(system.name+" added");
+        system.world = cx.Engine.world;
+
+        system.init();
+
         this._systems.push(system);
     }
 
@@ -70,7 +122,7 @@ cx.World = function()
     
     this.getEntity = function(id)
     {
-        return _entities[id];
+        return this._entities[id];
     }
     
     this.addEntity = function(entity)
@@ -126,7 +178,12 @@ cx.World = function()
     }
 }
 
-
+/**
+ *
+ * @param name
+ * @param data
+ * @constructor
+ */
 cx.Manager = function(name, data)
 {
     data.name = name;
@@ -134,7 +191,10 @@ cx.Manager = function(name, data)
 }
 
 /**
- *  Define the Component class. Component is available with 'name' 
+ *
+ * @param name
+ * @param data
+ * @constructor
  */
 cx.Component = function(name, data)
 {
@@ -143,18 +203,42 @@ cx.Component = function(name, data)
 }
 
 /**
- * Define a new System. Available as class with name 'name'
+ *
+ * @param name
+ * @param components
+ * @param data
+ * @constructor
  */
 cx.System = function(name, components, data)
 {
     if(!data.update)
         data.update = function(entity){};
 
+    data.world = {};
+    if(!data.init)
+        data.init = function(){}
+
     data._components = components;
 
     data.name = name; 
     Class.define(name, data)
 };
+
+/**
+ *
+ * @param name
+ * @param data
+ * @constructor
+ */
+cx.Screen = function(name, data)
+{
+    data.name = name;
+    if(typeof data.update !== 'function')
+        data.update = function(){}
+
+
+    Class.define(name, data)
+}
 
 /**
  *  Preset Classes
@@ -174,9 +258,18 @@ cx.System = function(name, components, data)
             {
                 return cx.getWorld().getEntity(this._entities[tag]);
             }
-        }); 
-        
+        });
         world.setSystem(new TagManager());
     }
-
 };
+
+
+
+/**
+ * HELPER CLASSES
+ */
+cx.Vector = function(x, y)
+{
+    this.x = x;
+    this.y = y;
+}

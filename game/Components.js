@@ -1,14 +1,18 @@
 cx.Component("Box2DComponent", {
 	body : null,
+
 	constructor : function( body )
 	{
 		this.body = body;
+	},
+
+	getPosition : function()
+	{
+		return this.body.m_position;
 	}
 });
 
 cx.Component("DrawComponent", {
-	x : 0,
-	y : 0,
 	width: 0, 
 	height: 0,
 	constructor : function(x, y, w, h){
@@ -18,3 +22,12 @@ cx.Component("DrawComponent", {
 		this.height = h;
 	}
 });
+
+cx.Component("ScriptComponent", {
+	initialized : false,
+	script : null,
+	constructor : function(script)
+	{
+		this.script = script;
+	}
+})
