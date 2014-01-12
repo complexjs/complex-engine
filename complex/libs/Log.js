@@ -1,3 +1,7 @@
+/**
+ * Logger
+ * @type {Object}
+ */
 var Log = {
 	/**
 	 * [d description]

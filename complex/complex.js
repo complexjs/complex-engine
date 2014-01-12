@@ -10,12 +10,19 @@
  * @type {Object}
  */
 var cx = {
+	tag : "CX",
 	core : {
 		engine : null,
-		updater : null,
+		updater : null
 	}, //holds all the data
 
+	config : function(data){
+		Log.d(this, 'configure')
+		cx.API.config(data);
+	},
+
 	load : function( container, completeCB ) {
+		Log.d(this, 'load scripts');
 		cx.API.data.loadedCallback = completeCB;
 		for(var s = 0, sLen = cx.API.scripts.length; s < sLen; s++){
 			var script = document.createElement("script");
@@ -27,6 +34,7 @@ var cx = {
 		for(var s = 0, sLen = cx.API.customScripts.length; s < sLen; s++){
 			var script = document.createElement("script");
 			script.src = cx.API.customScripts[s];
+   			script.onload= cx.API.scriptLoaded;
 			container.appendChild(script);
 		}
 	},	
@@ -36,8 +44,8 @@ var cx = {
 	 * @return {[type]} [description]
 	 */
 	init : function() {
-		this.core.engine = new cx.Engine();
-		return this.core.engine;
+		cx.core.engine = new cx.Engine();
+		return cx.core.engine;
 	},
 
 	/**
@@ -95,6 +103,8 @@ cx.API = {
 		"src/Entity.js",
 		"src/Component.js",
 		"src/System.js",
+		"src/World.js",
+		"src/Screen.js",
 	],
 	customScripts : [
 
@@ -102,8 +112,9 @@ cx.API = {
 	scriptLoaded : function() {
 		Log.d('cx.API', 'script loaded');
 		cx.API.data.scriptLoadedCounter++;
-		if( cx.API.data.scriptLoadedCounter == cx.API.scripts.length){
+		if( cx.API.data.scriptLoadedCounter == cx.API.scripts.length + cx.API.customScripts.length){
 			cx.API.data.loadedCallback();
+			
 		}
 	},
 	config : function(options) {
