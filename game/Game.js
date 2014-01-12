@@ -1,3 +1,12 @@
+cx.API.config({
+  scriptRoot : "../complex/",
+  customScripts : [
+    "src/game.js"
+  ]
+});
+
+cx.load(document.getElementsByTagName("head")[0], loaded);
+
 function loaded () {
     var engine = cx.init();
 
@@ -42,7 +51,4 @@ function loaded () {
     engine.addSystem(new PositionSystem())
     engine.addSystem(new DrawSystem())
     engine.addEntity(player);
-
-
-    
 }
