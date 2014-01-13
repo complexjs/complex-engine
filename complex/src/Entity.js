@@ -4,23 +4,24 @@
 cx.Entity = function() {
 	this.components = [];
 }
-cx.Entity.prototype.addComponent = function( component ) {
-	this.components.push(component);
-};
 
 /**
- * [System description]
- * @param {[type]} arrayOfComponents [description]
+ * Add a component to the entity
+ * @param {[type]} component [description]
  */
-cx.System = function() {
-	this.components = [];
+cx.Entity.prototype.addComponent = function( component ) {
+	this.components.push(component);
 }
-cx.System.prototype.init = function() {
 
-}
-cx.System.prototype.setComponents = function (components) {
-	this.components = components;
-}
-cx.System.prototype.update = function ( entity ) {
-
+/**
+ * 
+ */
+cx.Entity.prototype.getComponent = function( componentName ) {
+	for(var i = 0, len = this.compnents.length; i < len; i++){
+		var component = this.components[i];
+		if(component.name == componentName){
+			return component;
+		}
+	}
+	return null;
 }

@@ -10,7 +10,7 @@
  * @type {Object}
  */
 var cx = {
-	tag : "CX",
+	tag : "cx",
 	core : {
 		engine : null,
 		updater : null
@@ -92,6 +92,7 @@ var cx = {
 };
 
 cx.API = {
+	tag : 'cx.API',
 	v : '0.0.1',
 	scriptRoot : "./",
 	data : {
@@ -110,7 +111,7 @@ cx.API = {
 
 	],
 	scriptLoaded : function() {
-		Log.d('cx.API', 'script loaded');
+		Log.d(this, 'script loaded');
 		cx.API.data.scriptLoadedCounter++;
 		if( cx.API.data.scriptLoadedCounter == cx.API.scripts.length + cx.API.customScripts.length){
 			cx.API.data.loadedCallback();

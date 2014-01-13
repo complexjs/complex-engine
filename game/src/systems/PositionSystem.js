@@ -9,5 +9,4 @@ PositionSystem.prototype.init = function() {
     this.components.push("Position");
 }
 PositionSystem.prototype.update = function ( entity ) {
-    
 }

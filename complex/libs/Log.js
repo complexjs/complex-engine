@@ -20,10 +20,11 @@ var Log = {
 	 * @return {[type]}        [description]
 	 */
 	_tag : function ( tagObj ) {
-		if(typeof tagObj === 'object') {
-			if(tagObj.tag) {
-				return tagObj.tag
-			}
+		if(tagObj.tag) {
+			return tagObj.tag
+		}
+
+		if(typeof tagObj === 'string') {
 			return tagObj.toString();
 		}
 

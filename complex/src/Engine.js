@@ -7,20 +7,20 @@ cx.Engine = function ( ) {
     this.screen = null;
 
     Log.d(this, 'engine created');
+}
 
-    /**
-     * [update description]
-     * @return {[type]} [description]
-     */
-    this.update = function () {
-        if(this.screen)
-            this.screen.update();
+cx.Engine.prototype.update = function(){
+    if(this.screen){
+        this.screen.update();
+    }
+}
+
+cx.Engine.prototype.setScreen = function( screen ) {
+    Log.d(this, 'set screen');
+    if (this.screen) {
+        this.screen.hide();
     }
 
-    this.setScreen = function(screen){
-        Log.d(this, "set screen");
-        this.screen = screen;
-        this.screen.init();
-    }
-
+    this.screen = screen;
+    this.screen.show();
 }
