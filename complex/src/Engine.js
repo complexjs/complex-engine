@@ -1,26 +1,24 @@
 /**
  * [Engine description]
  */
-cx.Engine = function ( ) {
-	this.tag = "cx.Engine";
-   
-    this.screen = null;
+cx.Engine = Class.extend({
+    init : function(){
+        this.tag = "cx.Engine";
+        this.screen = null;
+        Log.d(this, 'engine created');
+    },
+    update : function () {
+        if(this.screen){
+            this.screen.update();
+        } 
+    },
+    setScreen : function( screen ) {
+        Log.d(this, 'set screen');
+        if (this.screen) {
+            this.screen.hide();
+        }
 
-    Log.d(this, 'engine created');
-}
-
-cx.Engine.prototype.update = function(){
-    if(this.screen){
-        this.screen.update();
+        this.screen = screen;
+        this.screen.show();
     }
-}
-
-cx.Engine.prototype.setScreen = function( screen ) {
-    Log.d(this, 'set screen');
-    if (this.screen) {
-        this.screen.hide();
-    }
-
-    this.screen = screen;
-    this.screen.show();
-}
+});
