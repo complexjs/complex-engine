@@ -1,16 +1,21 @@
 var DrawSystem = cx.System.extend({
-    init : function(){
+    init : function( world ){
 	    this._super();
-	    console.log(this);
+	    this.world = world;
+
+	    this.type = this.TYPE_PROCESS;
 	    this.tag = "DrawSystem";
-	    this.components.push("Draw", 'Position');
+
+	    this.setComponents(['Draw', 'Position']);
+
 	    this.canvasSystem = this.world.getSystem('CanvasSystem');
 	    this.context = this.canvasSystem.context;
 	}, 
-	
+
 	update : function ( entity , components) {
-	    var position = components['Position']
-	    var draw = components['Draw']
+	    var position = components['Position'];
+	    var draw = components['Draw'];
+	    console.log("update")
 	    
 	    this.context.fillRect(position.x, position.y, 5, 5);
 	}

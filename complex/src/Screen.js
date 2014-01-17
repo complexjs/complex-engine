@@ -11,6 +11,7 @@ cx.Screen = Class.extend({
 	show : function(){},
 	hide : function(){},
 	onUpdate : function(){},
+	
 	update : function(){
 		this.world.update();
 		this.onUpdate();

@@ -4,13 +4,17 @@
 cx.World = Class.extend({
 	entities : [],
     systems : [],
+    tag : 'cx.World',
 
     addEntity : function ( entity ) {
 		this.entities.push(entity);
 	},
+
 	addSystem : function ( system ){
+		Log.d(this, 'add system '+system.tag )
 		this.systems.push(system);
 	},
+
 	getSystem : function( systemName ) {
 		for(var i = 0, len = this.systems.length; i < len; i++){
 			var system = this.systems[i];
@@ -20,7 +24,8 @@ cx.World = Class.extend({
 		}
 		return null;
 	},
-	update : function(){
+
+	update : function ( ) {
 		for(var s = 0, sLen = this.systems.length; s < sLen; s++) {
 			var system = this.systems[s];
 			if(system.type == system.TYPE_VOID){
@@ -51,7 +56,8 @@ cx.World = Class.extend({
 				}
 
 				if(updateEntity){
-					system.update(entity, entityComponents);
+					Log.d(this.tag, system.tag);
+					system.update(entity, entityComponents);				
 				}
 			}	
 		}

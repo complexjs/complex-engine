@@ -13,7 +13,7 @@ cx.Engine = Class.extend({
         } 
     },
     setScreen : function( screen ) {
-        Log.d(this, 'set screen');
+        Log.d(this, 'set screen '+screen.tag);
         if (this.screen) {
             this.screen.hide();
         }
