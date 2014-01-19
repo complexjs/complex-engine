@@ -45,6 +45,9 @@ var cx = {
 	 */
 	init : function() {
 		cx.core.engine = new cx.Engine();
+		
+		cx.Input.Keyboard.init();
+
 		return cx.core.engine;
 	},
 
@@ -84,8 +87,8 @@ var cx = {
 
 
 	    (function animloop(){
-	    requestAnimFrame(animloop);
-	    cx.update();
+	    	requestAnimFrame(animloop);
+	    	cx.update();
 	    })();
 	}
 
@@ -106,6 +109,8 @@ cx.API = {
 		"src/System.js",
 		"src/World.js",
 		"src/Screen.js",
+
+		"src/input/Keyboard.js",
 	],
 	customScripts : [
 
@@ -124,3 +129,5 @@ cx.API = {
 		}	
 	}
 }
+
+cx.Input = {};

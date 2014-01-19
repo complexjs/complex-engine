@@ -20,5 +20,6 @@ cx.Engine = Class.extend({
 
         this.screen = screen;
         this.screen.show();
-    }
+    },
+
 });

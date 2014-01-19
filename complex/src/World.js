@@ -55,7 +55,6 @@ cx.World = Class.extend({
 						if( !hasEntityComponent) {
 							updateEntity = false;
 						}
-
 					}
 
 					if(updateEntity){
