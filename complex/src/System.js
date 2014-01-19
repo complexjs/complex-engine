@@ -9,12 +9,10 @@ cx.System = Class.extend({
 	TYPE_PROCESS : "process",
 	type : "process",
 
-	init : function(){
-		
-	},
-	setComponents : function ( components ) {
+	init : function( components ){
 		this.components = components;
 	},
+	
 	update : function(){}
 });
 

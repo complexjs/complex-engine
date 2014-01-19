@@ -26,40 +26,43 @@ cx.World = Class.extend({
 	},
 
 	update : function ( ) {
+
 		for(var s = 0, sLen = this.systems.length; s < sLen; s++) {
 			var system = this.systems[s];
+
 			if(system.type == system.TYPE_VOID){
 				system.update();
-				return;
-			}
-			for(var e = 0, eLen = this.entities.length; e < eLen; e++){
-				var entity = this.entities[e];
-				var entityComponents = [];
-				var updateEntity = true
+			} else if(system.type == system.TYPE_PROCESS){
+				for(var e = 0, eLen = this.entities.length; e < eLen; e++){
+					var entity = this.entities[e];
+					var entityComponents = [];
+					var updateEntity = true
 
-				for(var sC = 0, sCLen = system.components.length; sC < sCLen; sC++) {
-					var systemComponent = system.components[sC];
-					
-					var hasEntityComponent = false;
+					for(var sC = 0, sCLen = system.components.length; sC < sCLen; sC++) {
+						var systemComponent = system.components[sC];
+						
+						var hasEntityComponent = false;
 
-					for(var eC = 0, eCLen = entity.components.length; eC < eCLen; eC++) {
-						var entityComponent = entity.components[eC];
+						for(var eC = 0, eCLen = entity.components.length; eC < eCLen; eC++) {
+							var entityComponent = entity.components[eC];
 
-						entityComponents[entityComponent.name] = entityComponent;
-						if(entityComponent.name == systemComponent) {
-							hasEntityComponent = true;
+							entityComponents[entityComponent.name] = entityComponent;
+							if(entityComponent.name == systemComponent) {
+								hasEntityComponent = true;
+							}
 						}
+						
+						if( !hasEntityComponent) {
+							updateEntity = false;
+						}
+
 					}
-					if( !hasEntityComponent)
-						updateEntity = false;
 
-				}
-
-				if(updateEntity){
-					Log.d(this.tag, system.tag);
-					system.update(entity, entityComponents);				
-				}
-			}	
+					if(updateEntity){
+						system.update(entity, entityComponents);				
+					}
+				}	
+			}
 		}
 	}
 });
