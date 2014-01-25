@@ -18,9 +18,12 @@ var MainScreen = cx.Screen.extend({
             y : 0
         }));
 
+        player.addComponent( new BehaviourComponent(new PlayerBehaviour()) );
+
         //this.world.addSystem(new PositionSystem());
         this.world.addSystem(new CanvasSystem('screen', 480 ,320));
         this.world.addSystem(new DrawSystem( this.world ));
+        this.world.addSystem( new BehaviourSystem() );
 
         this.world.addEntity(player);
     }
