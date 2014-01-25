@@ -1,7 +1,7 @@
 // compiled by JSCOMPILER
 // © by Team Owesome
 // Compiler Version : undefined
-// Build Date : Sun Jan 19 2014 12:52:47 GMT+0100 (CET)
+// Build Date : Sat Jan 25 2014 23:38:38 GMT+0100 (CET)
 
 
 
@@ -117,9 +117,10 @@ cx.API = {
 		"src/Component.js",
 		"src/System.js",
 		"src/World.js",
-		"src/Screen.js",
+        "src/Screen.js",
+        "src/Component.js",
 
-		"src/input/Keyboard.js",
+        "src/input/Keyboard.js",
 	],
 	customScripts : [
 

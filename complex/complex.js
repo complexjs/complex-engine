@@ -108,9 +108,10 @@ cx.API = {
 		"src/Component.js",
 		"src/System.js",
 		"src/World.js",
-		"src/Screen.js",
+        "src/Screen.js",
+        "src/Behaviour.js",
 
-		"src/input/Keyboard.js",
+        "src/input/Keyboard.js",
 	],
 	customScripts : [
 

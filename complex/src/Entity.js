@@ -13,7 +13,7 @@ cx.Entity = Class.extend({
 	},
 
 	getComponent : function ( componentName ) {
-		for(var i = 0, len = this.compnents.length; i < len; i++){
+		for(var i = 0, len = this.components.length; i < len; i++){
 			var component = this.components[i];
 			if(component.name == componentName){
 				return component;
