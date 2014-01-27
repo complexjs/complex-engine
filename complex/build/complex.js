@@ -1,7 +1,7 @@
 // compiled by JSCOMPILER
 // © by Team Owesome
 // Compiler Version : undefined
-// Build Date : Sat Jan 25 2014 23:38:38 GMT+0100 (CET)
+// Build Date : Mon Jan 27 2014 08:41:54 GMT+0100 (CET)
 
 
 
@@ -118,7 +118,7 @@ cx.API = {
 		"src/System.js",
 		"src/World.js",
         "src/Screen.js",
-        "src/Component.js",
+        "src/Behaviour.js",
 
         "src/input/Keyboard.js",
 	],
@@ -206,7 +206,7 @@ cx.Entity = Class.extend({
 	},
 
 	getComponent : function ( componentName ) {
-		for(var i = 0, len = this.compnents.length; i < len; i++){
+		for(var i = 0, len = this.components.length; i < len; i++){
 			var component = this.components[i];
 			if(component.name == componentName){
 				return component;

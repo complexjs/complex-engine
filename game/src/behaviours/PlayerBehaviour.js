@@ -14,7 +14,7 @@ var PlayerBehaviour = cx.Behaviour.extend({
     update : function(){
     	
     	if ( Keyboard.isKeyPressed( 65 ) ) {
-    		this.positionComponent.x += 5;
+    		this.positionComponent.x -= 5;
     	}
     }
 
