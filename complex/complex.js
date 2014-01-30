@@ -17,20 +17,14 @@ var cx = {
 	}, //holds all the data
 
 	config : function(data){
-		Log.d(this, 'configure')
+		Log.d('cx', 'configure')
 		cx.API.config(data);
 	},
 
 	load : function( container, completeCB ) {
-		Log.d(this, 'load scripts');
+		Log.d('cx', 'load scripts');
 		cx.API.data.loadedCallback = completeCB;
-		for(var s = 0, sLen = cx.API.scripts.length; s < sLen; s++){
-			var script = document.createElement("script");
-			script.src = cx.API.scriptRoot+""+cx.API.scripts[s];
-   			script.onload= cx.API.scriptLoaded;
-			container.appendChild(script);
-		}
-
+		
 		for(var s = 0, sLen = cx.API.customScripts.length; s < sLen; s++){
 			var script = document.createElement("script");
 			script.src = cx.API.customScripts[s];
@@ -45,9 +39,8 @@ var cx = {
 	 */
 	init : function() {
 		cx.core.engine = new cx.Engine();
-		
 		cx.Input.Keyboard.init();
-
+		cx.Input.Mouse.init();
 		return cx.core.engine;
 	},
 
@@ -97,29 +90,17 @@ var cx = {
 cx.API = {
 	tag : 'cx.API',
 	v : '0.0.1',
-	scriptRoot : "./",
 	data : {
 		scriptLoadedCounter : 0,
 		loadedCallback : function(){},
 	},
-	scripts :  [
-		"src/Engine.js",
-		"src/Entity.js",
-		"src/Component.js",
-		"src/System.js",
-		"src/World.js",
-        "src/Screen.js",
-        "src/Behaviour.js",
-
-        "src/input/Keyboard.js",
-	],
 	customScripts : [
 
 	],
 	scriptLoaded : function() {
-		Log.d(this, 'script loaded');
+		Log.d('cx', 'script loaded');
 		cx.API.data.scriptLoadedCounter++;
-		if( cx.API.data.scriptLoadedCounter == cx.API.scripts.length + cx.API.customScripts.length){
+		if( cx.API.data.scriptLoadedCounter == cx.API.customScripts.length){
 			cx.API.data.loadedCallback();
 			
 		}

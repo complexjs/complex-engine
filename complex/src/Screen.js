@@ -10,10 +10,12 @@ cx.Screen = Class.extend({
 
 	show : function(){},
 	hide : function(){},
-	onUpdate : function(){},
+	postUpdate : function(){},
+	preUpdate : function(){},
 	
 	update : function(){
+		this.preUpdate();
 		this.world.update();
-		this.onUpdate();
+		this.postUpdate();
 	}
 });

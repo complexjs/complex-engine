@@ -1,9 +1,44 @@
 // compiled by JSCOMPILER
 // © by Team Owesome
 // Compiler Version : undefined
-// Build Date : Mon Jan 27 2014 08:41:54 GMT+0100 (CET)
+// Build Date : Wed Jan 29 2014 12:22:51 GMT-0500 (EST)
 
 
+
+
+//JSCOMPILER FILE -> complex/libs/Log.js
+/**
+ * Logger
+ * @type {Object}
+ */
+var Log = {
+	/**
+	 * [d description]
+	 * @param  {[type]} tag  [description]
+	 * @param  {[type]} data [description]
+	 * @return {[type]}      [description]
+	 */
+	d : function (tag, data) {
+		var _tag = Log._tag(tag);
+		console.log(_tag, data);
+	},
+
+	/**
+	 * [_tag description]
+	 * @param  {[type]} tagObj [description]
+	 * @return {[type]}        [description]
+	 */
+	_tag : function ( tagObj ) {
+		if(tagObj.tag) {
+			return tagObj.tag
+		}
+
+		if(typeof tagObj === 'string') {
+			return tagObj.toString();
+		}
+
+	}
+}
 
 
 //JSCOMPILER FILE -> complex/complex.js
@@ -26,20 +61,14 @@ var cx = {
 	}, //holds all the data
 
 	config : function(data){
-		Log.d(this, 'configure')
+		Log.d('cx', 'configure')
 		cx.API.config(data);
 	},
 
 	load : function( container, completeCB ) {
-		Log.d(this, 'load scripts');
+		Log.d('cx', 'load scripts');
 		cx.API.data.loadedCallback = completeCB;
-		for(var s = 0, sLen = cx.API.scripts.length; s < sLen; s++){
-			var script = document.createElement("script");
-			script.src = cx.API.scriptRoot+""+cx.API.scripts[s];
-   			script.onload= cx.API.scriptLoaded;
-			container.appendChild(script);
-		}
-
+		
 		for(var s = 0, sLen = cx.API.customScripts.length; s < sLen; s++){
 			var script = document.createElement("script");
 			script.src = cx.API.customScripts[s];
@@ -54,9 +83,8 @@ var cx = {
 	 */
 	init : function() {
 		cx.core.engine = new cx.Engine();
-		
 		cx.Input.Keyboard.init();
-
+		cx.Input.Mouse.init();
 		return cx.core.engine;
 	},
 
@@ -106,29 +134,17 @@ var cx = {
 cx.API = {
 	tag : 'cx.API',
 	v : '0.0.1',
-	scriptRoot : "./",
 	data : {
 		scriptLoadedCounter : 0,
 		loadedCallback : function(){},
 	},
-	scripts :  [
-		"src/Engine.js",
-		"src/Entity.js",
-		"src/Component.js",
-		"src/System.js",
-		"src/World.js",
-        "src/Screen.js",
-        "src/Behaviour.js",
-
-        "src/input/Keyboard.js",
-	],
 	customScripts : [
 
 	],
 	scriptLoaded : function() {
-		Log.d(this, 'script loaded');
+		Log.d('cx', 'script loaded');
 		cx.API.data.scriptLoadedCounter++;
-		if( cx.API.data.scriptLoadedCounter == cx.API.scripts.length + cx.API.customScripts.length){
+		if( cx.API.data.scriptLoadedCounter == cx.API.customScripts.length){
 			cx.API.data.loadedCallback();
 			
 		}
@@ -150,13 +166,10 @@ cx.Input = {};
  * @param {[type]} data [description]
  */
 cx.Component = Class.extend({
-	init : function ( data ) {
-		this.name = 'cx.Component';
+	init : function ( name ) {
+		this.name = name;
 		this.tag = this.name;
 
-		for(entry in data){
-			this[entry] = data[entry];
-		}	
 	}
 });
 
@@ -230,11 +243,13 @@ cx.Screen = Class.extend({
 
 	show : function(){},
 	hide : function(){},
-	onUpdate : function(){},
+	postUpdate : function(){},
+	preUpdate : function(){},
 	
 	update : function(){
+		this.preUpdate();
 		this.world.update();
-		this.onUpdate();
+		this.postUpdate();
 	}
 });
 
@@ -330,3 +345,65 @@ cx.World = Class.extend({
 		}
 	}
 });
+
+
+
+//JSCOMPILER FILE -> complex/src/Behaviour.js
+cx.Behaviour = Class.extend({
+    entity : null,
+    initialized : false,
+    init : function ( ) {
+
+    },
+
+    setup : function ( entity ) {
+        this.entity = entity;
+
+        this.initialized = true;
+    },
+
+    update : function ( ) {
+
+    }
+});
+
+
+//JSCOMPILER FILE -> complex/src/input/Input.js
+/**
+ * 
+ * 
+ */
+cx.Input = {}; 
+
+cx.Input.Keyboard = {
+	_key : [],
+	init : function() {
+		window.onkeydown = this.onkeydown;
+		window.onkeyup = this.onkeyup;
+	},
+
+	onkeydown : function ( e ) {
+		cx.Input.Keyboard._key[e.which] = true;
+	},
+
+	onkeyup : function ( e ) {
+		cx.Input.Keyboard._key[e.which] = false;
+	},
+
+	isKeyPressed : function ( key ) {
+	    var char = key.charCodeAt(0);
+		return cx.Input.Keyboard._key[char];
+	},
+}
+
+cx.Input.Mouse = {
+    init : function(){
+        window.onmousemove = cx.Input.Mouse.move;
+    },
+    
+    move : function ( event ) {
+        cx.Input.Mouse.x = event.clientX;
+        cx.Input.Mouse.y = event.clientY;
+    }
+    
+}

@@ -10,6 +10,6 @@ var CanvasSystem = cx.System.extend({
 	    this.tag = 'CanvasSystem';
 	},
 	update : function(){
-		this.context.clearRect(0, 0, this.width, this.height);
+		//this.context.clearRect(0, 0, this.width, this.height);
 	}
 });

@@ -1,20 +1,20 @@
 var DrawSystem = cx.System.extend({
     init : function( _world ){
-	    this._super( ['Draw', 'Position'] );
-	    var world = _world;
-
+	    this._super( );
+	    this.type = this.TYPE_VOID;
 	    this.tag = "DrawSystem";
 
-
-	    this.canvasSystem = world.getSystem('CanvasSystem');
-	    this.context = this.canvasSystem.context;
+        this.stage = new PIXI.Stage(0xEEFFFF);
+        
+	    
+	    this.renderer = new PIXI.CanvasRenderer(this.canvasSystem.width, this.canvasSystem.height, this.canvasSystem.canvas);
 	}, 
 
 	update : function ( entity , components) {
-	    var position = components['Position'];
-	    var draw = components['Draw'];
 	    
-	    this.context.fillRect(position.x, position.y, 5, 5);
+	    this.renderer.render(this.stage);
+	    
+	    //this.context.fillRect(position.x, position.y, size.x, size.y);
 	}
 
 });
