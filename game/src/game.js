@@ -1,15 +1,11 @@
 
 cx.App.use([        
     "src/MainScreen.js",
-    "src/systems/PositionSystem.js",
-    "src/systems/DrawSystem.js",
-    "src/systems/CanvasSystem.js",
     "src/systems/BehaviourSystem.js",
     "src/systems/StageSystem.js",
     
     "src/components/BehaviourComponent.js",
     "src/components/PositionComponent.js",
-    "src/components/DrawComponent.js",
     "src/components/SpriteComponent.js",
     
     "src/behaviours/PlayerBehaviour.js",

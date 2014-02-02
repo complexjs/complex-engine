@@ -16,12 +16,11 @@ var MainScreen = cx.Screen.extend({
         this.stats.domElement.style.top = '0px';
         document.body.appendChild( this.stats.domElement );
 
-         //Systems
-        world.addSystem(new PositionSystem());
+        //Systems
         world.addSystem( new StageSystem( 'screen', 480 ,320 ) );
         world.addSystem( new BehaviourSystem() );
         
-        
+        //create the player
         var player = new cx.Entity();
         var playerSpriteComponent = new SpriteComponent(PIXI.Texture.fromImage('assets/star_4.png'), Math.random()*480, Math.random()*320, 30, 30);
         player.addComponent( playerSpriteComponent );
