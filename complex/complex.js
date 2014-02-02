@@ -11,37 +11,81 @@
  */
 var cx = {
 	tag : "cx",
-	core : {
-		engine : null,
-		updater : null
-	}, //holds all the data
+    update : function(){
+        cx.App.update();
+    },
+    
+};
 
-	config : function(data){
+cx.API = {
+	tag : 'cx.API',
+	v : '0.0.1',
+	
+	
+	
+	scriptLoaded : function() {
+		Log.d('cx', 'script loaded');
+		cx.API.data.scriptLoadedCounter++;
+		if( cx.API.data.scriptLoadedCounter == cx.API.customScripts.length){
+			cx.API.data.loadedCallback();
+		}
+	},
+
+}
+
+
+cx.App = {
+    engine : null,
+    updater : null,
+    
+    data : {
+		scriptLoadedCounter : 0,
+		loadedCallback : function(){},
+	},
+	
+	customScripts : [],
+	
+    setEngine : function ( engine ) {
+        this.engine = engine;
+    },
+    
+    getEngine : function () {
+        return this.engine;
+    },
+    
+    config : function(options){
 		Log.d('cx', 'configure')
-		cx.API.config(data);
+		for(entry in options){
+			this[entry] = options[entry];
+		}	
 	},
 
 	load : function( container, completeCB ) {
+	    console.log('hi')
 		Log.d('cx', 'load scripts');
-		cx.API.data.loadedCallback = completeCB;
+		cx.App.data.loadedCallback = completeCB;
+		console.log(cx.App.customScripts.length);
 		
-		for(var s = 0, sLen = cx.API.customScripts.length; s < sLen; s++){
+		for(var s = 0, sLen = cx.App.customScripts.length; s < sLen; s++){
 			var script = document.createElement("script");
-			script.src = cx.API.customScripts[s];
-   			script.onload= cx.API.scriptLoaded;
+			script.src = cx.App.customScripts[s];
+   			script.onload= cx.App.scriptLoaded;
 			container.appendChild(script);
+			Log.d('cx.Api', 'script loaded');
 		}
 	},	
+	
 
 	/**
 	 * [init description]
 	 * @return {[type]} [description]
 	 */
 	init : function() {
-		cx.core.engine = new cx.Engine();
+	    Log.d('cx', 'init');
+        this.setEngine( new cx.Engine() );
 		cx.Input.Keyboard.init();
 		cx.Input.Mouse.init();
-		return cx.core.engine;
+		return this.getEngine();
 	},
 
 	/**
@@ -49,7 +93,8 @@ var cx = {
 	 * @return {[type]} [description]
 	 */
 	start : function ( ) {
-		this.core.updater = setInterval(cx.update, 1000/30);
+	    Log.d('cx', 'start');
+		this.updater = setInterval(cx.update, 1000/30);
 	},
 
 	/**
@@ -57,7 +102,7 @@ var cx = {
 	 * @return {[type]} [description]
 	 */
 	update : function () {
-		cx.core.engine.update();
+		
 	},
 
 	/**
@@ -65,10 +110,14 @@ var cx = {
 	 * @return {[type]} [description]
 	 */
 	stop : function ( ) {
-		clearInterval(cx.core.updater);
+	    
+	    Log.d('cx', 'start');
+		clearInterval(cx.App.updater);
 	},
 
 	loadComplete : function() {
+	    Log.d('cx', 'loadComplete');
+	    
 	  window.requestAnimFrame = (function(){
 	    return  window.requestAnimationFrame       ||
 	            window.webkitRequestAnimationFrame ||
@@ -81,35 +130,7 @@ var cx = {
 
 	    (function animloop(){
 	    	requestAnimFrame(animloop);
-	    	cx.update();
+	        cx.App.engine.update();
 	    })();
 	}
-
 };
-
-cx.API = {
-	tag : 'cx.API',
-	v : '0.0.1',
-	data : {
-		scriptLoadedCounter : 0,
-		loadedCallback : function(){},
-	},
-	customScripts : [
-
-	],
-	scriptLoaded : function() {
-		Log.d('cx', 'script loaded');
-		cx.API.data.scriptLoadedCounter++;
-		if( cx.API.data.scriptLoadedCounter == cx.API.customScripts.length){
-			cx.API.data.loadedCallback();
-			
-		}
-	},
-	config : function(options) {
-		for(entry in options){
-			this[entry] = options[entry];
-		}	
-	}
-}
-
-cx.Input = {};

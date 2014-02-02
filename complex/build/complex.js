@@ -1,7 +1,7 @@
 // compiled by JSCOMPILER
 // © by Team Owesome
 // Compiler Version : undefined
-// Build Date : Wed Jan 29 2014 12:22:51 GMT-0500 (EST)
+// Build Date : Sun Feb 02 2014 07:53:58 GMT-0500 (EST)
 
 
 
@@ -55,37 +55,77 @@ var Log = {
  */
 var cx = {
 	tag : "cx",
-	core : {
-		engine : null,
-		updater : null
-	}, //holds all the data
+    update : function(){
+        cx.App.update();
+    },
+    
+};
 
-	config : function(data){
+cx.API = {
+	tag : 'cx.API',
+	v : '0.0.1',
+	
+	
+	
+	scriptLoaded : function() {
+		Log.d('cx', 'script loaded');
+		cx.API.data.scriptLoadedCounter++;
+		if( cx.API.data.scriptLoadedCounter == cx.API.customScripts.length){
+			cx.API.data.loadedCallback();
+		}
+	},
+
+}
+
+
+cx.App = {
+    engine : null,
+    updater : null,
+    
+    data : {
+		scriptLoadedCounter : 0,
+		loadedCallback : function(){},
+	},
+	
+	customScripts : [],
+	
+    setEngine : function ( engine ) {
+        this.engine = engine;
+    },
+    
+    getEngine : function () {
+        return this.engine;
+    },
+    
+    config : function(options){
 		Log.d('cx', 'configure')
-		cx.API.config(data);
+		for(entry in options){
+			this[entry] = options[entry];
+		}	
 	},
 
 	load : function( container, completeCB ) {
 		Log.d('cx', 'load scripts');
-		cx.API.data.loadedCallback = completeCB;
+		cx.App.data.loadedCallback = completeCB;
 		
-		for(var s = 0, sLen = cx.API.customScripts.length; s < sLen; s++){
+		for(var s = 0, sLen = cx.App.customScripts.length; s < sLen; s++){
 			var script = document.createElement("script");
-			script.src = cx.API.customScripts[s];
-   			script.onload= cx.API.scriptLoaded;
+			script.src = cx.App.customScripts[s];
+   			script.onload= cx.App.scriptLoaded;
 			container.appendChild(script);
 		}
 	},	
+	
 
 	/**
 	 * [init description]
 	 * @return {[type]} [description]
 	 */
 	init : function() {
-		cx.core.engine = new cx.Engine();
+        this.setEngine( new cx.Engine() );
 		cx.Input.Keyboard.init();
 		cx.Input.Mouse.init();
-		return cx.core.engine;
+		return this.getEngine();
 	},
 
 	/**
@@ -93,7 +133,7 @@ var cx = {
 	 * @return {[type]} [description]
 	 */
 	start : function ( ) {
-		this.core.updater = setInterval(cx.update, 1000/30);
+		this.updater = setInterval(cx.update, 1000/30);
 	},
 
 	/**
@@ -101,7 +141,7 @@ var cx = {
 	 * @return {[type]} [description]
 	 */
 	update : function () {
-		cx.core.engine.update();
+		
 	},
 
 	/**
@@ -109,10 +149,12 @@ var cx = {
 	 * @return {[type]} [description]
 	 */
 	stop : function ( ) {
-		clearInterval(cx.core.updater);
+		clearInterval(cx.App.updater);
 	},
 
 	loadComplete : function() {
+	    Log.d(this, 'loadComplete');
+	    
 	  window.requestAnimFrame = (function(){
 	    return  window.requestAnimationFrame       ||
 	            window.webkitRequestAnimationFrame ||
@@ -125,38 +167,10 @@ var cx = {
 
 	    (function animloop(){
 	    	requestAnimFrame(animloop);
-	    	cx.update();
+	        cx.App.engine.update();
 	    })();
 	}
-
 };
-
-cx.API = {
-	tag : 'cx.API',
-	v : '0.0.1',
-	data : {
-		scriptLoadedCounter : 0,
-		loadedCallback : function(){},
-	},
-	customScripts : [
-
-	],
-	scriptLoaded : function() {
-		Log.d('cx', 'script loaded');
-		cx.API.data.scriptLoadedCounter++;
-		if( cx.API.data.scriptLoadedCounter == cx.API.customScripts.length){
-			cx.API.data.loadedCallback();
-			
-		}
-	},
-	config : function(options) {
-		for(entry in options){
-			this[entry] = options[entry];
-		}	
-	}
-}
-
-cx.Input = {};
 
 
 //JSCOMPILER FILE -> complex/src/Component.js
@@ -284,9 +298,11 @@ cx.System = Class.extend({
 cx.World = Class.extend({
 	entities : [],
     systems : [],
+    managers : [],
     tag : 'cx.World',
 
     addEntity : function ( entity ) {
+        entity.index = this.entities.length;
 		this.entities.push(entity);
 	},
 
@@ -294,12 +310,27 @@ cx.World = Class.extend({
 		Log.d(this, 'add system '+system.tag )
 		this.systems.push(system);
 	},
+	
+	addManager : function ( manager ){
+		Log.d(this, 'add manager '+manager.tag )
+	    this.managers.push(manager);
+	},
 
 	getSystem : function( systemName ) {
 		for(var i = 0, len = this.systems.length; i < len; i++){
 			var system = this.systems[i];
 			if(system.tag == systemName){
 				return system;
+			}
+		}
+		return null;
+	},
+	
+	getManager : function ( name ) {
+	    for(var i = 0, len = this.managers.length; i < len; i++){
+			var managers = this.managers[i];
+			if(managers.tag == name){
+				return manager;
 			}
 		}
 		return null;
@@ -365,6 +396,16 @@ cx.Behaviour = Class.extend({
     update : function ( ) {
 
     }
+});
+
+
+//JSCOMPILER FILE -> complex/src/Manager.js
+cx.Manager = Class.extend({
+    init : function ( name ) {
+        this.name = name;
+        this.tag = this.name;
+    },
+
 });
 
 

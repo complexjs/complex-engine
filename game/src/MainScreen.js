@@ -5,6 +5,9 @@ var MainScreen = cx.Screen.extend({
     },
 
     show : function(){
+        
+        this.world.addManager( new TagManager() );
+        
         this.stats = new Stats();
         this.stats.setMode(0);
         this.stats.domElement.style.position = 'absolute';
@@ -20,8 +23,6 @@ var MainScreen = cx.Screen.extend({
         
         
         
-        //Components
-        for ( var i = 0; i < 500; i++ ) {
             var player = new cx.Entity();
             var playerSpriteComponent = new SpriteComponent(PIXI.Texture.fromImage('assets/star_4.png'), Math.random()*480, Math.random()*320, 30, 30);
             
@@ -31,7 +32,6 @@ var MainScreen = cx.Screen.extend({
             this.world.getSystem('StageSystem').add(playerSpriteComponent.sprite);
     
             this.world.addEntity(player);
-        }
     },
     
     preUpdate : function(){

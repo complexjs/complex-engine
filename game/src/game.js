@@ -1,4 +1,4 @@
-cx.config({
+cx.App.config({
   customScripts : [
     "src/MainScreen.js",
     "src/systems/PositionSystem.js",
@@ -14,18 +14,21 @@ cx.config({
     
     "src/behaviours/PlayerBehaviour.js",
     
+    "src/manager/TagManager.js",
+    
     "src/libs/pixi.js",
     "src/libs/stats.js",
   ],
   scriptRoot : "../complex/"
 });
 
-cx.load(document.getElementsByTagName("head")[0], loaded);
+cx.App.load(document.getElementsByTagName("head")[0], loaded);
 
 function loaded () {
-    var engine = cx.init();
+    Log.d('game', "loaded");
+    var engine = cx.App.init();
     
     engine.setScreen(new MainScreen());
 
-   cx.loadComplete();
+    cx.App.loadComplete();
 }

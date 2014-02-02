@@ -4,9 +4,11 @@
 cx.World = Class.extend({
 	entities : [],
     systems : [],
+    managers : [],
     tag : 'cx.World',
 
     addEntity : function ( entity ) {
+        entity.index = this.entities.length;
 		this.entities.push(entity);
 	},
 
@@ -14,12 +16,27 @@ cx.World = Class.extend({
 		Log.d(this, 'add system '+system.tag )
 		this.systems.push(system);
 	},
+	
+	addManager : function ( manager ){
+		Log.d(this, 'add manager '+manager.tag )
+	    this.managers.push(manager);
+	},
 
 	getSystem : function( systemName ) {
 		for(var i = 0, len = this.systems.length; i < len; i++){
 			var system = this.systems[i];
 			if(system.tag == systemName){
 				return system;
+			}
+		}
+		return null;
+	},
+	
+	getManager : function ( name ) {
+	    for(var i = 0, len = this.managers.length; i < len; i++){
+			var managers = this.managers[i];
+			if(managers.tag == name){
+				return manager;
 			}
 		}
 		return null;
