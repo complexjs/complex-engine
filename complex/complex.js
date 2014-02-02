@@ -1,12 +1,12 @@
 /** 
  * Name: ComplexJS
  * Author: faebeee
- * 
+ * version: 0.5
  */
 
 
 /**
- * [cx description]
+ * The main object
  * @type {Object}
  */
 var cx = {
@@ -17,13 +17,10 @@ var cx = {
     
 };
 
-cx.API = {
-	tag : 'cx.API',
-	v : '0.0.1',
-	
-}
-
-
+/**
+ * The main App. Initializes all the used scripts and components.
+ * @type {{engine: null, updater: null, use: use, setEngine: setEngine, getEngine: getEngine, config: config, load: load, init: init, start: start, update: update, stop: stop, loadComplete: loadComplete}}
+ */
 cx.App = {
     engine : null,
     updater : null,

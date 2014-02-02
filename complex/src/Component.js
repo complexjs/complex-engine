@@ -1,6 +1,6 @@
 
 /**
- * [Component description]
+ * The component object
  * @param {[type]} data [description]
  */
 cx.Component = Class.extend({

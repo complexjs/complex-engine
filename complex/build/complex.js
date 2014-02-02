@@ -1,7 +1,7 @@
 // compiled by JSCOMPILER
 // © by Team Owesome
 // Compiler Version : undefined
-// Build Date : Sun Feb 02 2014 14:12:37 GMT+0100 (CET)
+// Build Date : Sun Feb 02 2014 19:16:46 GMT+0100 (CET)
 
 
 
@@ -45,12 +45,12 @@ var Log = {
 /** 
  * Name: ComplexJS
  * Author: faebeee
- * 
+ * version: 0.5
  */
 
 
 /**
- * [cx description]
+ * The main object
  * @type {Object}
  */
 var cx = {
@@ -61,13 +61,10 @@ var cx = {
     
 };
 
-cx.API = {
-	tag : 'cx.API',
-	v : '0.0.1',
-	
-}
-
-
+/**
+ * The main App. Initializes all the used scripts and components.
+ * @type {{engine: null, updater: null, use: use, setEngine: setEngine, getEngine: getEngine, config: config, load: load, init: init, start: start, update: update, stop: stop, loadComplete: loadComplete}}
+ */
 cx.App = {
     engine : null,
     updater : null,
@@ -184,7 +181,7 @@ cx.App.ScriptLoader = {
 //JSCOMPILER FILE -> complex/src/Component.js
 
 /**
- * [Component description]
+ * The component object
  * @param {[type]} data [description]
  */
 cx.Component = Class.extend({
@@ -199,28 +196,38 @@ cx.Component = Class.extend({
 
 //JSCOMPILER FILE -> complex/src/Engine.js
 /**
- * [Engine description]
+ * The core of complex, rendering the screen
  */
 cx.Engine = Class.extend({
+    /**
+     * constructor
+     */
     init : function(){
         this.tag = "cx.Engine";
         this.screen = null;
-        Log.d(this, 'engine created');
     },
+
+    /**
+     * called every tick and updates the screen
+     */
     update : function () {
         if(this.screen){
             this.screen.update();
         } 
     },
+
+    /**
+     * set a new screen to be rendered/updated
+     * @param screen
+     */
     setScreen : function( screen ) {
-        Log.d(this, 'set screen '+screen.tag);
         if (this.screen) {
             this.screen.hide();
         }
 
         this.screen = screen;
         this.screen.show();
-    },
+    }
 
 });
 
@@ -231,15 +238,26 @@ cx.Engine = Class.extend({
  */
 cx.Entity = Class.extend({
 	components : [],
-
+    /**
+     * constructor
+     */
 	init : function(){
 		this.components = [];
 	},
 
+    /**
+     * add a component to the entity
+     * @param component
+     */
 	addComponent : function ( component ) {
 		this.components.push( component );
 	},
 
+    /**
+     * get a component by its name
+     * @param componentName
+     * @returns {*}
+     */
 	getComponent : function ( componentName ) {
 		for(var i = 0, len = this.components.length; i < len; i++){
 			var component = this.components[i];
@@ -258,16 +276,37 @@ cx.Entity = Class.extend({
  */
 
 cx.Screen = Class.extend({
+    /**
+     * constructor
+     */
 	init : function(){
 		this.world = new cx.World();
 		this.tag = "cx.Screen";
 	},
 
+    /**
+     * called when the screen is shown
+     */
 	show : function(){},
+
+    /**
+     * called when an other screen will be shown
+     */
 	hide : function(){},
+
+    /**
+     * called after update
+     */
 	postUpdate : function(){},
+
+    /**
+     * called before update
+     */
 	preUpdate : function(){},
-	
+
+    /**
+     * updates the current world
+     */
 	update : function(){
 		this.preUpdate();
 		this.world.update();
@@ -289,11 +328,20 @@ cx.System = Class.extend({
 	TYPE_PROCESS : "process",
 	type : "process",
 
+    /**
+     * Initialize a new system
+     * @param components required components for this system
+     */
 	init : function( components ){
 		this.components = components;
 	},
-	
-	update : function(){}
+
+    /**
+     * called for an entity if the required components are matching these of the entity
+     * @param entity
+     * @param componens
+     */
+	update : function( entity, componens){}
 });
 
 
@@ -422,69 +470,86 @@ cx.World = Class.extend({
 
 
 
-//JSCOMPILER FILE -> complex/src/Behaviour.js
-cx.Behaviour = Class.extend({
-    entity : null,
-    initialized : false,
-    init : function ( ) {
-
-    },
-
-    setup : function ( entity ) {
-        this.entity = entity;
-
-        this.initialized = true;
-    },
-
-    update : function ( ) {
-
-    }
-});
-
-
 //JSCOMPILER FILE -> complex/src/Manager.js
+/**
+ * Represents a manager to handle additional data
+ * @type {*}
+ */
 cx.Manager = Class.extend({
     init : function ( name ) {
         this.name = name;
         this.tag = this.name;
-    },
+    }
 
 });
 
 
 //JSCOMPILER FILE -> complex/src/input/Input.js
 /**
- * 
- * 
+ * Handles the input
+ * @type {{}}
  */
-cx.Input = {}; 
+cx.Input = {};
 
+/**
+ * keyboard input handler
+ * @type {{_key: Array, init: init, onkeydown: onkeydown, onkeyup: onkeyup, isKeyPressed: isKeyPressed}}
+ */
 cx.Input.Keyboard = {
 	_key : [],
+    /**
+     * constructor
+     */
 	init : function() {
 		window.onkeydown = this.onkeydown;
 		window.onkeyup = this.onkeyup;
 	},
 
+    /**
+     * called when a key is pressed
+     * @param e
+     */
 	onkeydown : function ( e ) {
 		cx.Input.Keyboard._key[e.which] = true;
 	},
 
+    /**
+     * called when a key is released
+     * @param e
+     */
 	onkeyup : function ( e ) {
 		cx.Input.Keyboard._key[e.which] = false;
 	},
 
+    /**
+     * check if a key is pressed
+     * @param key
+     * @returns True/False
+     */
 	isKeyPressed : function ( key ) {
 	    var char = key.charCodeAt(0);
 		return cx.Input.Keyboard._key[char];
-	},
+	}
 }
 
+/**
+ * mouse input handler
+ * @type {{x: number, y: number, init: init, move: move}}
+ */
 cx.Input.Mouse = {
+    x : 0,
+    y : 0,
+    /**
+     * constructor
+     */
     init : function(){
         window.onmousemove = cx.Input.Mouse.move;
     },
-    
+
+    /**
+     * called by window.onmousemove
+     * @param event
+     */
     move : function ( event ) {
         cx.Input.Mouse.x = event.clientX;
         cx.Input.Mouse.y = event.clientY;

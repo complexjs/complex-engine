@@ -9,10 +9,19 @@ cx.System = Class.extend({
 	TYPE_PROCESS : "process",
 	type : "process",
 
+    /**
+     * Initialize a new system
+     * @param components required components for this system
+     */
 	init : function( components ){
 		this.components = components;
 	},
-	
-	update : function(){}
+
+    /**
+     * called for an entity if the required components are matching these of the entity
+     * @param entity
+     * @param componens
+     */
+	update : function( entity, componens){}
 });
 
