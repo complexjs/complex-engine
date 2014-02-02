@@ -1,5 +1,5 @@
-cx.App.config({
-  customScripts : [
+
+cx.App.use([        
     "src/MainScreen.js",
     "src/systems/PositionSystem.js",
     "src/systems/DrawSystem.js",
@@ -17,10 +17,8 @@ cx.App.config({
     "src/manager/TagManager.js",
     
     "src/libs/pixi.js",
-    "src/libs/stats.js",
-  ],
-  scriptRoot : "../complex/"
-});
+    "src/libs/stats.js"
+]);
 
 cx.App.load(document.getElementsByTagName("head")[0], loaded);
 

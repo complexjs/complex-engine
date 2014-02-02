@@ -11,5 +11,4 @@ var TagManager = cx.Manager.extend({
     tagEntity : function ( tag, entity) {
         this.entities[tag] = entity.index;
     }
-    
 });
