@@ -21,16 +21,6 @@ cx.API = {
 	tag : 'cx.API',
 	v : '0.0.1',
 	
-	
-	
-	scriptLoaded : function() {
-		Log.d('cx', 'script loaded');
-		cx.API.data.scriptLoadedCounter++;
-		if( cx.API.data.scriptLoadedCounter == cx.API.customScripts.length){
-			cx.API.data.loadedCallback();
-		}
-	},
-
 }
 
 
@@ -38,12 +28,9 @@ cx.App = {
     engine : null,
     updater : null,
     
-    data : {
-		scriptLoadedCounter : 0,
-		loadedCallback : function(){},
+	use : function ( scripts ) {
+		cx.App.ScriptLoader.scripts = scripts;
 	},
-	
-	customScripts : [],
 	
     setEngine : function ( engine ) {
         this.engine = engine;
@@ -60,21 +47,9 @@ cx.App = {
 		}	
 	},
 
-	load : function( container, completeCB ) {
-	    console.log('hi')
-		Log.d('cx', 'load scripts');
-		cx.App.data.loadedCallback = completeCB;
-		console.log(cx.App.customScripts.length);
-		
-		for(var s = 0, sLen = cx.App.customScripts.length; s < sLen; s++){
-			var script = document.createElement("script");
-			script.src = cx.App.customScripts[s];
-   			script.onload= cx.App.scriptLoaded;
-			container.appendChild(script);
-			Log.d('cx.Api', 'script loaded');
-		}
-	},	
-	
+	load : function(container, cb) {
+		cx.App.ScriptLoader.load(container, cb);
+	},
 
 	/**
 	 * [init description]
@@ -134,3 +109,29 @@ cx.App = {
 	    })();
 	}
 };
+
+cx.App.ScriptLoader = {
+	scripts : [],
+	loadedScripts : 0,
+	callback : function(){},
+
+	scriptLoaded : function() {
+		Log.d('cx', 'script loaded');
+		cx.App.ScriptLoader.loadedScripts++;
+		if( cx.App.ScriptLoader.loadedScripts == cx.App.ScriptLoader.scripts.length){
+			cx.App.ScriptLoader.callback();
+		}
+	},
+
+	load : function( container, completeCB ) {
+		Log.d('cx', 'load scripts '+cx.App.ScriptLoader.scripts.length);
+		cx.App.ScriptLoader.callback = completeCB;
+		
+		for(var s = 0, sLen = cx.App.ScriptLoader.scripts.length; s < sLen; s++){
+			var script = document.createElement("script");
+			script.src = cx.App.ScriptLoader.scripts[s];
+   			script.onload= cx.App.ScriptLoader.scriptLoaded;
+			container.appendChild(script);
+		}
+	},	
+}

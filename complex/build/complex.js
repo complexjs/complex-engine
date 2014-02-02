@@ -1,7 +1,7 @@
 // compiled by JSCOMPILER
 // © by Team Owesome
 // Compiler Version : undefined
-// Build Date : Sun Feb 02 2014 07:53:58 GMT-0500 (EST)
+// Build Date : Sun Feb 02 2014 14:12:37 GMT+0100 (CET)
 
 
 
@@ -65,16 +65,6 @@ cx.API = {
 	tag : 'cx.API',
 	v : '0.0.1',
 	
-	
-	
-	scriptLoaded : function() {
-		Log.d('cx', 'script loaded');
-		cx.API.data.scriptLoadedCounter++;
-		if( cx.API.data.scriptLoadedCounter == cx.API.customScripts.length){
-			cx.API.data.loadedCallback();
-		}
-	},
-
 }
 
 
@@ -82,12 +72,9 @@ cx.App = {
     engine : null,
     updater : null,
     
-    data : {
-		scriptLoadedCounter : 0,
-		loadedCallback : function(){},
+	use : function ( scripts ) {
+		cx.App.ScriptLoader.scripts = scripts;
 	},
-	
-	customScripts : [],
 	
     setEngine : function ( engine ) {
         this.engine = engine;
@@ -104,24 +91,16 @@ cx.App = {
 		}	
 	},
 
-	load : function( container, completeCB ) {
-		Log.d('cx', 'load scripts');
-		cx.App.data.loadedCallback = completeCB;
-		
-		for(var s = 0, sLen = cx.App.customScripts.length; s < sLen; s++){
-			var script = document.createElement("script");
-			script.src = cx.App.customScripts[s];
-   			script.onload= cx.App.scriptLoaded;
-			container.appendChild(script);
-		}
-	},	
-	
+	load : function(container, cb) {
+		cx.App.ScriptLoader.load(container, cb);
+	},
 
 	/**
 	 * [init description]
 	 * @return {[type]} [description]
 	 */
 	init : function() {
+	    Log.d('cx', 'init');
         this.setEngine( new cx.Engine() );
 		cx.Input.Keyboard.init();
 		cx.Input.Mouse.init();
@@ -133,6 +112,7 @@ cx.App = {
 	 * @return {[type]} [description]
 	 */
 	start : function ( ) {
+	    Log.d('cx', 'start');
 		this.updater = setInterval(cx.update, 1000/30);
 	},
 
@@ -149,11 +129,13 @@ cx.App = {
 	 * @return {[type]} [description]
 	 */
 	stop : function ( ) {
+	    
+	    Log.d('cx', 'start');
 		clearInterval(cx.App.updater);
 	},
 
 	loadComplete : function() {
-	    Log.d(this, 'loadComplete');
+	    Log.d('cx', 'loadComplete');
 	    
 	  window.requestAnimFrame = (function(){
 	    return  window.requestAnimationFrame       ||
@@ -171,6 +153,32 @@ cx.App = {
 	    })();
 	}
 };
+
+cx.App.ScriptLoader = {
+	scripts : [],
+	loadedScripts : 0,
+	callback : function(){},
+
+	scriptLoaded : function() {
+		Log.d('cx', 'script loaded');
+		cx.App.ScriptLoader.loadedScripts++;
+		if( cx.App.ScriptLoader.loadedScripts == cx.App.ScriptLoader.scripts.length){
+			cx.App.ScriptLoader.callback();
+		}
+	},
+
+	load : function( container, completeCB ) {
+		Log.d('cx', 'load scripts '+cx.App.ScriptLoader.scripts.length);
+		cx.App.ScriptLoader.callback = completeCB;
+		
+		for(var s = 0, sLen = cx.App.ScriptLoader.scripts.length; s < sLen; s++){
+			var script = document.createElement("script");
+			script.src = cx.App.ScriptLoader.scripts[s];
+   			script.onload= cx.App.ScriptLoader.scriptLoaded;
+			container.appendChild(script);
+		}
+	},	
+}
 
 
 //JSCOMPILER FILE -> complex/src/Component.js
@@ -301,21 +309,38 @@ cx.World = Class.extend({
     managers : [],
     tag : 'cx.World',
 
+    /**
+     * Add entity to world
+     * @param {[type]} entity [description]
+     */
     addEntity : function ( entity ) {
         entity.index = this.entities.length;
 		this.entities.push(entity);
 	},
 
+	/**
+	 * add system to world
+	 * @param {[type]} system [description]
+	 */
 	addSystem : function ( system ){
 		Log.d(this, 'add system '+system.tag )
 		this.systems.push(system);
 	},
 	
+	/**
+	 * add manager to world
+	 * @param {[type]} manager [description]
+	 */
 	addManager : function ( manager ){
 		Log.d(this, 'add manager '+manager.tag )
 	    this.managers.push(manager);
 	},
 
+	/**
+	 * get a system
+	 * @param  {[type]} systemName [description]
+	 * @return {[type]}            [description]
+	 */
 	getSystem : function( systemName ) {
 		for(var i = 0, len = this.systems.length; i < len; i++){
 			var system = this.systems[i];
@@ -326,16 +351,34 @@ cx.World = Class.extend({
 		return null;
 	},
 	
+	/**
+	 * get a manager
+	 * @param  {[type]} name [description]
+	 * @return {[type]}      [description]
+	 */
 	getManager : function ( name ) {
 	    for(var i = 0, len = this.managers.length; i < len; i++){
-			var managers = this.managers[i];
-			if(managers.tag == name){
+			var manager = this.managers[i];
+			if(manager.tag == name){
 				return manager;
 			}
 		}
 		return null;
 	},
 
+	/**
+	 * return an entity
+	 * @param  {[type]} index [description]
+	 * @return {[type]}       [description]
+	 */
+	getEntity : function ( index ) {
+		return this.entities[index];
+	},
+
+	/**
+	 * update step
+	 * @return {[type]} [description]
+	 */
 	update : function ( ) {
 
 		for(var s = 0, sLen = this.systems.length; s < sLen; s++) {

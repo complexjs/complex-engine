@@ -7,21 +7,38 @@ cx.World = Class.extend({
     managers : [],
     tag : 'cx.World',
 
+    /**
+     * Add entity to world
+     * @param {[type]} entity [description]
+     */
     addEntity : function ( entity ) {
         entity.index = this.entities.length;
 		this.entities.push(entity);
 	},
 
+	/**
+	 * add system to world
+	 * @param {[type]} system [description]
+	 */
 	addSystem : function ( system ){
 		Log.d(this, 'add system '+system.tag )
 		this.systems.push(system);
 	},
 	
+	/**
+	 * add manager to world
+	 * @param {[type]} manager [description]
+	 */
 	addManager : function ( manager ){
 		Log.d(this, 'add manager '+manager.tag )
 	    this.managers.push(manager);
 	},
 
+	/**
+	 * get a system
+	 * @param  {[type]} systemName [description]
+	 * @return {[type]}            [description]
+	 */
 	getSystem : function( systemName ) {
 		for(var i = 0, len = this.systems.length; i < len; i++){
 			var system = this.systems[i];
@@ -32,16 +49,34 @@ cx.World = Class.extend({
 		return null;
 	},
 	
+	/**
+	 * get a manager
+	 * @param  {[type]} name [description]
+	 * @return {[type]}      [description]
+	 */
 	getManager : function ( name ) {
 	    for(var i = 0, len = this.managers.length; i < len; i++){
-			var managers = this.managers[i];
-			if(managers.tag == name){
+			var manager = this.managers[i];
+			if(manager.tag == name){
 				return manager;
 			}
 		}
 		return null;
 	},
 
+	/**
+	 * return an entity
+	 * @param  {[type]} index [description]
+	 * @return {[type]}       [description]
+	 */
+	getEntity : function ( index ) {
+		return this.entities[index];
+	},
+
+	/**
+	 * update step
+	 * @return {[type]} [description]
+	 */
 	update : function ( ) {
 
 		for(var s = 0, sLen = this.systems.length; s < sLen; s++) {
