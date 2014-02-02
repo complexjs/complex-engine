@@ -1,4 +1,4 @@
-var PlayerBehaviour = cx.Behaviour.extend({
+var PlayerBehaviour = Behaviour.extend({
 
 	positionComponent : null,
     init : function() {
