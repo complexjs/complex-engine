@@ -1,9 +1,26 @@
+/**
+ *
+ * @type {*|void}
+ */
 var MainScreen = cx.Screen.extend({
+    /**
+     * constructor
+     */
     init : function(){
         this._super();
         this.tag = "MainScreen";
     },
 
+    /**
+     *  called when this screen will be replaced
+     */
+    hide : function() {
+
+    },
+
+    /**
+     * called when this screen is set
+     */
     show : function(){
         var world = this.world;
 
@@ -22,19 +39,25 @@ var MainScreen = cx.Screen.extend({
         
         //create the player
         var player = new cx.Entity();
-        var playerSpriteComponent = new SpriteComponent(PIXI.Texture.fromImage('assets/star_4.png'), Math.random()*480, Math.random()*320, 30, 30);
+        var playerSpriteComponent = new SpriteComponent(PIXI.Texture.fromImage('assets/playerShip1_blue.png'), 240, 280, 30, 30);
         player.addComponent( playerSpriteComponent );
         player.addComponent( new BehaviourComponent(new PlayerBehaviour()) );
         world.getSystem('StageSystem').add(playerSpriteComponent.sprite);
         world.addEntity(player);
 
     },
-    
+
+    /**
+     * called before update
+     */
     preUpdate : function(){
         this.stats.begin();
     },
-    
+
+    /**
+     * called after update
+     */
     postUpdate : function(){
         this.stats.end();    
-    },
+    }
 });

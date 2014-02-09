@@ -3,7 +3,7 @@
  */
 
 /**
- *
+ *  Custom Object
  * @type {*}
  */
 Behaviour = Class.extend({

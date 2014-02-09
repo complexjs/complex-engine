@@ -1,3 +1,7 @@
+/**
+ * create a system to use PIXI render engine
+ * @type {*|void}
+ */
 var StageSystem = cx.System.extend({
     init : function( canvasId, width, height ){
 	    this._super( );
@@ -8,7 +12,7 @@ var StageSystem = cx.System.extend({
 	    this.width = width;
 	    this.height = height;
 
-        this.stage = new PIXI.Stage(0xEEFFFF);
+        this.stage = new PIXI.Stage(0x000000);
 	    this.renderer = new PIXI.CanvasRenderer(this.width, this.height, this.canvas);
 	}, 
 
