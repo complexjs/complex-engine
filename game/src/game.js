@@ -1,4 +1,5 @@
 //Configure all used scripts
+//like used libraries, custom screens, custom components and cusom systems and more
 cx.App.use([        
     "src/MainScreen.js",
     "src/systems/BehaviourSystem.js",
@@ -22,10 +23,9 @@ cx.App.load(document.getElementsByTagName("head")[0], loaded);
 
 //loaded callback
 function loaded () {
-    Log.d('game', "loaded");
     //initialize complex engine
     var engine = cx.App.init();
-
+    
     //set a screen
     engine.setScreen(new MainScreen());
 
