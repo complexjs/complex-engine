@@ -1,7 +1,7 @@
 // compiled by JSCOMPILER
 // © by Team Owesome
 // Compiler Version : undefined
-// Build Date : Sun Feb 02 2014 19:16:46 GMT+0100 (CET)
+// Build Date : Sat Feb 15 2014 13:43:15 GMT+0100 (CET)
 
 
 
@@ -327,6 +327,7 @@ cx.System = Class.extend({
 	TYPE_VOID : "void",
 	TYPE_PROCESS : "process",
 	type : "process",
+    world : null,
 
     /**
      * Initialize a new system
@@ -335,6 +336,22 @@ cx.System = Class.extend({
 	init : function( components ){
 		this.components = components;
 	},
+
+    /**
+     * Set the worldobject when the system is added
+     * @param world
+     */
+    setWorld : function ( world ) {
+        this.world = world;
+    },
+
+    /**
+     * retrive the world object
+     * @returns {null}
+     */
+    getWorld : function() {
+        return this.world;
+    },
 
     /**
      * called for an entity if the required components are matching these of the entity
@@ -372,6 +389,7 @@ cx.World = Class.extend({
 	 */
 	addSystem : function ( system ){
 		Log.d(this, 'add system '+system.tag )
+        system.setWorld(this);
 		this.systems.push(system);
 	},
 	

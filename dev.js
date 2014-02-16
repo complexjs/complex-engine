@@ -10,7 +10,6 @@ var files = [
 	'complex/src/Screen.js',
 	'complex/src/System.js',
 	'complex/src/World.js',
-	'complex/src/Behaviour.js',
 	'complex/src/Manager.js',
 	
 	'complex/src/input/Input.js',

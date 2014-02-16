@@ -22,6 +22,7 @@ cx.World = Class.extend({
 	 */
 	addSystem : function ( system ){
 		Log.d(this, 'add system '+system.tag )
+        system.setWorld(this);
 		this.systems.push(system);
 	},
 	

@@ -8,6 +8,7 @@ cx.System = Class.extend({
 	TYPE_VOID : "void",
 	TYPE_PROCESS : "process",
 	type : "process",
+    world : null,
 
     /**
      * Initialize a new system
@@ -16,6 +17,22 @@ cx.System = Class.extend({
 	init : function( components ){
 		this.components = components;
 	},
+
+    /**
+     * Set the worldobject when the system is added
+     * @param world
+     */
+    setWorld : function ( world ) {
+        this.world = world;
+    },
+
+    /**
+     * retrive the world object
+     * @returns {null}
+     */
+    getWorld : function() {
+        return this.world;
+    },
 
     /**
      * called for an entity if the required components are matching these of the entity

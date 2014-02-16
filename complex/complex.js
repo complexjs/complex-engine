@@ -24,6 +24,7 @@ var cx = {
 cx.App = {
     engine : null,
     updater : null,
+    fps : 30,
     
 	use : function ( scripts ) {
 		cx.App.ScriptLoader.scripts = scripts;
@@ -60,30 +61,9 @@ cx.App = {
 		return this.getEngine();
 	},
 
-	/**
-	 * [start description]
-	 * @return {[type]} [description]
-	 */
-	start : function ( ) {
-	    Log.d('cx', 'start');
-		this.updater = setInterval(cx.update, 1000/30);
-	},
 
-	/**
-	 * [update description]
-	 * @return {[type]} [description]
-	 */
-	update : function () {
-		
-	},
-
-	/**
-	 * [stop description]
-	 * @return {[type]} [description]
-	 */
 	stop : function ( ) {
-	    
-	    Log.d('cx', 'start');
+	    Log.d('cx', 'stop');
 		clearInterval(cx.App.updater);
 	},
 
@@ -95,7 +75,7 @@ cx.App = {
 	            window.webkitRequestAnimationFrame ||
 	            window.mozRequestAnimationFrame    ||
 	            function( callback ){
-	              window.setTimeout(callback, 1000 / 60);
+	              window.setTimeout(callback, 1000 / cx.App.fps);
 	            };
 	    })();
 
@@ -115,7 +95,7 @@ cx.App.ScriptLoader = {
 	scriptLoaded : function() {
 		Log.d('cx', 'script loaded');
 		cx.App.ScriptLoader.loadedScripts++;
-		if( cx.App.ScriptLoader.loadedScripts == cx.App.ScriptLoader.scripts.length){
+		if( cx.App.ScriptLoader.loadedScripts >= cx.App.ScriptLoader.scripts.length){
 			cx.App.ScriptLoader.callback();
 		}
 	},
@@ -130,5 +110,5 @@ cx.App.ScriptLoader = {
    			script.onload= cx.App.ScriptLoader.scriptLoaded;
 			container.appendChild(script);
 		}
-	},	
+    }
 }
