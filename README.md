@@ -11,3 +11,15 @@ Create a file where you store the initial startup script. (take a look @ /game/s
 Now you're ready to implement your systems and components
 
 
+<h2>Create a Component</h2>
+<i>Resources: /game/src/components</i>
+
+A Component is a simple object storing data for a specific entity. There should be no logic in them. The logic is part of a system where the system update the data
+of the component like the position of a sprite.
+
+1. Create a new File with the name of the Component For example 'PositionComponent'(PositionComponent.js). The only data that should be in this component are the X and Y positions of an entity.
+
+2. Register the File inside your game. For this whe have to put the filename of PositionComponent.js inside the startup script.
+    In my case the startup script is called game.js insinde of /game/src
+
+3. Relate your component to an entity by calling '.addComponent(new PositionComponent(10, 5));'

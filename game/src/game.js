@@ -1,16 +1,17 @@
 //Configure all used scripts
-//like used libraries, custom screens, custom components and cusom systems and more
+//like used libraries, custom screens, custom components and custom systems and more
 cx.App.use([        
     "src/MainScreen.js",
     "src/systems/BehaviourSystem.js",
     "src/systems/StageSystem.js",
-    
+    "src/systems/DebugSystem.js",
+
     "src/components/BehaviourComponent.js",
-    "src/components/PositionComponent.js",
     "src/components/SpriteComponent.js",
 
     "src/behaviours/Behaviour.js",
     "src/behaviours/PlayerBehaviour.js",
+    "src/behaviours/MissileBehaviour.js",
 
     "src/manager/TagManager.js",
     
@@ -22,11 +23,13 @@ cx.App.use([
 cx.App.load(document.getElementsByTagName("head")[0], loaded);
 
 //loaded callback
+//This callback is called when all scripts above have been loaded
 function loaded () {
     //initialize complex engine
     var engine = cx.App.init();
     
     //set a screen
+    //this screen will be called every tick
     engine.setScreen(new MainScreen());
 
     //launch the game

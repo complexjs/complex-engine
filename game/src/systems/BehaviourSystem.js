@@ -20,7 +20,7 @@ var BehaviourSystem = cx.System.extend({
         var behaviourComponent = components["BehaviourComponent"];
 
         if ( !behaviourComponent.initialized ) {
-            behaviourComponent.script.setup( entity );
+            behaviourComponent.script.setup( this.world,  entity );
         }
 
         behaviourComponent.script.update();

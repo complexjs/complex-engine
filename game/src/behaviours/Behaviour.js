@@ -20,14 +20,14 @@ Behaviour = Class.extend({
     },
 
     /**
-     *
+     * called when behaviour is fully set up
      */
     onSetup : function(){
         this.initialized = true;
     },
 
     /**
-     *
+     * called every tick
      */
     update : function(){
     }
