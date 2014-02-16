@@ -30,4 +30,4 @@ Just contribute. It's OpenSource
 
 <h2>Contact</h2>
 <a href="https://twitter.com/faebeee">@Twitter</a><br>
-<a href="https://plus.google.com/u/0/113673733496424994581/posts>+Google</a>
+<a href="https://plus.google.com/u/0/113673733496424994581/posts">+Google</a>
