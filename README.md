@@ -30,6 +30,7 @@ of the component like the position of a sprite.
 
 1. Create a file with the name of your system. And create the system skeleton inside the file : 
 <code>
+	<pre>
 	var MySystem = cx.System.extend({
 	    init : function( world ){
 	    	this._super();
@@ -38,6 +39,7 @@ of the component like the position of a sprite.
 	    update : function ( entity, components ) {
 	    }
 	});
+	</pre>
 </code>
 
 2. Add some customcode you'll use to handle the data. For Exp. add some local variables : 
