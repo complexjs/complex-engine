@@ -41,7 +41,7 @@ of the component like the position of a sprite.
 	</pre>
 
 2. Add some customcode you'll use to handle the data. For Exp. add some local variables : 
-<code>
+<pre>
 	var MySystem = cx.System.extend(
 		world : null,
 	    init : function( world ){
@@ -52,9 +52,10 @@ of the component like the position of a sprite.
 	    update : function ( entity, components ) {
 	    }
 	});
-</code>
+</pre>
+
 and add configure the components an entity needs to have to be updated by this system : 
-<code>
+<pre>
 	var MySystem = cx.System.extend(
 		world : null,
 	    init : function( world ){
@@ -65,10 +66,10 @@ and add configure the components an entity needs to have to be updated by this s
 	    update : function ( entity, components ) {
 	    }
 	});
-</code>
+</pre>
 
 Now that you recive all entity associated with the components PositionComponent and ColorComponent you're ready to implement the logic in the update function: 
-<code>
+<pre>
 	var MySystem = cx.System.extend(
 		world : null,
 	    init : function( world ){
@@ -81,21 +82,22 @@ Now that you recive all entity associated with the components PositionComponent 
 	    	position.y += 1;
 	    }
 	});
-</code>
+</pre>
+
 3. Now you're finished with your system and you have to register it in the complex core. Inside your game.js you have to add following : "src/systems/MySystem.js"
-<code>
+<pre>
 	cx.App.use([        
 		...
 	    "src/systems/MySystem.js",
 	    ...
 	]);
-</code>
+</pre>
 
 4. Now you can instantiate the system by adding it to the world in your screen class. In this case it will be the MainScreen:
 see @game/MainScreen.js
-
+<pre>
     world.addSystem( new MySystem() );
-
+</pre>
 
 
 <h2>Contribution</h2>
