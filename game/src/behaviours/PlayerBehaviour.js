@@ -5,6 +5,13 @@ var PlayerBehaviour = Behaviour.extend({
 
     angle : 0,
     world : null,
+    
+    rotationValue : 0.1,
+    
+    //vars to handle shoot timeout
+    shootTimeOut : 30,
+    shootTimeOutStep : 0,
+    canShoot : true,
 
     //create a constructor
     init : function() {
@@ -32,24 +39,51 @@ var PlayerBehaviour = Behaviour.extend({
     update : function(){
         var velocity = 3;
         var position = this.sprite.position;
+        
+        this.angle = 0;
 
         //check if the 'A' key is pressed
         if ( cx.Input.Keyboard.isKeyPressed("A") ) {
             position.x -= velocity;
+            this.angle = -this.rotationValue;
         }
 
         //check if the 'A' key is pressed
         if ( cx.Input.Keyboard.isKeyPressed("D") ) {
             position.x += velocity;
+            this.angle = this.rotationValue;
         }
-
-        if ( cx.Input.Keyboard.isKeyPressed(" ") ) {
+        
+        this.handleShooting();
+        
+        //check if the player is shooting
+        if ( this.canShoot && cx.Input.Keyboard.isKeyPressed(" ") ) {
             this.shoot();
         }
+        
+        this.sprite.rotation = this.angle;
     },
-
+    
     /**
-     *
+     * handle if the player can shoot
+     */
+    handleShooting : function(){
+        var step = this.shootTimeOutStep;
+        var timeOut = this.timeOut;
+        
+        //check the timeout
+        if ( step <= 0 ) {
+            this.canShoot = true;
+            this.shootTimeOutStep = this.shootTimeOut;
+        }else {
+            this.shootTimeOutStep--;
+            this.canShoot = false;
+        }
+        
+    },
+    
+    /**
+     *  executing the shooting function
      */
     shoot : function() {
         var missile = new cx.Entity();
