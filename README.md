@@ -25,6 +25,78 @@ of the component like the position of a sprite.
 
 3. Relate your component to an entity by calling '.addComponent(new PositionComponent(10, 5));'
 
+<h2>Create a System</h2>
+<i>Resources: /game/src/components</i>
+
+1. Create a file with the name of your system. And create the system skeleton inside the file : 
+´
+	var MySystem = cx.System.extend({
+	    init : function( world ){
+	    	this._super();
+	    	this.tag = "MySystem";
+	    },
+	    update : function ( entity, components ) {
+	    }
+	});
+´
+
+2. Add some customcode you'll use to handle the data. For Exp. add some local variables : 
+´
+	var MySystem = cx.System.extend(
+		world : null,
+	    init : function( world ){
+	    	this._super();
+	    	this.tag = "MySystem";
+	    	this.world = world;
+	    },
+	    update : function ( entity, components ) {
+	    }
+	});
+´
+and add configure the components an entity needs to have to be updated by this system : 
+´
+	var MySystem = cx.System.extend(
+		world : null,
+	    init : function( world ){
+	    	this._super(['PositionComponent'], ['ColorComponent']);
+	    	this.tag = "MySystem";
+	    	this.world = world;
+	    },
+	    update : function ( entity, components ) {
+	    }
+	});
+´
+Now that you recive all entity associated with the components PositionComponent and ColorComponent you're ready to implement the logic in the update function: 
+´
+	var MySystem = cx.System.extend(
+		world : null,
+	    init : function( world ){
+	    	this._super(['PositionComponent'], ['ColorComponent']);
+	    	this.tag = "MySystem";
+	    	this.world = world;
+	    },
+	    update : function ( entity, components ) {
+	    	var position = components['PositionComponent'];
+	    	position.y += 1;
+	    }
+	});
+´
+3. Now you're finished with your system and you have to register it in the complex core. Inside your game.js you have to add following : "src/systems/MySystem.js"
+´
+	cx.App.use([        
+		...
+	    "src/systems/MySystem.js",
+	    ...
+	]);
+´
+
+4. Now you can instantiate the system by adding it to the world in your screen class. In this case it will be the MainScreen:
+see @game/MainScreen.js
+´
+    world.addSystem( new MySystem() );
+´
+
+
 <h2>Contribution</h2>
 Just contribute. It's OpenSource
 
