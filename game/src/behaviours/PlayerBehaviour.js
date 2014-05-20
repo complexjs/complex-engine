@@ -22,16 +22,16 @@ var PlayerBehaviour = Behaviour.extend({
     //override the setup function
     setup : function ( world, entity ) {
         //save the entity into the behaviour script
-    	this.entity = entity;
+        this.entity = entity;
 
         //store the world object for later
         this.world = world;
 
         //load a component of the entity
-    	this.spriteComponent = entity.getComponent("Sprite");
+        this.spriteComponent = entity.getComponent("Sprite");
 
         //get the sprite of the component
-    	this.sprite = this.spriteComponent.sprite;
+        this.sprite = this.spriteComponent.sprite;
         this.onSetup();
     },
 
@@ -69,7 +69,6 @@ var PlayerBehaviour = Behaviour.extend({
      */
     handleShooting : function(){
         var step = this.shootTimeOutStep;
-        var timeOut = this.timeOut;
         
         //check the timeout
         if ( step <= 0 ) {

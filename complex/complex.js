@@ -25,6 +25,7 @@ cx.App = {
     engine : null,
     updater : null,
     fps : 30,
+    data : {},//customisable data holder
     
 	use : function ( scripts ) {
 		cx.App.ScriptLoader.scripts = scripts;
@@ -69,7 +70,7 @@ cx.App = {
 
 	loadComplete : function() {
 	    Log.d('cx', 'loadComplete');
-	    
+        
 	  window.requestAnimFrame = (function(){
 	    return  window.requestAnimationFrame       ||
 	            window.webkitRequestAnimationFrame ||
@@ -78,7 +79,6 @@ cx.App = {
 	              window.setTimeout(callback, 1000 / cx.App.fps);
 	            };
 	    })();
-
 
 	    (function animloop(){
 	    	requestAnimFrame(animloop);

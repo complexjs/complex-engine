@@ -2,6 +2,7 @@ var MissileBehaviour =  Behaviour.extend({
 
     init : function() {
         this._super();
+        this.TAG = "MissileBehaviour";
     },
 
     setup : function ( world, entity ) {
@@ -22,5 +23,9 @@ var MissileBehaviour =  Behaviour.extend({
     update : function(){
         this.sprite.position.y-=1;
         this.sprite.rotation+=1;
+        
+        if ( this.sprite.position.y > cx.App.data.screenSize.y ) {
+            LOG.d(this, "missile out of screen");
+        }
     }
 });

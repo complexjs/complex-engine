@@ -40,6 +40,8 @@ var MainScreen = cx.Screen.extend({
 
         //Systems
         world.addSystem( new StageSystem( 'screen', 480 ,320 ) );
+        cx.App.data.screenSize = {x : 480, y : 320};
+        
         world.addSystem( new BehaviourSystem() );
         world.addSystem( new DebugSystem() );
 

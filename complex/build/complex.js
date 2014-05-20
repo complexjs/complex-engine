@@ -1,7 +1,7 @@
 // compiled by JSCOMPILER
 // © by Team Owesome
 // Compiler Version : undefined
-// Build Date : Sat Feb 15 2014 13:43:15 GMT+0100 (CET)
+// Build Date : Tue May 20 2014 15:07:08 GMT+0200 (CEST)
 
 
 
@@ -68,6 +68,8 @@ var cx = {
 cx.App = {
     engine : null,
     updater : null,
+    fps : 30,
+    data : {},//customisable data holder
     
 	use : function ( scripts ) {
 		cx.App.ScriptLoader.scripts = scripts;
@@ -104,45 +106,23 @@ cx.App = {
 		return this.getEngine();
 	},
 
-	/**
-	 * [start description]
-	 * @return {[type]} [description]
-	 */
-	start : function ( ) {
-	    Log.d('cx', 'start');
-		this.updater = setInterval(cx.update, 1000/30);
-	},
 
-	/**
-	 * [update description]
-	 * @return {[type]} [description]
-	 */
-	update : function () {
-		
-	},
-
-	/**
-	 * [stop description]
-	 * @return {[type]} [description]
-	 */
 	stop : function ( ) {
-	    
-	    Log.d('cx', 'start');
+	    Log.d('cx', 'stop');
 		clearInterval(cx.App.updater);
 	},
 
 	loadComplete : function() {
 	    Log.d('cx', 'loadComplete');
-	    
+        
 	  window.requestAnimFrame = (function(){
 	    return  window.requestAnimationFrame       ||
 	            window.webkitRequestAnimationFrame ||
 	            window.mozRequestAnimationFrame    ||
 	            function( callback ){
-	              window.setTimeout(callback, 1000 / 60);
+	              window.setTimeout(callback, 1000 / cx.App.fps);
 	            };
 	    })();
-
 
 	    (function animloop(){
 	    	requestAnimFrame(animloop);
@@ -159,7 +139,7 @@ cx.App.ScriptLoader = {
 	scriptLoaded : function() {
 		Log.d('cx', 'script loaded');
 		cx.App.ScriptLoader.loadedScripts++;
-		if( cx.App.ScriptLoader.loadedScripts == cx.App.ScriptLoader.scripts.length){
+		if( cx.App.ScriptLoader.loadedScripts >= cx.App.ScriptLoader.scripts.length){
 			cx.App.ScriptLoader.callback();
 		}
 	},
@@ -174,7 +154,7 @@ cx.App.ScriptLoader = {
    			script.onload= cx.App.ScriptLoader.scriptLoaded;
 			container.appendChild(script);
 		}
-	},	
+    }
 }
 
 
