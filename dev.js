@@ -1,4 +1,5 @@
 var helper = require('littlehelper');
+
 helper.init();
 var files = [
 	'complex/libs/Log.js',
@@ -13,8 +14,8 @@ var files = [
 	'complex/src/Manager.js',
 	
 	'complex/src/input/Input.js',
-]
+];
 
 helper.Compiler.compile(files, "./complex/build/complex.js", function(){
     console.log("New Complex Build @ "+(new Date()));
-}); 
+}, true); 

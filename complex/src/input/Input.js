@@ -40,8 +40,8 @@ cx.Input.Keyboard = {
      * @returns True/False
      */
 	isKeyPressed : function ( key ) {
-	    var char = key.charCodeAt(0);
-		return cx.Input.Keyboard._key[char];
+	    var keyCode = key.charCodeAt(0);
+		return cx.Input.Keyboard._key[keyCode];
 	}
 }
 

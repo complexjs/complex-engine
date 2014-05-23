@@ -21,7 +21,7 @@ var Log = {
 	 */
 	_tag : function ( tagObj ) {
 		if(tagObj.tag) {
-			return tagObj.tag
+			return tagObj.tag;
 		}
 
 		if(typeof tagObj === 'string') {
@@ -29,4 +29,4 @@ var Log = {
 		}
 
 	}
-}
+};

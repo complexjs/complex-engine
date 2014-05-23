@@ -1,7 +1,7 @@
 // compiled by JSCOMPILER
 // © by Team Owesome
 // Compiler Version : undefined
-// Build Date : Tue May 20 2014 15:07:08 GMT+0200 (CEST)
+// Build Date : Fri May 23 2014 09:27:18 GMT+0200 (CEST)
 
 
 
@@ -30,7 +30,7 @@ var Log = {
 	 */
 	_tag : function ( tagObj ) {
 		if(tagObj.tag) {
-			return tagObj.tag
+			return tagObj.tag;
 		}
 
 		if(typeof tagObj === 'string') {
@@ -38,7 +38,7 @@ var Log = {
 		}
 
 	}
-}
+};
 
 
 //JSCOMPILER FILE -> complex/complex.js
@@ -525,8 +525,8 @@ cx.Input.Keyboard = {
      * @returns True/False
      */
 	isKeyPressed : function ( key ) {
-	    var char = key.charCodeAt(0);
-		return cx.Input.Keyboard._key[char];
+	    var keyCode = key.charCodeAt(0);
+		return cx.Input.Keyboard._key[keyCode];
 	}
 }
 
