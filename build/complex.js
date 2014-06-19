@@ -1,7 +1,7 @@
 // compiled by JSCOMPILER
 // © by Team Owesome
 // Compiler Version : undefined
-// Build Date : Thu Jun 19 2014 15:13:17 GMT+0200 (CEST)
+// Build Date : Thu Jun 19 2014 15:20:37 GMT+0200 (CEST)
 
 
 
@@ -71,6 +71,10 @@
     return Class;
   };
 })();
+
+
+//JSCOMPILER FILE -> complex.js
+var cx = {};
 
 
 //JSCOMPILER FILE -> src/Component.js
@@ -176,7 +180,6 @@ cx.Screen = Class.extend({
      */
 	init : function(){
 		this.world = new cx.World();
-		this.tag = "cx.Screen";
 	},
 
     /**
