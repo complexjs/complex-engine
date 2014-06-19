@@ -38,7 +38,13 @@ cx.World = Class.extend({
 	 * @param  {[type]} systemName [description]
 	 * @return {[type]}            [description]
 	 */
-	getSystem : function( systemName ) {
+	getSystem : function( system ) {
+		var systemName = "";
+		if ( typeof system == "string"){
+			systemName = system;
+		} else {
+			systemName = system.tag;
+		}
 		for(var i = 0, len = this.systems.length; i < len; i++){
 			var system = this.systems[i];
 			if(system.tag == systemName){

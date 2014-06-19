@@ -4,5 +4,6 @@ cx.VoidSystem = cx.System.extend({
 
 	init : function( components ) {
 		this.components = components;
-	}
+	},
+
 });
