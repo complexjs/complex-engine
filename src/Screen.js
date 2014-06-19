@@ -8,7 +8,6 @@ cx.Screen = Class.extend({
      */
 	init : function(){
 		this.world = new cx.World();
-		this.tag = "cx.Screen";
 	},
 
     /**
