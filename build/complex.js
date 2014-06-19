@@ -1,161 +1,76 @@
 // compiled by JSCOMPILER
 // © by Team Owesome
 // Compiler Version : undefined
-// Build Date : Fri May 23 2014 16:45:44 GMT+0200 (CEST)
+// Build Date : Thu Jun 19 2014 15:13:17 GMT+0200 (CEST)
 
 
 
 
-//JSCOMPILER FILE -> libs/Log.js
-/**
- * Logger
- * @type {Object}
+//JSCOMPILER FILE -> libs/Class.js
+/* Simple JavaScript Inheritance
+ * By John Resig http://ejohn.org/
+ * MIT Licensed.
  */
-var Log = {
-	/**
-	 * [d description]
-	 * @param  {[type]} tag  [description]
-	 * @param  {[type]} data [description]
-	 * @return {[type]}      [description]
-	 */
-	d : function (tag, data) {
-		var _tag = Log._tag(tag);
-		console.log(_tag, data);
-	},
-
-	/**
-	 * [_tag description]
-	 * @param  {[type]} tagObj [description]
-	 * @return {[type]}        [description]
-	 */
-	_tag : function ( tagObj ) {
-		if(tagObj.tag) {
-			return tagObj.tag;
-		}
-
-		if(typeof tagObj === 'string') {
-			return tagObj.toString();
-		}
-
-	}
-};
-
-
-//JSCOMPILER FILE -> complex.js
-/** 
- * Name: ComplexJS
- * Author: faebeee
- * version: 0.5
- */
-
-
-/**
- * The main object
- * @type {Object}
- */
-var cx = {
-	tag : "cx",
-    update : function(){
-        cx.App.update();
-    },
-    
-};
-
-/**
- * The main App. Initializes all the used scripts and components.
- * @type {{engine: null, updater: null, use: use, setEngine: setEngine, getEngine: getEngine, config: config, load: load, init: init, start: start, update: update, stop: stop, loadComplete: loadComplete}}
- */
-cx.App = {
-    engine : null,
-    updater : null,
-    fps : 30,
-    data : {},//customisable data holder
-    
-	use : function ( scripts ) {
-		cx.App.ScriptLoader.scripts = scripts;
-	},
-	
-    setEngine : function ( engine ) {
-        this.engine = engine;
-    },
-    
-    getEngine : function () {
-        return this.engine;
-    },
-    
-    config : function(options){
-		Log.d('cx', 'configure')
-		for(entry in options){
-			this[entry] = options[entry];
-		}	
-	},
-
-	load : function(container, cb) {
-		cx.App.ScriptLoader.load(container, cb);
-	},
-
-	/**
-	 * [init description]
-	 * @return {[type]} [description]
-	 */
-	init : function() {
-	    Log.d('cx', 'init');
-        this.setEngine( new cx.Engine() );
-		cx.Input.Keyboard.init();
-		cx.Input.Mouse.init();
-		return this.getEngine();
-	},
-
-
-	stop : function ( ) {
-	    Log.d('cx', 'stop');
-		clearInterval(cx.App.updater);
-	},
-
-	loadComplete : function() {
-	    Log.d('cx', 'loadComplete');
-        
-	  window.requestAnimFrame = (function(){
-	    return  window.requestAnimationFrame       ||
-	            window.webkitRequestAnimationFrame ||
-	            window.mozRequestAnimationFrame    ||
-	            function( callback ){
-	              window.setTimeout(callback, 1000 / cx.App.fps);
-	            };
-	    })();
-
-	    (function animloop(){
-	    	requestAnimFrame(animloop);
-	        cx.App.engine.update();
-	    })();
-	}
-};
-
-cx.App.ScriptLoader = {
-	scripts : [],
-	loadedScripts : 0,
-	callback : function(){},
-
-	scriptLoaded : function() {
-		Log.d('cx', 'script loaded');
-		cx.App.ScriptLoader.loadedScripts++;
-		if( cx.App.ScriptLoader.loadedScripts >= cx.App.ScriptLoader.scripts.length){
-			cx.App.ScriptLoader.callback();
-		}
-	},
-
-	load : function( container, completeCB ) {
-		Log.d('cx', 'load scripts '+cx.App.ScriptLoader.scripts.length);
-		cx.App.ScriptLoader.callback = completeCB;
-		
-		for(var s = 0, sLen = cx.App.ScriptLoader.scripts.length; s < sLen; s++){
-			var script = document.createElement("script");
-			script.src = cx.App.ScriptLoader.scripts[s];
-   			script.onload= cx.App.ScriptLoader.scriptLoaded;
-			container.appendChild(script);
-		}
+// Inspired by base2 and Prototype
+(function(){
+  var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
+ 
+  // The base Class implementation (does nothing)
+  this.Class = function(){};
+ 
+  // Create a new Class that inherits from this class
+  Class.extend = function(prop) {
+    var _super = this.prototype;
+   
+    // Instantiate a base class (but only create the instance,
+    // don't run the init constructor)
+    initializing = true;
+    var prototype = new this();
+    initializing = false;
+   
+    // Copy the properties over onto the new prototype
+    for (var name in prop) {
+      // Check if we're overwriting an existing function
+      prototype[name] = typeof prop[name] == "function" &&
+        typeof _super[name] == "function" && fnTest.test(prop[name]) ?
+        (function(name, fn){
+          return function() {
+            var tmp = this._super;
+           
+            // Add a new ._super() method that is the same method
+            // but on the super-class
+            this._super = _super[name];
+           
+            // The method only need to be bound temporarily, so we
+            // remove it when we're done executing
+            var ret = fn.apply(this, arguments);        
+            this._super = tmp;
+           
+            return ret;
+          };
+        })(name, prop[name]) :
+        prop[name];
     }
-}
+   
+    // The dummy class constructor
+    function Class() {
+      // All construction is actually done in the init method
+      if ( !initializing && this.init )
+        this.init.apply(this, arguments);
+    }
+   
+    // Populate our constructed prototype object
+    Class.prototype = prototype;
+   
+    // Enforce the constructor to be what we expect
+    Class.prototype.constructor = Class;
+ 
+    // And make this class extendable
+    Class.extend = arguments.callee;
+   
+    return Class;
+  };
+})();
 
 
 //JSCOMPILER FILE -> src/Component.js
@@ -368,7 +283,6 @@ cx.World = Class.extend({
 	 * @param {[type]} system [description]
 	 */
 	addSystem : function ( system ){
-		Log.d(this, 'add system '+system.tag )
         system.setWorld(this);
 		this.systems.push(system);
 	},
@@ -378,7 +292,6 @@ cx.World = Class.extend({
 	 * @param {[type]} manager [description]
 	 */
 	addManager : function ( manager ){
-		Log.d(this, 'add manager '+manager.tag )
 	    this.managers.push(manager);
 	},
 
@@ -480,77 +393,3 @@ cx.Manager = Class.extend({
     }
 
 });
-
-
-//JSCOMPILER FILE -> src/Input.js
-/**
- * Handles the input
- * @type {{}}
- */
-cx.Input = {};
-
-/**
- * keyboard input handler
- * @type {{_key: Array, init: init, onkeydown: onkeydown, onkeyup: onkeyup, isKeyPressed: isKeyPressed}}
- */
-cx.Input.Keyboard = {
-	_key : [],
-    /**
-     * constructor
-     */
-	init : function() {
-		window.onkeydown = this.onkeydown;
-		window.onkeyup = this.onkeyup;
-	},
-
-    /**
-     * called when a key is pressed
-     * @param e
-     */
-	onkeydown : function ( e ) {
-		cx.Input.Keyboard._key[e.which] = true;
-	},
-
-    /**
-     * called when a key is released
-     * @param e
-     */
-	onkeyup : function ( e ) {
-		cx.Input.Keyboard._key[e.which] = false;
-	},
-
-    /**
-     * check if a key is pressed
-     * @param key
-     * @returns True/False
-     */
-	isKeyPressed : function ( key ) {
-	    var keyCode = key.charCodeAt(0);
-		return cx.Input.Keyboard._key[keyCode];
-	}
-}
-
-/**
- * mouse input handler
- * @type {{x: number, y: number, init: init, move: move}}
- */
-cx.Input.Mouse = {
-    x : 0,
-    y : 0,
-    /**
-     * constructor
-     */
-    init : function(){
-        window.onmousemove = cx.Input.Mouse.move;
-    },
-
-    /**
-     * called by window.onmousemove
-     * @param event
-     */
-    move : function ( event ) {
-        cx.Input.Mouse.x = event.clientX;
-        cx.Input.Mouse.y = event.clientY;
-    }
-    
-}
