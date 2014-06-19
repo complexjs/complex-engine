@@ -2,8 +2,9 @@ var helper = require('littlehelper');
 
 helper.init();
 var files = [
-	'complex.js',
 	'libs/Class.js',
+
+	'complex.js',
 	'src/Component.js',
 	'src/Engine.js',
 	'src/Entity.js',
