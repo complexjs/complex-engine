@@ -4,20 +4,11 @@
  * @param {[type]} arrayOfComponents [description]
  */
 cx.System = Class.extend({
-	components : [],
 	TYPE_VOID : "void",
 	TYPE_PROCESS : "process",
 	type : "process",
     world : null,
-    tag : null
-
-    /**
-     * Initialize a new system
-     * @param components required components for this system
-     */
-	init : function( components ){
-		this.components = components;
-	},
+    tag : null,
 
     /**
      * Set the worldobject when the system is added

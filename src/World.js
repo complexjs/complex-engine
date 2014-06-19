@@ -113,6 +113,6 @@ cx.World = Class.extend({
 					}
 				}	
 			}
-		}
+		}	
 	}
 });

@@ -1,7 +1,7 @@
 // compiled by JSCOMPILER
 // © by Team Owesome
 // Compiler Version : undefined
-// Build Date : Thu Jun 19 2014 15:20:37 GMT+0200 (CEST)
+// Build Date : Thu Jun 19 2014 20:57:34 GMT+0200 (CEST)
 
 
 
@@ -221,19 +221,11 @@ cx.Screen = Class.extend({
  * @param {[type]} arrayOfComponents [description]
  */
 cx.System = Class.extend({
-	components : [],
 	TYPE_VOID : "void",
 	TYPE_PROCESS : "process",
 	type : "process",
     world : null,
-
-    /**
-     * Initialize a new system
-     * @param components required components for this system
-     */
-	init : function( components ){
-		this.components = components;
-	},
+    tag : null,
 
     /**
      * Set the worldobject when the system is added
@@ -260,6 +252,23 @@ cx.System = Class.extend({
 });
 
 
+
+
+//JSCOMPILER FILE -> src/EntitySystem.js
+cx.VoidSystem = cx.System.extend({
+	type : this.TYPE_PROCESS,
+	components : null,
+
+	init : function( components ) {
+		this.components = components;
+	}
+});
+
+
+//JSCOMPILER FILE -> src/VoidSystem.js
+cx.VoidSystem = cx.System.extend({
+	type : this.TYPE_VOID,
+});
 
 
 //JSCOMPILER FILE -> src/World.js
@@ -378,7 +387,7 @@ cx.World = Class.extend({
 					}
 				}	
 			}
-		}
+		}	
 	}
 });
 

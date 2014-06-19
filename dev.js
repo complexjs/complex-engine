@@ -10,6 +10,8 @@ var files = [
 	'src/Entity.js',
 	'src/Screen.js',
 	'src/System.js',
+	'src/EntitySystem.js',
+	'src/VoidSystem.js',
 	'src/World.js',
 	'src/Manager.js',
 ];
