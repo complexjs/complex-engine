@@ -21,7 +21,6 @@ cx.World = Class.extend({
 	 * @param {[type]} system [description]
 	 */
 	addSystem : function ( system ){
-		Log.d(this, 'add system '+system.tag )
         system.setWorld(this);
 		this.systems.push(system);
 	},
@@ -31,7 +30,6 @@ cx.World = Class.extend({
 	 * @param {[type]} manager [description]
 	 */
 	addManager : function ( manager ){
-		Log.d(this, 'add manager '+manager.tag )
 	    this.managers.push(manager);
 	},
 

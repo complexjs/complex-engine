@@ -2,9 +2,7 @@ var helper = require('littlehelper');
 
 helper.init();
 var files = [
-	'libs/Log.js',
-	
-	'complex.js',
+	'libs/Class.js',
 	'src/Component.js',
 	'src/Engine.js',
 	'src/Entity.js',
@@ -12,7 +10,6 @@ var files = [
 	'src/System.js',
 	'src/World.js',
 	'src/Manager.js',
-	'src/Input.js',
 ];
 
 helper.Compiler.compile(files, "./build/complex.js", function(){
