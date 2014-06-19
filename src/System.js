@@ -9,6 +9,7 @@ cx.System = Class.extend({
 	TYPE_PROCESS : "process",
 	type : "process",
     world : null,
+    tag : null
 
     /**
      * Initialize a new system
