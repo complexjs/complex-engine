@@ -18,6 +18,11 @@ cx.World = Class.extend({
 		this._entityAdded(entity);
 	},
 
+	createEntity : function(){
+		var entity = new cx.Entity();
+		
+	},
+
 	/**
 	 * add system to world
 	 * @param {[type]} system [description]
@@ -112,18 +117,15 @@ cx.World = Class.extend({
 
 					for(var sC = 0, sCLen = system.components.length; sC < sCLen; sC++) {
 						var systemComponent = system.components[sC];
-						
 						var hasEntityComponent = false;
 
-						for(var eC = 0, eCLen = entity.components.length; eC < eCLen; eC++) {
-							var entityComponent = entity.components[eC];
-
-							entityComponents[entityComponent.name] = entityComponent;
-							if(entityComponent.name == systemComponent) {
-								hasEntityComponent = true;
-							}
+						var entityComponent = entity.getComponent(systemComponent);
+						if ( entityComponent != null ){
+							entityComponents[systemComponent] = entityComponent;
+							hasEntityComponent = false;
+							continue;
 						}
-						
+
 						if( !hasEntityComponent) {
 							updateEntity = false;
 						}

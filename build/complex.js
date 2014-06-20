@@ -1,7 +1,7 @@
 // compiled by JSCOMPILER
 // © by Team Owesome
 // Compiler Version : undefined
-// Build Date : Fri Jun 20 2014 11:34:57 GMT+0200 (CEST)
+// Build Date : Fri Jun 20 2014 17:24:24 GMT+0200 (CEST)
 
 
 
@@ -402,18 +402,15 @@ cx.World = Class.extend({
 
 					for(var sC = 0, sCLen = system.components.length; sC < sCLen; sC++) {
 						var systemComponent = system.components[sC];
-						
 						var hasEntityComponent = false;
 
-						for(var eC = 0, eCLen = entity.components.length; eC < eCLen; eC++) {
-							var entityComponent = entity.components[eC];
-
-							entityComponents[entityComponent.name] = entityComponent;
-							if(entityComponent.name == systemComponent) {
-								hasEntityComponent = true;
-							}
+						var entityComponent = entity.getComponent(systemComponent);
+						if ( entityComponent != null ){
+							entityComponents[systemComponent] = entityComponent;
+							hasEntityComponent = false;
+							continue;
 						}
-						
+
 						if( !hasEntityComponent) {
 							updateEntity = false;
 						}
@@ -461,10 +458,12 @@ var ScriptSystem = cx.EntitySystem.extend({
 
 	init : function(){
 		this.components = ["cx.scriptcomponent"];
+		this.type = this.TYPE_PROCESS;
+
 	},
 
-
 	update : function( entity, components){
+
 		var scriptcomponent = components["cx.scriptcomponent"];
 		var script = scriptcomponent.script;
 
@@ -472,9 +471,7 @@ var ScriptSystem = cx.EntitySystem.extend({
 			script.setup(entity);
 			scriptcomponent.setup = true;
 		}
-		console.log("script")
 		script.update();
-
 	}
 });
 
