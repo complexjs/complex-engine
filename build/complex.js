@@ -1,7 +1,7 @@
 // compiled by JSCOMPILER
 // © by Team Owesome
 // Compiler Version : undefined
-// Build Date : Thu Jun 19 2014 21:14:58 GMT+0200 (CEST)
+// Build Date : Fri Jun 20 2014 11:34:57 GMT+0200 (CEST)
 
 
 
@@ -137,6 +137,7 @@ cx.Engine = Class.extend({
  */
 cx.Entity = Class.extend({
 	components : [],
+	world : null,
     /**
      * constructor
      */
@@ -144,6 +145,12 @@ cx.Entity = Class.extend({
 		this.components = [];
 	},
 
+	getWorld : function(){
+		return this.world;
+	},
+	setWorld : function( world){
+		this.world = world;
+	},
     /**
      * add a component to the entity
      * @param component
@@ -249,13 +256,14 @@ cx.System = Class.extend({
      * @param componens
      */
 	update : function( entity, componens){}
+
 });
 
 
 
 
 //JSCOMPILER FILE -> src/EntitySystem.js
-cx.VoidSystem = cx.System.extend({
+cx.EntitySystem = cx.System.extend({
 	type : this.TYPE_PROCESS,
 	components : null,
 
@@ -269,6 +277,13 @@ cx.VoidSystem = cx.System.extend({
 //JSCOMPILER FILE -> src/VoidSystem.js
 cx.VoidSystem = cx.System.extend({
 	type : this.TYPE_VOID,
+    
+    /**
+    * @param entity Entity object
+    * called when an entity is added to world
+    */
+    added : function( entity ){},
+
 });
 
 
@@ -288,7 +303,9 @@ cx.World = Class.extend({
      */
     addEntity : function ( entity ) {
         entity.index = this.entities.length;
+        entity.setWorld(this);
 		this.entities.push(entity);
+		this._entityAdded(entity);
 	},
 
 	/**
@@ -353,6 +370,19 @@ cx.World = Class.extend({
 		return this.entities[index];
 	},
 
+	_entityValidForSystem : function( entity, system ){
+
+	},
+
+	_entityAdded : function( entity ){
+		for(var s=0,len=this.systems.length; s<len;s++){
+			var system = this.systems[s];
+			if(system.type == system.TYPE_VOID){
+				system.added(entity);
+			}
+		}
+	},
+	
 	/**
 	 * update step
 	 * @return {[type]} [description]
@@ -411,4 +441,53 @@ cx.Manager = Class.extend({
         this.tag = this.name;
     }
 
+});
+
+
+//JSCOMPILER FILE -> src/Custom/Script/Component.js
+var ScriptComponent = cx.Component.extend({
+	name:'cx.scriptcomponent',
+	script : null,
+	setup : false,
+	init : function(script){
+		this.script = script;
+	}
+});
+
+
+//JSCOMPILER FILE -> src/Custom/Script/System.js
+var ScriptSystem = cx.EntitySystem.extend({
+	tag : 'cx.scriptsystem',
+
+	init : function(){
+		this.components = ["cx.scriptcomponent"];
+	},
+
+
+	update : function( entity, components){
+		var scriptcomponent = components["cx.scriptcomponent"];
+		var script = scriptcomponent.script;
+
+		if ( scriptcomponent.setup == false ){
+			script.setup(entity);
+			scriptcomponent.setup = true;
+		}
+		console.log("script")
+		script.update();
+
+	}
+});
+
+
+//JSCOMPILER FILE -> src/Custom/Script/Script.js
+cx.Script = Class.extend({
+	entity : null,
+	setup : function( entity ){
+		this.entity = entity;
+		this.onSetup();
+		this.isSetUp = true;
+	},
+
+	onSetup : function(){},
+	update : function(){}
 });

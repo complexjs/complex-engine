@@ -13,7 +13,9 @@ cx.World = Class.extend({
      */
     addEntity : function ( entity ) {
         entity.index = this.entities.length;
+        entity.setWorld(this);
 		this.entities.push(entity);
+		this._entityAdded(entity);
 	},
 
 	/**
@@ -78,6 +80,19 @@ cx.World = Class.extend({
 		return this.entities[index];
 	},
 
+	_entityValidForSystem : function( entity, system ){
+
+	},
+
+	_entityAdded : function( entity ){
+		for(var s=0,len=this.systems.length; s<len;s++){
+			var system = this.systems[s];
+			if(system.type == system.TYPE_VOID){
+				system.added(entity);
+			}
+		}
+	},
+	
 	/**
 	 * update step
 	 * @return {[type]} [description]

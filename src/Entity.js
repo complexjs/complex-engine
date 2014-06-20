@@ -3,6 +3,7 @@
  */
 cx.Entity = Class.extend({
 	components : [],
+	world : null,
     /**
      * constructor
      */
@@ -10,6 +11,12 @@ cx.Entity = Class.extend({
 		this.components = [];
 	},
 
+	getWorld : function(){
+		return this.world;
+	},
+	setWorld : function( world){
+		this.world = world;
+	},
     /**
      * add a component to the entity
      * @param component

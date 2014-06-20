@@ -32,5 +32,6 @@ cx.System = Class.extend({
      * @param componens
      */
 	update : function( entity, componens){}
+
 });
 

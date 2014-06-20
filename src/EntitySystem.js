@@ -1,4 +1,4 @@
-cx.VoidSystem = cx.System.extend({
+cx.EntitySystem = cx.System.extend({
 	type : this.TYPE_PROCESS,
 	components : null,
 
