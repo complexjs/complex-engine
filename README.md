@@ -35,7 +35,7 @@ animloop.update = function(){
 animloop.init();
 </pre>
 
-<h2>Systems</h3>
+<h2>Systems</h2>
 The system is handling the datahandling of all components. For example moving around a object or rendering all entities to the canvas.
 There where 2 different systemtypes `cx.EntitySystem` and `cx.VoidSystem`
 
