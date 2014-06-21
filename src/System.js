@@ -29,7 +29,7 @@ cx.System = Class.extend({
     /**
      * called for an entity if the required components are matching these of the entity
      * @param entity
-     * @param componens
+     * @param componens Key Value store. Components can be accessed with the componentName `components["myComponent"]`
      */
 	update : function( entity, componens){}
 

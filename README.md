@@ -2,103 +2,117 @@
 ComplexJS is a JS written Component Entity System for HTML5 Gamedevelopment.
 ComplexJS has the ability not to slow your development time down.
 With it's Component Entity System there is a high rate of reusable code for your later projects.
-
+<h2>Build</h2>
+You can build ComplexJS by your own. There is a dev.js script where all the files are defined which will be compiled to gether into build/complex.js
+Therefore you need to install `littlehelper` via npm 
+<pre>
+$ npm install littlehelper
+</pre>
 
 
 <h2>Getting started</h2>
-Create an index.html file and add Class.js from /complex/libs/Class.js and complex.js from /complex/build/complex.js
-Create an Canvas element inside of the body tag
-Create a file where you store the initial startup script. (take a look @ /game/src/game.js)
-Now you're ready to implement your systems and components
+Createa HTMLFile containing your view.
+Add ComplexJS as a source
+`<script type="text/javascript" src="./libs/complex.js"></script>`
+    
+<h2>World</h2>
+The world is the mainobject holding all the entities and systems.
+If you want to make your game work you have to write an update loop and call `world.update` every tick
+Therefore I created a small lib called <a href="https://github.com/faebeee/Animloop">Animloop.js</a>
 
+<h3>Create the world</h3>
 
-<h2>Create a Component</h2>
-<i>Resources: /game/src/components</i>
-
-A Component is a simple object storing data for a specific entity. There should be no logic in them. The logic is part of a system where the system update the data
-of the component like the position of a sprite.
-
-1. Create a new File with the name of the Component For example 'PositionComponent'(PositionComponent.js). The only data that should be in this component are the X and Y positions of an entity.
-
-2. Register the File inside your game. For this whe have to put the filename of PositionComponent.js inside the startup script.
-    In my case the startup script is called game.js insinde of /game/src
-
-3. Relate your component to an entity by calling '.addComponent(new PositionComponent(10, 5));'
-
-<h2>Create a System</h2>
-<i>Resources: /game/src/components</i>
-
-1. Create a file with the name of your system. And create the system skeleton inside the file : 
-	<pre>
-	var MySystem = cx.System.extend({
-	    init : function( world ){
-	    	this._super();
-	    	this.tag = "MySystem";
-	    },
-	    update : function ( entity, components ) {
-	    }
-	});
-	</pre>
-
-2. Add some customcode you'll use to handle the data. For Exp. add some local variables : 
 <pre>
-	var MySystem = cx.System.extend(
-		world : null,
-	    init : function( world ){
-	    	this._super();
-	    	this.tag = "MySystem";
-	    	this.world = world;
-	    },
-	    update : function ( entity, components ) {
-	    }
-	});
+var world = new cx.World();
 </pre>
 
-and add configure the components an entity needs to have to be updated by this system : 
+<h3>Update the world</h3>
+Override the updatefunction of the animloop object. After calling `animloop.init()` the function `animloop.update()` is called every tick
 <pre>
-	var MySystem = cx.System.extend(
-		world : null,
-	    init : function( world ){
-	    	this._super(['PositionComponent'], ['ColorComponent']);
-	    	this.tag = "MySystem";
-	    	this.world = world;
-	    },
-	    update : function ( entity, components ) {
-	    }
-	});
+animloop.update = function(){
+    world.update();
+}
+animloop.init();
 </pre>
 
-Now that you recive all entity associated with the components PositionComponent and ColorComponent you're ready to implement the logic in the update function: 
+<h2>Systems</h3>
+The system is handling the datahandling of all components. For example moving around a object or rendering all entities to the canvas.
+There where 2 different systemtypes `cx.EntitySystem` and `cx.VoidSystem`
+
+<h3>cx.EntitySystem</h3>
+The EntitySystem is a system which reacts on entites which owns the same components as configured in the system
+
 <pre>
-	var MySystem = cx.System.extend(
-		world : null,
-	    init : function( world ){
-	    	this._super(['PositionComponent'], ['ColorComponent']);
-	    	this.tag = "MySystem";
-	    	this.world = world;
-	    },
-	    update : function ( entity, components ) {
-	    	var position = components['PositionComponent'];
-	    	position.y += 1;
-	    }
-	});
+var MySystem = cx.EntitySystem.extend({
+    tag : "MySystem", // used to identify the system and retrive it back from the world
+    components : ["PositionComponent", "SizeComponents"], // the value of the tag property in your components
+
+    //constructor
+    init : function(){
+
+    },
+     /**
+     * called for an entity if the required components are matching these of the entity
+     * @param entity
+     * @param componens Key Value store. Components can be accessed with the componentName `components["myComponent"]`
+     */
+    update : function( entity, componens){
+        //do what ever you want with your entity and its components
+    }
+});
 </pre>
 
-3. Now you're finished with your system and you have to register it in the complex core. Inside your game.js you have to add following : "src/systems/MySystem.js"
+<h3>cx.VoidSystem</h3>
+VoidSystem is a system which does not react on each entity but is called everytime `world.update` is called. With this system you can easily implement other libraries like PIXI.js where you only have to call `update()` once every tick
+
 <pre>
-	cx.App.use([        
-		...
-	    "src/systems/MySystem.js",
-	    ...
-	]);
+var PixiSystem = cx.VoidSystem.extend({
+    tag : 'PixiSystem',
+
+    init : function(){
+        this.stage = new PIXI.Stage(0x66FF99);
+        this.renderer = PIXI.autoDetectRenderer(400, 300);
+        this.type = this.TYPE_VOID;
+
+        document.body.appendChild(this.renderer.view);
+    },
+
+    //called when an entity is added to world
+    added : function ( entity ){
+        var spriteComponent = null
+        if ( (spriteComponent = entity.getComponent('sprite')) != null ){
+            this.stage.addChild(spriteComponent.sprite);
+        }
+    },
+
+    update: function () {
+        this.renderer.render(this.stage);
+    }
+});
 </pre>
 
-4. Now you can instantiate the system by adding it to the world in your screen class. In this case it will be the MainScreen:
-see @game/MainScreen.js
+<h3>Use a system</h3>
+To make a system working you have to add it to the `cx.World`
 <pre>
-    world.addSystem( new MySystem() );
+world.addSystem(new MySystem());
 </pre>
 
+<h3>Get a system</h3>
+To retrive a system you can call `getSystem(name)` where you have access to the world object.
+The parameter `name` is the tag property of each system and should be unique
+
+<pre>
+world.getSystem("PixiSystem")
+</pre>
+
+<h2>Entities</h2>
+Coming soon...
+
+<h2>Components</h2>
+Coming soon...
+
+<h2>Scripting</h2>
+Coming soon...
 
 <h2>Contribution</h2>
 Just contribute. It's OpenSource
