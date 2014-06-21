@@ -1,7 +1,7 @@
 // compiled by JSCOMPILER
 // © by Team Owesome
 // Compiler Version : undefined
-// Build Date : Fri Jun 20 2014 17:24:24 GMT+0200 (CEST)
+// Build Date : Sat Jun 21 2014 11:43:25 GMT+0200 (CEST)
 
 
 
@@ -74,7 +74,18 @@
 
 
 //JSCOMPILER FILE -> complex.js
-var cx = {};
+var cx = {
+	initFunctions : [],
+	addInitFunction : function(cb){
+		cx.initFunctions.push(cb);
+	},
+	init : function(){
+		for(var i = 0, len = cx.initFunctions.length; i < len; i++){
+			cx.initFunctions[i]();
+		}
+	}
+};
+
 
 
 //JSCOMPILER FILE -> src/Component.js
@@ -306,6 +317,11 @@ cx.World = Class.extend({
         entity.setWorld(this);
 		this.entities.push(entity);
 		this._entityAdded(entity);
+	},
+
+	createEntity : function(){
+		var entity = new cx.Entity();
+		
 	},
 
 	/**
