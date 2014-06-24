@@ -6,9 +6,7 @@ var files = [
 
 	'complex.js',
 	'src/Component.js',
-	'src/Engine.js',
 	'src/Entity.js',
-	'src/Screen.js',
 	'src/System.js',
 	'src/EntitySystem.js',
 	'src/VoidSystem.js',
