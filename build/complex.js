@@ -1,7 +1,7 @@
 // compiled by JSCOMPILER
 // © by Team Owesome
 // Compiler Version : undefined
-// Build Date : Tue Jun 24 2014 10:57:08 GMT+0000 (UTC)
+// Build Date : Tue Jun 24 2014 21:32:50 GMT+0200 (CEST)
 
 
 
@@ -95,11 +95,8 @@ var cx = {
  * @param {[type]} data [description]
  */
 cx.Component = Class.extend({
-	init : function ( name ) {
-		this.name = name;
-		this.tag = this.name;
-
-	}
+	tag : null,
+	
 });
 
 
@@ -121,6 +118,7 @@ cx.Entity = Class.extend({
 	getWorld : function(){
 		return this.world;
 	},
+	
 	setWorld : function( world){
 		this.world = world;
 	},
@@ -140,7 +138,7 @@ cx.Entity = Class.extend({
 	getComponent : function ( componentName ) {
 		for(var i = 0, len = this.components.length; i < len; i++){
 			var component = this.components[i];
-			if(component.name == componentName){
+			if(component.tag == componentName){
 				return component;
 			}
 		}

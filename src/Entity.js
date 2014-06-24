@@ -14,6 +14,7 @@ cx.Entity = Class.extend({
 	getWorld : function(){
 		return this.world;
 	},
+	
 	setWorld : function( world){
 		this.world = world;
 	},
@@ -33,7 +34,7 @@ cx.Entity = Class.extend({
 	getComponent : function ( componentName ) {
 		for(var i = 0, len = this.components.length; i < len; i++){
 			var component = this.components[i];
-			if(component.name == componentName){
+			if(component.tag == componentName){
 				return component;
 			}
 		}
