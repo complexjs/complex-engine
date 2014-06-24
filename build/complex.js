@@ -1,7 +1,7 @@
 // compiled by JSCOMPILER
 // © by Team Owesome
 // Compiler Version : undefined
-// Build Date : Sat Jun 21 2014 11:43:25 GMT+0200 (CEST)
+// Build Date : Tue Jun 24 2014 10:57:08 GMT+0000 (UTC)
 
 
 
@@ -104,44 +104,6 @@ cx.Component = Class.extend({
 
 
 
-//JSCOMPILER FILE -> src/Engine.js
-/**
- * The core of complex, rendering the screen
- */
-cx.Engine = Class.extend({
-    /**
-     * constructor
-     */
-    init : function(){
-        this.tag = "cx.Engine";
-        this.screen = null;
-    },
-
-    /**
-     * called every tick and updates the screen
-     */
-    update : function () {
-        if(this.screen){
-            this.screen.update();
-        } 
-    },
-
-    /**
-     * set a new screen to be rendered/updated
-     * @param screen
-     */
-    setScreen : function( screen ) {
-        if (this.screen) {
-            this.screen.hide();
-        }
-
-        this.screen = screen;
-        this.screen.show();
-    }
-
-});
-
-
 //JSCOMPILER FILE -> src/Entity.js
 /**
  * [Entity description]
@@ -187,51 +149,6 @@ cx.Entity = Class.extend({
 });
 
 
-//JSCOMPILER FILE -> src/Screen.js
-/**
- * Represents the current shown&rendered screen
- */
-
-cx.Screen = Class.extend({
-    /**
-     * constructor
-     */
-	init : function(){
-		this.world = new cx.World();
-	},
-
-    /**
-     * called when the screen is shown
-     */
-	show : function(){},
-
-    /**
-     * called when an other screen will be shown
-     */
-	hide : function(){},
-
-    /**
-     * called after update
-     */
-	postUpdate : function(){},
-
-    /**
-     * called before update
-     */
-	preUpdate : function(){},
-
-    /**
-     * updates the current world
-     */
-	update : function(){
-		this.preUpdate();
-		this.world.update();
-		this.postUpdate();
-	}
-});
-
-
-
 //JSCOMPILER FILE -> src/System.js
 
 /**
@@ -264,7 +181,7 @@ cx.System = Class.extend({
     /**
      * called for an entity if the required components are matching these of the entity
      * @param entity
-     * @param componens
+     * @param componens Key Value store. Components can be accessed with the componentName `components["myComponent"]`
      */
 	update : function( entity, componens){}
 
