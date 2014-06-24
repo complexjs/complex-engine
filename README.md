@@ -10,7 +10,7 @@ $ npm install littlehelper
 </pre>
 
 
-<h2>Getting started</h2>
+<h1>Getting started</h1>
 Createa HTMLFile containing your view.
 Add ComplexJS as a source
 `<script type="text/javascript" src="./libs/complex.js"></script>`
@@ -39,7 +39,7 @@ animloop.init();
 The system is handling the datahandling of all components. For example moving around a object or rendering all entities to the canvas.
 There where 2 different systemtypes `cx.EntitySystem` and `cx.VoidSystem`
 
-<h3>cx.EntitySystem</h3>
+<h4>cx.EntitySystem</h4>
 The EntitySystem is a system which reacts on entites which owns the same components as configured in the system
 
 <pre>
@@ -62,7 +62,7 @@ var MySystem = cx.EntitySystem.extend({
 });
 </pre>
 
-<h3>cx.VoidSystem</h3>
+<h4>cx.VoidSystem</h4>
 VoidSystem is a system which does not react on each entity but is called everytime `world.update` is called. With this system you can easily implement other libraries like PIXI.js where you only have to call `update()` once every tick
 
 <pre>
@@ -106,12 +106,60 @@ world.getSystem("PixiSystem")
 </pre>
 
 <h2>Entities</h2>
-Coming soon...
+An entity is just a holder for several components. 
+
+<h3>Create entity</h3>
+<pre>
+var hero = new cx.Entity();
+</pre>
+
+<h3>Add entity</h3>
+To process and access all the components added to an entity you have to add it to the `cx.World` object. So every tick the systems can handle and modify the components data
+<pre>
+world.addEntity(hero);
+</pre>
 
 <h2>Components</h2>
+A Component is a object which holds data for a specific entity. This data is processed by a system
+
+<h3>Create a Component</h3>
+A Component have to extend the `cx.Component` class
+<pre>
+var ScriptComponent = cx.Component.extend({
+	name:'cx.scriptcomponent', // defines a unique name to access this component later
+    
+    //properties
+	script : null,
+	setup : false,
+    
+    //constructor
+	init : function(script){
+		this.script = script;
+	}
+});
+</pre>
+
+<h3>Add a component</h3>
+To process the data in an component for a specific entity we have to add the component to that entity
+<pre>
+var hero = new cx.Entity();
+hero.addComponent(new ScriptComponent());
+</pre>
+From now on you can access the `ScriptComponent` on the heroEntity
+
+<h3>Get a component</h3>
+To access the component and its data you can access it via its unique name
+<pre>
+var scriptComponent = hero.getComponent("cx.scriptcomponent");
+</pre>
+
+<h2>Manager</h2>
 Coming soon...
 
 <h2>Scripting</h2>
+Coming soon...
+
+<h2>Demos</h2>
 Coming soon...
 
 <h2>Contribution</h2>
