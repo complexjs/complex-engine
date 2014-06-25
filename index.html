@@ -31,37 +31,228 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+        <h1>
+<a name="complexjs" class="anchor" href="#complexjs"><span class="octicon octicon-link"></span></a>ComplexJS</h1>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>ComplexJS is a JS written Component Entity System for HTML5 Gamedevelopment.
+ComplexJS has the ability not to slow your development time down.
+With it's Component Entity System there is a high rate of reusable code for your later projects.</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+<h2>
+<a name="build" class="anchor" href="#build"><span class="octicon octicon-link"></span></a>Build</h2>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>You can build ComplexJS by your own. There is a dev.js script where all the files are defined which will be compiled to gether into build/complex.js
+Therefore you need to install <code>littlehelper</code> via npm </p>
+
+<pre>
+$ npm install littlehelper
+</pre>
+
+<h1>
+<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting started</h1>
+
+<p>Createa HTMLFile containing your view.
+Add ComplexJS as a source
+<code>&lt;script type="text/javascript" src="./libs/complex.js"&gt;&lt;/script&gt;</code></p>
+
+<h2>
+<a name="world" class="anchor" href="#world"><span class="octicon octicon-link"></span></a>World</h2>
+
+<p>The world is the mainobject holding all the entities and systems.
+If you want to make your game work you have to write an update loop and call <code>world.update</code> every tick
+Therefore I created a small lib called <a href="https://github.com/faebeee/Animloop">Animloop.js</a></p>
 
 <h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a name="create-the-world" class="anchor" href="#create-the-world"><span class="octicon octicon-link"></span></a>Create the world</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<pre>
+var world = new cx.World();
+</pre>
 
 <h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<a name="update-the-world" class="anchor" href="#update-the-world"><span class="octicon octicon-link"></span></a>Update the world</h3>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<p>Override the updatefunction of the animloop object. After calling <code>animloop.init()</code> the function <code>animloop.update()</code> is called every tick</p>
+
+<pre>
+animloop.update = function(){
+    world.update();
+}
+animloop.init();
+</pre>
+
+<h2>
+<a name="systems" class="anchor" href="#systems"><span class="octicon octicon-link"></span></a>Systems</h2>
+
+<p>The system is handling the datahandling of all components. For example moving around a object or rendering all entities to the canvas.
+There where 2 different systemtypes <code>cx.EntitySystem</code> and <code>cx.VoidSystem</code></p>
+
+<h4>
+<a name="cxentitysystem" class="anchor" href="#cxentitysystem"><span class="octicon octicon-link"></span></a>cx.EntitySystem</h4>
+
+<p>The EntitySystem is a system which reacts on entites which owns the same components as configured in the system</p>
+
+<pre>
+var MySystem = cx.EntitySystem.extend({
+    tag : "MySystem", // used to identify the system and retrive it back from the world
+    components : ["PositionComponent", "SizeComponents"], // the value of the tag property in your components
+
+    //constructor
+    init : function(){
+
+    },
+     /**
+     * called for an entity if the required components are matching these of the entity
+     * @param entity
+     * @param componens Key Value store. Components can be accessed with the componentName `components["myComponent"]`
+     */
+    update : function( entity, componens){
+        //do what ever you want with your entity and its components
+    }
+});
+</pre>
+
+<h4>
+<a name="cxvoidsystem" class="anchor" href="#cxvoidsystem"><span class="octicon octicon-link"></span></a>cx.VoidSystem</h4>
+
+<p>VoidSystem is a system which does not react on each entity but is called everytime <code>world.update</code> is called. With this system you can easily implement other libraries like PIXI.js where you only have to call <code>update()</code> once every tick</p>
+
+<pre>
+var PixiSystem = cx.VoidSystem.extend({
+    tag : 'PixiSystem',
+
+    init : function(){
+        this.stage = new PIXI.Stage(0x66FF99);
+        this.renderer = PIXI.autoDetectRenderer(400, 300);
+        this.type = this.TYPE_VOID;
+
+        document.body.appendChild(this.renderer.view);
+    },
+
+    //called when an entity is added to world
+    added : function ( entity ){
+        var spriteComponent = null
+        if ( (spriteComponent = entity.getComponent('sprite')) != null ){
+            this.stage.addChild(spriteComponent.sprite);
+        }
+    },
+
+    update: function () {
+        this.renderer.render(this.stage);
+    }
+});
+</pre>
 
 <h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+<a name="use-a-system" class="anchor" href="#use-a-system"><span class="octicon octicon-link"></span></a>Use a system</h3>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<p>To make a system working you have to add it to the <code>cx.World</code></p>
+
+<pre>
+world.addSystem(new MySystem());
+</pre>
+
+<h3>
+<a name="get-a-system" class="anchor" href="#get-a-system"><span class="octicon octicon-link"></span></a>Get a system</h3>
+
+<p>To retrive a system you can call <code>getSystem(name)</code> where you have access to the world object.
+The parameter <code>name</code> is the tag property of each system and should be unique</p>
+
+<pre>
+world.getSystem("PixiSystem")
+</pre>
+
+<h2>
+<a name="entities" class="anchor" href="#entities"><span class="octicon octicon-link"></span></a>Entities</h2>
+
+<p>An entity is just a holder for several components. </p>
+
+<h3>
+<a name="create-entity" class="anchor" href="#create-entity"><span class="octicon octicon-link"></span></a>Create entity</h3>
+
+<pre>
+var hero = new cx.Entity();
+</pre>
+
+<h3>
+<a name="add-entity" class="anchor" href="#add-entity"><span class="octicon octicon-link"></span></a>Add entity</h3>
+
+<p>To process and access all the components added to an entity you have to add it to the <code>cx.World</code> object. So every tick the systems can handle and modify the components data</p>
+
+<pre>
+world.addEntity(hero);
+</pre>
+
+<h2>
+<a name="components" class="anchor" href="#components"><span class="octicon octicon-link"></span></a>Components</h2>
+
+<p>A Component is a object which holds data for a specific entity. This data is processed by a system</p>
+
+<h3>
+<a name="create-a-component" class="anchor" href="#create-a-component"><span class="octicon octicon-link"></span></a>Create a Component</h3>
+
+<p>A Component have to extend the <code>cx.Component</code> class</p>
+
+<pre>
+var ScriptComponent = cx.Component.extend({
+    name:'cx.scriptcomponent', // defines a unique name to access this component later
+    
+    //properties
+    script : null,
+    setup : false,
+    
+    //constructor
+    init : function(script){
+        this.script = script;
+    }
+});
+</pre>
+
+<h3>
+<a name="add-a-component" class="anchor" href="#add-a-component"><span class="octicon octicon-link"></span></a>Add a component</h3>
+
+<p>To process the data in an component for a specific entity we have to add the component to that entity</p>
+
+<pre>
+var hero = new cx.Entity();
+hero.addComponent(new ScriptComponent());
+</pre>
+
+<p>From now on you can access the <code>ScriptComponent</code> on the heroEntity</p>
+
+<h3>
+<a name="get-a-component" class="anchor" href="#get-a-component"><span class="octicon octicon-link"></span></a>Get a component</h3>
+
+<p>To access the component and its data you can access it via its unique name</p>
+
+<pre>
+var scriptComponent = hero.getComponent("cx.scriptcomponent");
+</pre>
+
+<h2>
+<a name="manager" class="anchor" href="#manager"><span class="octicon octicon-link"></span></a>Manager</h2>
+
+<p>Coming soon...</p>
+
+<h2>
+<a name="scripting" class="anchor" href="#scripting"><span class="octicon octicon-link"></span></a>Scripting</h2>
+
+<p>Coming soon...</p>
+
+<h2>
+<a name="demos" class="anchor" href="#demos"><span class="octicon octicon-link"></span></a>Demos</h2>
+
+<p>Coming soon...</p>
+
+<h2>
+<a name="contribution" class="anchor" href="#contribution"><span class="octicon octicon-link"></span></a>Contribution</h2>
+
+<p>Just contribute. It's OpenSource</p>
+
+<h2>
+<a name="contact" class="anchor" href="#contact"><span class="octicon octicon-link"></span></a>Contact</h2>
+
+<p><a href="https://twitter.com/faebeee">@Twitter</a><br><a href="https://plus.google.com/u/0/113673733496424994581/posts">+Google</a></p>
       </section>
     </div>
 
