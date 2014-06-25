@@ -13,8 +13,8 @@ var files = [
 	'src/World.js',
 	'src/Manager.js',
 
-	'src/Custom/Script/Component.js',
-	'src/Custom/Script/System.js',
+	'src/Custom/Script/ScriptComponent.js',
+	'src/Custom/Script/ScriptSystem.js',
 	'src/Custom/Script/Script.js',
 ];
 

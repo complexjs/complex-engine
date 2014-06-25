@@ -1,7 +1,7 @@
 // compiled by JSCOMPILER
 // © by Team Owesome
 // Compiler Version : undefined
-// Build Date : Tue Jun 24 2014 21:32:50 GMT+0200 (CEST)
+// Build Date : Wed Jun 25 2014 12:54:34 GMT+0200 (CEST)
 
 
 
@@ -202,7 +202,7 @@ cx.EntitySystem = cx.System.extend({
 
 //JSCOMPILER FILE -> src/VoidSystem.js
 cx.VoidSystem = cx.System.extend({
-	type : this.TYPE_VOID,
+	type : 'void',
     
     /**
     * @param entity Entity object
@@ -372,9 +372,9 @@ cx.Manager = Class.extend({
 });
 
 
-//JSCOMPILER FILE -> src/Custom/Script/Component.js
+//JSCOMPILER FILE -> src/Custom/Script/ScriptComponent.js
 var ScriptComponent = cx.Component.extend({
-	name:'cx.scriptcomponent',
+	tag:'cx.scriptcomponent',
 	script : null,
 	setup : false,
 	init : function(script){
@@ -383,18 +383,16 @@ var ScriptComponent = cx.Component.extend({
 });
 
 
-//JSCOMPILER FILE -> src/Custom/Script/System.js
+//JSCOMPILER FILE -> src/Custom/Script/ScriptSystem.js
 var ScriptSystem = cx.EntitySystem.extend({
 	tag : 'cx.scriptsystem',
+	type : 'process',
 
 	init : function(){
 		this.components = ["cx.scriptcomponent"];
-		this.type = this.TYPE_PROCESS;
-
 	},
 
 	update : function( entity, components){
-
 		var scriptcomponent = components["cx.scriptcomponent"];
 		var script = scriptcomponent.script;
 
