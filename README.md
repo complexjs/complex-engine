@@ -157,10 +157,62 @@ var scriptComponent = hero.getComponent("cx.scriptcomponent");
 Coming soon...
 
 <h2>Scripting</h2>
-Coming soon...
+Some Scripting code ( System, Component and Scriptobject ) is already implemented in Complex to provide some functionality to script behaviour for a player or any game object.
+For accessing the ScriptSystem you have to use the name `cx.scriptsystem` and for the component use 'cx.scriptcomponent'
+
+<pre>
+world.getSystem('cx.scriptsystem');
+entity.getComponent('cx.scriptcomponent');
+</pre>
+
+<h3>Setup</h3>
+Simply add the system to the world
+<pre>
+world.addSystem(new ScriptSystem());
+</pre>
+
+<h3>Create a script</h3>
+A script is a object which extends from `cx.Script`. A script is some piece of logic which is updated every tick. Inside the script you have access to the entity the script is attached to with `this.entity`
+
+<pre>
+var MyBehaviour = cx.Script.extend({
+	textComponent : null,
+	velocity : 10,
+	init : function(){
+
+	},
+	onSetup : function(){
+		this.textComponent = this.entity.getComponent("TextComponent");
+	},
+	update : function(){
+		if ( Input.Keyboard.isKeyDown("A") ) {
+			this.textComponent.text.position.x-= this.velocity;
+		}
+
+		if ( Input.Keyboard.isKeyDown("W") ) {
+			this.textComponent.text.position.y-= this.velocity;
+		}
+
+		if ( Input.Keyboard.isKeyDown("S") ) {
+			this.textComponent.text.position.y+= this.velocity;
+		}
+
+		if ( Input.Keyboard.isKeyDown("D") ) {
+			this.textComponent.text.position.x+= this.velocity;
+		}
+	}
+});
+
+</pre>
+
+<h3>Finishing up</h3>
+At the end you just have to add the script to a component and the component to an entity and you're done
+<pre>
+entity.addComponent(new ScriptComponent( new MyBehaviour() ));
+</pre>
 
 <h2>Demos</h2>
-Coming soon...
+<a href="https://github.com/faebeee/complex-demo">Here</a>
 
 <h2>Contribution</h2>
 Just contribute. It's OpenSource
