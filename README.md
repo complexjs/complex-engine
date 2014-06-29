@@ -99,7 +99,7 @@ world.addSystem(new MySystem());
 
 <h3>Get a system</h3>
 To retrive a system you can call `getSystem(name)` where you have access to the world object.
-The parameter `name` is the tag property of each system and should be unique
+The parameter `tag` is the tag property of each system and should be unique
 
 <pre>
 world.getSystem("PixiSystem")
@@ -126,7 +126,7 @@ A Component is a object which holds data for a specific entity. This data is pro
 A Component have to extend the `cx.Component` class
 <pre>
 var ScriptComponent = cx.Component.extend({
-	name:'cx.scriptcomponent', // defines a unique name to access this component later
+	tag:'cx.scriptcomponent', // defines a unique name to access this component later
     
     //properties
 	script : null,
