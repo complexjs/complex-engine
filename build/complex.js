@@ -1,7 +1,7 @@
 // compiled by JSCOMPILER
 // © by Team Owesome
 // Compiler Version : undefined
-// Build Date : Mon Jun 30 2014 11:37:54 GMT+0200 (CEST)
+// Build Date : Mon Jun 30 2014 11:42:54 GMT+0200 (CEST)
 
 
 
@@ -420,9 +420,9 @@ cx.Script = Class.extend({
 
 
 //JSCOMPILER FILE -> src/Custom/Stats/StatsSystem.js
-var StatSystem = cx.VoidSystem.extend({
+var StatsSystem = cx.VoidSystem.extend({
 	stats : null,
-	tag : 'cx.statsystem',
+	tag : 'cx.statssystem',
 
 	init : function( element ){
 		this.stats = new Stats();

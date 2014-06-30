@@ -1,6 +1,6 @@
-var StatSystem = cx.VoidSystem.extend({
+var StatsSystem = cx.VoidSystem.extend({
 	stats : null,
-	tag : 'cx.statsystem',
+	tag : 'cx.statssystem',
 
 	init : function( element ){
 		this.stats = new Stats();
