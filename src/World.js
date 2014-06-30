@@ -29,7 +29,7 @@ cx.World = Class.extend({
 	 */
 	addSystem : function ( system ){
         system.setWorld(this);
-		this.systems[system.tag] = system;
+		this.systems.push(system);
 	},
 	
 	/**
@@ -46,7 +46,19 @@ cx.World = Class.extend({
 	 * @return {[type]}            [description]
 	 */
 	getSystem : function( system ) {
-		return this.systems[system];
+		var systemName = "";
+		if ( typeof system == "string"){
+			systemName = system;
+		} else {
+			systemName = system.tag;
+		}
+		for(var i = 0, len = this.systems.length; i < len; i++){
+			var system = this.systems[i];
+			if(system.tag == systemName){
+				return system;
+			}
+		}
+		return null;
 	},
 	
 	/**

@@ -1,4 +1,4 @@
-// Build Date : Mon Jun 30 2014 23:20:28 GMT+0200 (CEST)
+// Build Date : Mon Jun 30 2014 23:22:07 GMT+0200 (CEST)
 
 
 
@@ -125,7 +125,7 @@ cx.Entity = Class.extend({
      * @param component
      */
 	addComponent : function ( component ) {
-		this.components[component.tag] = component;
+		this.components.push( component );
 	},
 
     /**
@@ -134,9 +134,13 @@ cx.Entity = Class.extend({
      * @returns {*}
      */
 	getComponent : function ( componentName ) {
-		var c = this.components[componentName];
-
-		return c || null;
+		for(var i = 0, len = this.components.length; i < len; i++){
+			var component = this.components[i];
+			if(component.tag == componentName){
+				return component;
+			}
+		}
+		return null;
 	}
 });
 
@@ -239,7 +243,7 @@ cx.World = Class.extend({
 	 */
 	addSystem : function ( system ){
         system.setWorld(this);
-		this.systems[system.tag] = system;
+		this.systems.push(system);
 	},
 	
 	/**
@@ -256,7 +260,19 @@ cx.World = Class.extend({
 	 * @return {[type]}            [description]
 	 */
 	getSystem : function( system ) {
-		return this.systems[system];
+		var systemName = "";
+		if ( typeof system == "string"){
+			systemName = system;
+		} else {
+			systemName = system.tag;
+		}
+		for(var i = 0, len = this.systems.length; i < len; i++){
+			var system = this.systems[i];
+			if(system.tag == systemName){
+				return system;
+			}
+		}
+		return null;
 	},
 	
 	/**

@@ -23,7 +23,7 @@ cx.Entity = Class.extend({
      * @param component
      */
 	addComponent : function ( component ) {
-		this.components[component.tag] = component;
+		this.components.push( component );
 	},
 
     /**
@@ -32,8 +32,12 @@ cx.Entity = Class.extend({
      * @returns {*}
      */
 	getComponent : function ( componentName ) {
-		var c = this.components[componentName];
-
-		return c || null;
+		for(var i = 0, len = this.components.length; i < len; i++){
+			var component = this.components[i];
+			if(component.tag == componentName){
+				return component;
+			}
+		}
+		return null;
 	}
 });
