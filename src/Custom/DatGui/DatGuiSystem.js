@@ -23,6 +23,7 @@ var DatGuiSystem = cx.VoidSystem.extend({
         } else {
             group.add(obj, prop).listen();
         }
+        return group;
     },
 
     update : function () {
