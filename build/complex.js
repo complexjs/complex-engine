@@ -1,7 +1,7 @@
 // compiled by JSCOMPILER
 // © by Team Owesome
 // Compiler Version : undefined
-// Build Date : Wed Jun 25 2014 12:54:34 GMT+0200 (CEST)
+// Build Date : Mon Jun 30 2014 11:37:54 GMT+0200 (CEST)
 
 
 
@@ -416,4 +416,72 @@ cx.Script = Class.extend({
 
 	onSetup : function(){},
 	update : function(){}
+});
+
+
+//JSCOMPILER FILE -> src/Custom/Stats/StatsSystem.js
+var StatSystem = cx.VoidSystem.extend({
+	stats : null,
+	tag : 'cx.statsystem',
+
+	init : function( element ){
+		this.stats = new Stats();
+		this.stats.setMode(1); // 0: fps, 1: ms
+
+		this.stats.domElement.style.position = 'absolute';
+		this.stats.domElement.style.left = '0px';
+		this.stats.domElement.style.top = '0px';
+
+		if ( !element ){
+			document.body.appendChild( this.stats.domElement );
+		} else {
+			element.appendChild( this.stats.domElement );
+		}
+
+		this.stats.begin();
+	},
+
+	added : function(){
+
+	},
+	
+	update : function () {
+		this.stats.end();
+
+		this.stats.begin();
+	},
+});
+
+
+//JSCOMPILER FILE -> src/Custom/DatGui/DatGuiSystem.js
+var DatGuiSystem = cx.VoidSystem.extend({
+    tag : 'cx.datguisystem',
+    gui : null,
+    groups : [],
+
+    init : function(){
+        this.gui = new dat.GUI();
+    },
+
+    add : function(obj, prop) {
+    	this.gui.add(obj, prop).listen();
+    },
+
+    addToGroup : function (groupName, obj, prop, min, max) {
+        var group = null;
+        if ( (group = this.groups[groupName]) == null ){
+            group = this.gui.addFolder(groupName);
+            this.groups[groupName] = group;
+
+        }
+        if ( min != null && max != null){
+            group.add(obj, prop, min, max).listen();
+        } else {
+            group.add(obj, prop).listen();
+        }
+    },
+
+    update : function () {
+
+    }
 });

@@ -16,6 +16,9 @@ var files = [
 	'src/Custom/Script/ScriptComponent.js',
 	'src/Custom/Script/ScriptSystem.js',
 	'src/Custom/Script/Script.js',
+
+	'src/Custom/Stats/StatsSystem.js',
+	'src/Custom/DatGui/DatGuiSystem.js',
 ];
 
 helper.Compiler.compile(files, "./build/complex.js", function(){
