@@ -1,10 +1,12 @@
 var StatsSystem = cx.VoidSystem.extend({
 	stats : null,
 	tag : 'cx.statssystem',
+	mode : {FPS : 0, MS : 1},
 
-	init : function( element ){
+	init : function( mode, element ){
 		this.stats = new Stats();
-		this.stats.setMode(1); // 0: fps, 1: ms
+		mode = mode || this.mode.FPS;
+		this.stats.setMode(mode); // 0: fps, 1: ms
 
 		this.stats.domElement.style.position = 'absolute';
 		this.stats.domElement.style.left = '0px';

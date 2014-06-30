@@ -1,4 +1,5 @@
 var cx = {
+	version : "0.9.1",
 	initFunctions : [],
 	addInitFunction : function(cb){
 		cx.initFunctions.push(cb);
@@ -9,3 +10,4 @@ var cx = {
 		}
 	}
 };
+console.log("Complex "+cx.version);

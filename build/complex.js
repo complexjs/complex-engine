@@ -1,4 +1,4 @@
-// Build Date : Mon Jun 30 2014 22:29:52 GMT+0200 (CEST)
+// Build Date : Mon Jun 30 2014 23:20:28 GMT+0200 (CEST)
 
 
 
@@ -72,6 +72,7 @@
 
 //JSCOMPILER FILE -> complex.js
 var cx = {
+	version : "0.9.1",
 	initFunctions : [],
 	addInitFunction : function(cb){
 		cx.initFunctions.push(cb);
@@ -82,7 +83,7 @@ var cx = {
 		}
 	}
 };
-
+console.log("Complex "+cx.version);
 
 
 //JSCOMPILER FILE -> src/Component.js
@@ -124,7 +125,7 @@ cx.Entity = Class.extend({
      * @param component
      */
 	addComponent : function ( component ) {
-		this.components.push( component );
+		this.components[component.tag] = component;
 	},
 
     /**
@@ -133,13 +134,9 @@ cx.Entity = Class.extend({
      * @returns {*}
      */
 	getComponent : function ( componentName ) {
-		for(var i = 0, len = this.components.length; i < len; i++){
-			var component = this.components[i];
-			if(component.tag == componentName){
-				return component;
-			}
-		}
-		return null;
+		var c = this.components[componentName];
+
+		return c || null;
 	}
 });
 
@@ -242,7 +239,7 @@ cx.World = Class.extend({
 	 */
 	addSystem : function ( system ){
         system.setWorld(this);
-		this.systems.push(system);
+		this.systems[system.tag] = system;
 	},
 	
 	/**
@@ -259,19 +256,7 @@ cx.World = Class.extend({
 	 * @return {[type]}            [description]
 	 */
 	getSystem : function( system ) {
-		var systemName = "";
-		if ( typeof system == "string"){
-			systemName = system;
-		} else {
-			systemName = system.tag;
-		}
-		for(var i = 0, len = this.systems.length; i < len; i++){
-			var system = this.systems[i];
-			if(system.tag == systemName){
-				return system;
-			}
-		}
-		return null;
+		return this.systems[system];
 	},
 	
 	/**
@@ -420,10 +405,12 @@ cx.Script = Class.extend({
 var StatsSystem = cx.VoidSystem.extend({
 	stats : null,
 	tag : 'cx.statssystem',
+	mode : {FPS : 0, MS : 1},
 
-	init : function( element ){
+	init : function( mode, element ){
 		this.stats = new Stats();
-		this.stats.setMode(1); // 0: fps, 1: ms
+		mode = mode || this.mode.FPS;
+		this.stats.setMode(mode); // 0: fps, 1: ms
 
 		this.stats.domElement.style.position = 'absolute';
 		this.stats.domElement.style.left = '0px';
