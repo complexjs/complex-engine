@@ -1,7 +1,4 @@
-// compiled by JSCOMPILER
-// © by Team Owesome
-// Compiler Version : undefined
-// Build Date : Mon Jun 30 2014 11:42:54 GMT+0200 (CEST)
+// Build Date : Mon Jun 30 2014 22:29:52 GMT+0200 (CEST)
 
 
 
@@ -479,6 +476,7 @@ var DatGuiSystem = cx.VoidSystem.extend({
         } else {
             group.add(obj, prop).listen();
         }
+        return group;
     },
 
     update : function () {
