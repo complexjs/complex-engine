@@ -1,9 +1,8 @@
 cx.EntitySystem = cx.System.extend({
-	type : this.TYPE_PROCESS,
-	components : null,
-
 	init : function( components ) {
+		this._super();
 		this.components = components;
+		this.type = this.TYPE_PROCESS;
 	},
 
 });

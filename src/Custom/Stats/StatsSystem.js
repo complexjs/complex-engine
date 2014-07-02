@@ -4,6 +4,7 @@ var StatsSystem = cx.VoidSystem.extend({
 	mode : {FPS : 0, MS : 1},
 
 	init : function( mode, element ){
+		this._super();
 		this.stats = new Stats();
 		mode = mode || this.mode.FPS;
 		this.stats.setMode(mode); // 0: fps, 1: ms
@@ -24,7 +25,7 @@ var StatsSystem = cx.VoidSystem.extend({
 	added : function(){
 
 	},
-	
+
 	update : function () {
 		this.stats.end();
 

@@ -1,8 +1,8 @@
 var ScriptSystem = cx.EntitySystem.extend({
 	tag : 'cx.scriptsystem',
-	type : 'process',
-
+	
 	init : function(){
+		this._super();
 		this.components = ["cx.scriptcomponent"];
 	},
 

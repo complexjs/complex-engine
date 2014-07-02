@@ -5,5 +5,8 @@
  */
 cx.Component = Class.extend({
 	tag : null,
-	
+	init : function(){
+		
+	}
+
 });

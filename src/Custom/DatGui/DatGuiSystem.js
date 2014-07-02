@@ -4,6 +4,7 @@ var DatGuiSystem = cx.VoidSystem.extend({
     groups : [],
 
     init : function(){
+        this._super();
         this.gui = new dat.GUI();
     },
 

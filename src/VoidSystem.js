@@ -1,6 +1,8 @@
 cx.VoidSystem = cx.System.extend({
-	type : 'void',
-    
+    init : function(){
+		this._super();
+		this.type = this.TYPE_VOID;
+	},
     /**
     * @param entity Entity object
     * called when an entity is added to world

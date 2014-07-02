@@ -1,5 +1,8 @@
 cx.Script = Class.extend({
 	entity : null,
+	init : function(){
+
+	},
 	setup : function( entity ){
 		this.entity = entity;
 		this.onSetup();

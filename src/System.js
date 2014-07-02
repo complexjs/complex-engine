@@ -4,11 +4,13 @@
  * @param {[type]} arrayOfComponents [description]
  */
 cx.System = Class.extend({
-	TYPE_VOID : "void",
-	TYPE_PROCESS : "process",
-	type : "process",
     world : null,
     tag : null,
+
+	init : function(){
+		this.TYPE_VOID = "void";
+		this.TYPE_PROCESS = "process";
+	},
 
     /**
      * Set the worldobject when the system is added
@@ -34,4 +36,3 @@ cx.System = Class.extend({
 	update : function( entity, componens){}
 
 });
-

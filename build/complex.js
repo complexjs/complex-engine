@@ -1,4 +1,4 @@
-// Build Date : Mon Jun 30 2014 23:22:07 GMT+0200 (CEST)
+// Build Date : Wed Jul 02 2014 18:56:05 GMT+0200 (CEST)
 
 
 
@@ -94,7 +94,10 @@ console.log("Complex "+cx.version);
  */
 cx.Component = Class.extend({
 	tag : null,
-	
+	init : function(){
+		
+	}
+
 });
 
 
@@ -152,11 +155,13 @@ cx.Entity = Class.extend({
  * @param {[type]} arrayOfComponents [description]
  */
 cx.System = Class.extend({
-	TYPE_VOID : "void",
-	TYPE_PROCESS : "process",
-	type : "process",
     world : null,
     tag : null,
+
+	init : function(){
+		this.TYPE_VOID = "void";
+		this.TYPE_PROCESS = "process";
+	},
 
     /**
      * Set the worldobject when the system is added
@@ -185,23 +190,24 @@ cx.System = Class.extend({
 
 
 
-
 //JSCOMPILER FILE -> src/EntitySystem.js
 cx.EntitySystem = cx.System.extend({
-	type : this.TYPE_PROCESS,
-	components : null,
-
 	init : function( components ) {
+		this._super();
 		this.components = components;
+		this.type = this.TYPE_PROCESS;
 	},
 
 });
 
 
+
 //JSCOMPILER FILE -> src/VoidSystem.js
 cx.VoidSystem = cx.System.extend({
-	type : 'void',
-    
+    init : function(){
+		this._super();
+		this.type = this.TYPE_VOID;
+	},
     /**
     * @param entity Entity object
     * called when an entity is added to world
@@ -209,6 +215,7 @@ cx.VoidSystem = cx.System.extend({
     added : function( entity ){},
 
 });
+
 
 
 //JSCOMPILER FILE -> src/World.js
@@ -376,17 +383,19 @@ var ScriptComponent = cx.Component.extend({
 	script : null,
 	setup : false,
 	init : function(script){
+		this._super();
 		this.script = script;
 	}
 });
 
 
+
 //JSCOMPILER FILE -> src/Custom/Script/ScriptSystem.js
 var ScriptSystem = cx.EntitySystem.extend({
 	tag : 'cx.scriptsystem',
-	type : 'process',
-
+	
 	init : function(){
+		this._super();
 		this.components = ["cx.scriptcomponent"];
 	},
 
@@ -403,9 +412,13 @@ var ScriptSystem = cx.EntitySystem.extend({
 });
 
 
+
 //JSCOMPILER FILE -> src/Custom/Script/Script.js
 cx.Script = Class.extend({
 	entity : null,
+	init : function(){
+
+	},
 	setup : function( entity ){
 		this.entity = entity;
 		this.onSetup();
@@ -417,6 +430,7 @@ cx.Script = Class.extend({
 });
 
 
+
 //JSCOMPILER FILE -> src/Custom/Stats/StatsSystem.js
 var StatsSystem = cx.VoidSystem.extend({
 	stats : null,
@@ -424,6 +438,7 @@ var StatsSystem = cx.VoidSystem.extend({
 	mode : {FPS : 0, MS : 1},
 
 	init : function( mode, element ){
+		this._super();
 		this.stats = new Stats();
 		mode = mode || this.mode.FPS;
 		this.stats.setMode(mode); // 0: fps, 1: ms
@@ -444,13 +459,14 @@ var StatsSystem = cx.VoidSystem.extend({
 	added : function(){
 
 	},
-	
+
 	update : function () {
 		this.stats.end();
 
 		this.stats.begin();
 	},
 });
+
 
 
 //JSCOMPILER FILE -> src/Custom/DatGui/DatGuiSystem.js
@@ -460,6 +476,7 @@ var DatGuiSystem = cx.VoidSystem.extend({
     groups : [],
 
     init : function(){
+        this._super();
         this.gui = new dat.GUI();
     },
 
