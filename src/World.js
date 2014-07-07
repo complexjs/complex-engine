@@ -18,9 +18,21 @@ cx.World = Class.extend({
 		this._entityAdded(entity);
 	},
 
-	createEntity : function(){
-		var entity = new cx.Entity();
-		
+	/**
+	 * Remove entity from world and trigger codes from systems
+	 */
+	removeEntity : function(entity){
+		this._entityDeleted(entity);
+		delete this.entities[entity.index];
+	},
+
+	/**
+	* return an entity
+	* @param  {[type]} index [description]
+	* @return {[type]}       [description]
+	*/
+	getEntity : function ( index ) {
+		return this.entities[index];
 	},
 
 	/**
@@ -31,10 +43,11 @@ cx.World = Class.extend({
         system.setWorld(this);
 		this.systems.push(system);
 	},
-	
+
 	/**
 	 * add manager to world
 	 * @param {[type]} manager [description]
+	 * @TODO
 	 */
 	addManager : function ( manager ){
 	    this.managers.push(manager);
@@ -60,7 +73,7 @@ cx.World = Class.extend({
 		}
 		return null;
 	},
-	
+
 	/**
 	 * get a manager
 	 * @param  {[type]} name [description]
@@ -76,19 +89,6 @@ cx.World = Class.extend({
 		return null;
 	},
 
-	/**
-	 * return an entity
-	 * @param  {[type]} index [description]
-	 * @return {[type]}       [description]
-	 */
-	getEntity : function ( index ) {
-		return this.entities[index];
-	},
-
-	_entityValidForSystem : function( entity, system ){
-
-	},
-
 	_entityAdded : function( entity ){
 		for(var s=0,len=this.systems.length; s<len;s++){
 			var system = this.systems[s];
@@ -97,7 +97,15 @@ cx.World = Class.extend({
 			}
 		}
 	},
-	
+	_entityDeleted : function(){
+		for(var s=0,len=this.systems.length; s<len;s++){
+			var system = this.systems[s];
+			if(system.type == system.TYPE_VOID){
+				system.removed(entity);
+			}
+		}
+	},
+
 	/**
 	 * update step
 	 * @return {[type]} [description]
@@ -132,10 +140,10 @@ cx.World = Class.extend({
 					}
 
 					if(updateEntity){
-						system.update(entity, entityComponents);				
+						system.update(entity, entityComponents);
 					}
-				}	
+				}
 			}
-		}	
+		}
 	}
 });
