@@ -19,8 +19,11 @@ var files = [
 
 	'src/Custom/Stats/StatsSystem.js',
 	'src/Custom/DatGui/DatGuiSystem.js',
+
+	'src/Custom/Debug/DebugSystem.js',
+	'src/Custom/Debug/DebugComponent.js',
 ];
 
 helper.Compiler.compile(files, "./build/complex.js", function(){
     console.log("New Complex Build @ "+(new Date()));
-}, true); 
+}, true);

@@ -1,5 +1,5 @@
 var DatGuiSystem = cx.VoidSystem.extend({
-    tag : 'cx.datguisystem',
+    tag : 'cx.DatGuiSystem',
     gui : null,
     groups : [],
 

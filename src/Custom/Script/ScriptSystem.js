@@ -1,13 +1,13 @@
 var ScriptSystem = cx.EntitySystem.extend({
-	tag : 'cx.scriptsystem',
-	
+	tag : 'cx.ScriptSystem',
+
 	init : function(){
 		this._super();
-		this.components = ["cx.scriptcomponent"];
+		this.components = ["cx.ScriptComponent"];
 	},
 
 	update : function( entity, components){
-		var scriptcomponent = components["cx.scriptcomponent"];
+		var scriptcomponent = components["cx.ScriptComponent"];
 		var script = scriptcomponent.script;
 
 		if ( scriptcomponent.setup == false ){

@@ -1,5 +1,5 @@
 var ScriptComponent = cx.Component.extend({
-	tag:'cx.scriptcomponent',
+	tag:'cx.ScriptComponent',
 	script : null,
 	setup : false,
 	init : function(script){

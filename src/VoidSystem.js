@@ -17,4 +17,8 @@ cx.VoidSystem = cx.System.extend({
     */
     removed : function( entity ){},
 
+    /**
+    *    Called every tick
+    */
+    update : function(){}
 });

@@ -4,6 +4,8 @@
 cx.World = Class.extend({
 	entities : [],
     systems : [],
+	voidSystems: [],
+	processSystems : [],
     managers : [],
     tag : 'cx.World',
 
@@ -41,7 +43,11 @@ cx.World = Class.extend({
 	 */
 	addSystem : function ( system ){
         system.setWorld(this);
-		this.systems.push(system);
+		if ( system.type == system.TYPE_PROCESS ){
+			this.processSystems.push(system);
+		} else if (system.type == system.TYPE_VOID ) {
+			this.voidSystems.push(system);
+		}
 	},
 
 	/**
@@ -65,12 +71,21 @@ cx.World = Class.extend({
 		} else {
 			systemName = system.tag;
 		}
-		for(var i = 0, len = this.systems.length; i < len; i++){
-			var system = this.systems[i];
-			if(system.tag == systemName){
+
+		for(var i = 0, len = this.processSystems.length; i < len; i++) {
+			var system = this.processSystems[i];
+			if ( system.tag == systemName ){
 				return system;
 			}
 		}
+
+		for(var i = 0, len = this.voidSystems.length; i < len; i++) {
+			var system = this.voidSystems[i];
+			if ( system.tag == systemName ){
+				return system;
+			}
+		}
+
 		return null;
 	},
 
@@ -90,19 +105,15 @@ cx.World = Class.extend({
 	},
 
 	_entityAdded : function( entity ){
-		for(var s=0,len=this.systems.length; s<len;s++){
-			var system = this.systems[s];
-			if(system.type == system.TYPE_VOID){
-				system.added(entity);
-			}
+		for(var s=0,len=this.voidSystems.length; s<len;s++){
+			var system = this.voidSystems[s];
+			system.added(entity);
 		}
 	},
 	_entityDeleted : function(){
-		for(var s=0,len=this.systems.length; s<len;s++){
-			var system = this.systems[s];
-			if(system.type == system.TYPE_VOID){
-				system.removed(entity);
-			}
+		for(var s=0,len=this.voidSystems.length; s<len;s++){
+			var system = this.voidSystems[s];
+			system.removed(entity);
 		}
 	},
 
@@ -112,36 +123,37 @@ cx.World = Class.extend({
 	 */
 	update : function ( ) {
 
-		for(var s = 0, sLen = this.systems.length; s < sLen; s++) {
-			var system = this.systems[s];
+		for(var s = 0, sLen = this.voidSystems.length; s < sLen; s++) {
+			var system = this.voidSystems[s];
+			system.update();
+		}
 
-			if(system.type == system.TYPE_VOID){
-				system.update();
-			} else if(system.type == system.TYPE_PROCESS){
-				for(var e = 0, eLen = this.entities.length; e < eLen; e++){
-					var entity = this.entities[e];
-					var entityComponents = [];
-					var updateEntity = true
+		for(var s = 0, sLen = this.processSystems.length; s < sLen; s++) {
+			var system = this.processSystems[s];
 
-					for(var sC = 0, sCLen = system.components.length; sC < sCLen; sC++) {
-						var systemComponent = system.components[sC];
-						var hasEntityComponent = false;
+			for(var e = 0, eLen = this.entities.length; e < eLen; e++){
+				var entity = this.entities[e];
+				var entityComponents = [];
+				var updateEntity = true
 
-						var entityComponent = entity.getComponent(systemComponent);
-						if ( entityComponent != null ){
-							entityComponents[systemComponent] = entityComponent;
-							hasEntityComponent = false;
-							continue;
-						}
+				for(var sC = 0, sCLen = system.components.length; sC < sCLen; sC++) {
+					var systemComponent = system.components[sC];
+					var hasEntityComponent = false;
 
-						if( !hasEntityComponent) {
-							updateEntity = false;
-						}
+					var entityComponent = entity.getComponent(systemComponent);
+					if ( entityComponent != null ){
+						entityComponents[systemComponent] = entityComponent;
+						hasEntityComponent = false;
+						continue;
 					}
 
-					if(updateEntity){
-						system.update(entity, entityComponents);
+					if( !hasEntityComponent) {
+						updateEntity = false;
 					}
+				}
+
+				if(updateEntity){
+					system.update(entity, entityComponents);
 				}
 			}
 		}

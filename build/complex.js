@@ -1,4 +1,4 @@
-// Build Date : Mon Jul 07 2014 16:51:08 GMT+0200 (CEST)
+// Build Date : Tue Jul 08 2014 09:26:18 GMT+0200 (CEST)
 
 
 
@@ -178,14 +178,7 @@ cx.System = Class.extend({
     getWorld : function() {
         return this.world;
     },
-
-    /**
-     * called for an entity if the required components are matching these of the entity
-     * @param entity
-     * @param componens Key Value store. Components can be accessed with the componentName `components["myComponent"]`
-     */
-	update : function( entity, componens){}
-
+    
 });
 
 
@@ -197,6 +190,13 @@ cx.EntitySystem = cx.System.extend({
 		this.components = components;
 		this.type = this.TYPE_PROCESS;
 	},
+
+	/**
+	* @param entity Entity
+	* @param components array Array contains componens accessable via tag name `components['cx.scriptcomponent']`
+	* called every tick for every entity
+	*/
+	update : function(entity, components){}
 
 });
 
@@ -222,6 +222,10 @@ cx.VoidSystem = cx.System.extend({
     */
     removed : function( entity ){},
 
+    /**
+    *    Called every tick
+    */
+    update : function(){}
 });
 
 
@@ -233,6 +237,8 @@ cx.VoidSystem = cx.System.extend({
 cx.World = Class.extend({
 	entities : [],
     systems : [],
+	voidSystems: [],
+	processSystems : [],
     managers : [],
     tag : 'cx.World',
 
@@ -270,7 +276,11 @@ cx.World = Class.extend({
 	 */
 	addSystem : function ( system ){
         system.setWorld(this);
-		this.systems.push(system);
+		if ( system.type == system.TYPE_PROCESS ){
+			this.processSystems.push(system);
+		} else if (system.type == system.TYPE_VOID ) {
+			this.voidSystems.push(system);
+		}
 	},
 
 	/**
@@ -294,12 +304,21 @@ cx.World = Class.extend({
 		} else {
 			systemName = system.tag;
 		}
-		for(var i = 0, len = this.systems.length; i < len; i++){
-			var system = this.systems[i];
-			if(system.tag == systemName){
+
+		for(var i = 0, len = this.processSystems.length; i < len; i++) {
+			var system = this.processSystems[i];
+			if ( system.tag == systemName ){
 				return system;
 			}
 		}
+
+		for(var i = 0, len = this.voidSystems.length; i < len; i++) {
+			var system = this.voidSystems[i];
+			if ( system.tag == systemName ){
+				return system;
+			}
+		}
+
 		return null;
 	},
 
@@ -319,19 +338,15 @@ cx.World = Class.extend({
 	},
 
 	_entityAdded : function( entity ){
-		for(var s=0,len=this.systems.length; s<len;s++){
-			var system = this.systems[s];
-			if(system.type == system.TYPE_VOID){
-				system.added(entity);
-			}
+		for(var s=0,len=this.voidSystems.length; s<len;s++){
+			var system = this.voidSystems[s];
+			system.added(entity);
 		}
 	},
 	_entityDeleted : function(){
-		for(var s=0,len=this.systems.length; s<len;s++){
-			var system = this.systems[s];
-			if(system.type == system.TYPE_VOID){
-				system.removed(entity);
-			}
+		for(var s=0,len=this.voidSystems.length; s<len;s++){
+			var system = this.voidSystems[s];
+			system.removed(entity);
 		}
 	},
 
@@ -341,36 +356,37 @@ cx.World = Class.extend({
 	 */
 	update : function ( ) {
 
-		for(var s = 0, sLen = this.systems.length; s < sLen; s++) {
-			var system = this.systems[s];
+		for(var s = 0, sLen = this.voidSystems.length; s < sLen; s++) {
+			var system = this.voidSystems[s];
+			system.update();
+		}
 
-			if(system.type == system.TYPE_VOID){
-				system.update();
-			} else if(system.type == system.TYPE_PROCESS){
-				for(var e = 0, eLen = this.entities.length; e < eLen; e++){
-					var entity = this.entities[e];
-					var entityComponents = [];
-					var updateEntity = true
+		for(var s = 0, sLen = this.processSystems.length; s < sLen; s++) {
+			var system = this.processSystems[s];
 
-					for(var sC = 0, sCLen = system.components.length; sC < sCLen; sC++) {
-						var systemComponent = system.components[sC];
-						var hasEntityComponent = false;
+			for(var e = 0, eLen = this.entities.length; e < eLen; e++){
+				var entity = this.entities[e];
+				var entityComponents = [];
+				var updateEntity = true
 
-						var entityComponent = entity.getComponent(systemComponent);
-						if ( entityComponent != null ){
-							entityComponents[systemComponent] = entityComponent;
-							hasEntityComponent = false;
-							continue;
-						}
+				for(var sC = 0, sCLen = system.components.length; sC < sCLen; sC++) {
+					var systemComponent = system.components[sC];
+					var hasEntityComponent = false;
 
-						if( !hasEntityComponent) {
-							updateEntity = false;
-						}
+					var entityComponent = entity.getComponent(systemComponent);
+					if ( entityComponent != null ){
+						entityComponents[systemComponent] = entityComponent;
+						hasEntityComponent = false;
+						continue;
 					}
 
-					if(updateEntity){
-						system.update(entity, entityComponents);
+					if( !hasEntityComponent) {
+						updateEntity = false;
 					}
+				}
+
+				if(updateEntity){
+					system.update(entity, entityComponents);
 				}
 			}
 		}
@@ -395,7 +411,7 @@ cx.Manager = Class.extend({
 
 //JSCOMPILER FILE -> src/Custom/Script/ScriptComponent.js
 var ScriptComponent = cx.Component.extend({
-	tag:'cx.scriptcomponent',
+	tag:'cx.ScriptComponent',
 	script : null,
 	setup : false,
 	init : function(script){
@@ -408,15 +424,15 @@ var ScriptComponent = cx.Component.extend({
 
 //JSCOMPILER FILE -> src/Custom/Script/ScriptSystem.js
 var ScriptSystem = cx.EntitySystem.extend({
-	tag : 'cx.scriptsystem',
-	
+	tag : 'cx.ScriptSystem',
+
 	init : function(){
 		this._super();
-		this.components = ["cx.scriptcomponent"];
+		this.components = ["cx.ScriptComponent"];
 	},
 
 	update : function( entity, components){
-		var scriptcomponent = components["cx.scriptcomponent"];
+		var scriptcomponent = components["cx.ScriptComponent"];
 		var script = scriptcomponent.script;
 
 		if ( scriptcomponent.setup == false ){
@@ -487,7 +503,7 @@ var StatsSystem = cx.VoidSystem.extend({
 
 //JSCOMPILER FILE -> src/Custom/DatGui/DatGuiSystem.js
 var DatGuiSystem = cx.VoidSystem.extend({
-    tag : 'cx.datguisystem',
+    tag : 'cx.DatGuiSystem',
     gui : null,
     groups : [],
 
@@ -518,4 +534,85 @@ var DatGuiSystem = cx.VoidSystem.extend({
     update : function () {
 
     }
+});
+
+
+
+//JSCOMPILER FILE -> src/Custom/Debug/DebugSystem.js
+var DebugSystem = cx.VoidSystem.extend({
+
+	init : function(guiSystem){
+		this._super();
+		this.tag = "cx.DebugSystem";
+		this.guiSystem = guiSystem;
+	},
+
+	added : function(entity){
+		this.loadEntity(entity);
+	},
+
+	addObject : function(text, object, excluded){
+		excluded = excluded || [];
+		var keys = Object.keys(object);
+		for(var i = 0; i < keys.length; i++ ) {
+			var key = keys[i];
+			if ( key == "debugable"){
+				continue;
+			}
+			if ( this.isPropertyExcluded(key, excluded) ){
+				continue;
+			}
+			if ( typeof object[key] == "boolean" || (typeof object[key] == "number" || typeof object[key] == "string")) {
+				this.guiSystem.addToGroup(text, object, key);
+			}
+			if ( typeof object[key] == "object" && object[key] != null && object[key].debugable == true){
+				this.addObject(text, object[key]);
+			}
+		}
+	},
+	isPropertyExcluded : function( property, list){
+		for(var i = 0, len = list.length; i < len; i++){
+			if ( property == list[i]){
+				return true;
+			}
+		}
+		return false;
+	},
+	loadSystem : function( systemname, excluded ) {
+		var system = null;
+		if ( (system = this.world.getSystem(systemname)) == null ){
+			return;
+		}
+		this.addObject(system.tag, system, excluded);
+
+	},
+	loadEntity : function( entity, excluded ){
+		var debugComponent = entity.getComponent("cx.DebugComponent");
+		if ( debugComponent == null ) {
+			return;
+		}
+		var tags = debugComponent.components;
+
+		for ( var t = 0, tLen = tags.length; t < tLen; t++ ) {
+			var tag = tags[t];
+			var component = entity.getComponent(tag);
+			this.addObject(entity.tag+"."+component.tag, component, excluded);
+		}
+	},
+
+	update : function(){
+
+	}
+});
+
+
+
+//JSCOMPILER FILE -> src/Custom/Debug/DebugComponent.js
+var DebugComponent = cx.Component.extend({
+	tag : "cx.DebugComponent",
+	components : [],
+	init : function( components ){
+		this._super();
+		this.components = components;
+	},
 });
