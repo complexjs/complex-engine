@@ -1,37 +1,34 @@
 <!DOCTYPE html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Complexjs : JS Component Entity System" />
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-    <title>Complexjs</title>
+    <title>Complexjs by faebeee</title>
   </head>
 
   <body>
+    <header>
+      <div class="inner">
+        <h1>Complexjs</h1>
+        <h2>JS Component Entity System</h2>
+        <a href="https://github.com/faebeee/complexJS" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/faebeee/complexJS">View on GitHub</a>
-
-          <h1 id="project_title">Complexjs</h1>
-          <h2 id="project_tagline">JS Component Entity System</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/faebeee/complexJS/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/faebeee/complexJS/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h1>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
 <a name="complexjs" class="anchor" href="#complexjs"><span class="octicon octicon-link"></span></a>ComplexJS</h1>
 
 <p>ComplexJS is a JS written Component Entity System for HTML5 Gamedevelopment.
@@ -42,7 +39,7 @@ With it's Component Entity System there is a high rate of reusable code for your
 <a name="build" class="anchor" href="#build"><span class="octicon octicon-link"></span></a>Build</h2>
 
 <p>You can build ComplexJS by your own. There is a dev.js script where all the files are defined which will be compiled to gether into build/complex.js
-Therefore you need to install <code>littlehelper</code> via npm </p>
+Therefore you need to install <code>littlehelper</code> via npm</p>
 
 <pre>
 $ npm install littlehelper
@@ -165,7 +162,7 @@ world.getSystem("PixiSystem")
 <h2>
 <a name="entities" class="anchor" href="#entities"><span class="octicon octicon-link"></span></a>Entities</h2>
 
-<p>An entity is just a holder for several components. </p>
+<p>An entity is just a holder for several components.</p>
 
 <h3>
 <a name="create-entity" class="anchor" href="#create-entity"><span class="octicon octicon-link"></span></a>Create entity</h3>
@@ -195,12 +192,12 @@ world.addEntity(hero);
 
 <pre>
 var ScriptComponent = cx.Component.extend({
-    tag:'cx.scriptcomponent', // defines a unique name to access this component later
-    
+    tag:'cx.ScriptComponent', // defines a unique name to access this component later
+
     //properties
     script : null,
     setup : false,
-    
+
     //constructor
     init : function(script){
         this.script = script;
@@ -226,7 +223,7 @@ hero.addComponent(new ScriptComponent());
 <p>To access the component and its data you can access it via its unique name</p>
 
 <pre>
-var scriptComponent = hero.getComponent("cx.scriptcomponent");
+var scriptComponent = hero.getComponent("cx.ScriptComponent");
 </pre>
 
 <h2>
@@ -238,11 +235,11 @@ var scriptComponent = hero.getComponent("cx.scriptcomponent");
 <a name="scripting" class="anchor" href="#scripting"><span class="octicon octicon-link"></span></a>Scripting</h2>
 
 <p>Some Scripting code ( System, Component and Scriptobject ) is already implemented in Complex to provide some functionality to script behaviour for a player or any game object.
-For accessing the ScriptSystem you have to use the name <code>cx.scriptsystem</code> and for the component use 'cx.scriptcomponent'</p>
+For accessing the ScriptSystem you have to use the name <code>cx.ScriptSystem</code> and for the component use 'cx.ScriptComponent'</p>
 
 <pre>
 world.getSystem('cx.scriptsystem');
-entity.getComponent('cx.scriptcomponent');
+entity.getComponent('cx.ScriptComponent');
 </pre>
 
 <h3>
@@ -300,9 +297,48 @@ entity.addComponent(new ScriptComponent( new MyBehaviour() ));
 </pre>
 
 <h2>
+<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<p>Check out the <a href="https://github.com/faebeee/complex-demo/tree/master/shootemup">example</a></p>
+
+<h3>
+<a name="scripting-1" class="anchor" href="#scripting-1"><span class="octicon octicon-link"></span></a>Scripting</h3>
+
+<p><a href="https://github.com/faebeee/complexJS/tree/master/src/Custom/Script">Code</a></p>
+
+<p>Provieds simple per entity behaviour</p>
+
+<h3>
+<a name="debug" class="anchor" href="#debug"><span class="octicon octicon-link"></span></a>Debug</h3>
+
+<p><a href="https://github.com/faebeee/complexJS/tree/master/src/Custom/Debug">Code</a></p>
+
+<p>Provides a debugoutput via DatGuiSystem with data of the components of an entity</p>
+
+<h3>
+<a name="stats" class="anchor" href="#stats"><span class="octicon octicon-link"></span></a>Stats</h3>
+
+<p><a href="https://github.com/faebeee/complexJS/tree/master/src/Custom/Stats">Code</a></p>
+
+<p>Add stats view to the window. <code>world.addSystem(new StatsSystem());</code>.</p>
+
+<p><i>Note: include the stats.js lib</i></p>
+
+<h3>
+<a name="datgui" class="anchor" href="#datgui"><span class="octicon octicon-link"></span></a>DatGui</h3>
+
+<p><a href="https://github.com/faebeee/complexJS/tree/master/src/Custom/DatGui">Code</a></p>
+
+<p>Adds a dat.gui view to the window.</p>
+
+<p><i>Note: Include dat.gui lib</i></p>
+
+<h2>
 <a name="demos" class="anchor" href="#demos"><span class="octicon octicon-link"></span></a>Demos</h2>
 
 <p><a href="https://github.com/faebeee/complex-demo">Here</a></p>
+
+<p><a href="https://github.com/faebeee/complex-demo/tree/master/shootemup">shootemup</a></p>
 
 <h2>
 <a name="contribution" class="anchor" href="#contribution"><span class="octicon octicon-link"></span></a>Contribution</h2>
@@ -313,18 +349,26 @@ entity.addComponent(new ScriptComponent( new MyBehaviour() ));
 <a name="contact" class="anchor" href="#contact"><span class="octicon octicon-link"></span></a>Contact</h2>
 
 <p><a href="https://twitter.com/faebeee">@Twitter</a><br><a href="https://plus.google.com/u/0/113673733496424994581/posts">+Google</a></p>
-      </section>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/faebeee/complexJS/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/faebeee/complexJS/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/faebeee/complexJS"></a> is maintained by <a href="https://github.com/faebeee">faebeee</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
     </div>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Complexjs maintained by <a href="https://github.com/faebeee">faebeee</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-              <script type="text/javascript">
+            <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
@@ -334,7 +378,6 @@ entity.addComponent(new ScriptComponent( new MyBehaviour() ));
             pageTracker._trackPageview();
             } catch(err) {}
           </script>
-
 
   </body>
 </html>
