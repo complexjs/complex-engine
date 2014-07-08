@@ -237,6 +237,7 @@ With `loadSystem` function of the DebugSystem you can make a System available in
 
 <h2>Demos</h2>
 <a href="https://github.com/faebeee/complex-demo">Here</a>
+<a href="https://github.com/faebeee/complex-demo/tree/master/shootemup">shootemup</a>
 
 <h2>Contribution</h2>
 Just contribute. It's OpenSource
