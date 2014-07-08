@@ -126,7 +126,7 @@ A Component is a object which holds data for a specific entity. This data is pro
 A Component have to extend the `cx.Component` class
 <pre>
 var ScriptComponent = cx.Component.extend({
-	tag:'cx.scriptcomponent', // defines a unique name to access this component later
+	tag:'cx.ScriptComponent', // defines a unique name to access this component later
     
     //properties
 	script : null,
@@ -150,7 +150,7 @@ From now on you can access the `ScriptComponent` on the heroEntity
 <h3>Get a component</h3>
 To access the component and its data you can access it via its unique name
 <pre>
-var scriptComponent = hero.getComponent("cx.scriptcomponent");
+var scriptComponent = hero.getComponent("cx.ScriptComponent");
 </pre>
 
 <h2>Manager</h2>
@@ -158,11 +158,11 @@ Coming soon...
 
 <h2>Scripting</h2>
 Some Scripting code ( System, Component and Scriptobject ) is already implemented in Complex to provide some functionality to script behaviour for a player or any game object.
-For accessing the ScriptSystem you have to use the name `cx.scriptsystem` and for the component use 'cx.scriptcomponent'
+For accessing the ScriptSystem you have to use the name `cx.ScriptSystem` and for the component use 'cx.ScriptComponent'
 
 <pre>
 world.getSystem('cx.scriptsystem');
-entity.getComponent('cx.scriptcomponent');
+entity.getComponent('cx.ScriptComponent');
 </pre>
 
 <h3>Setup</h3>
@@ -210,6 +210,30 @@ At the end you just have to add the script to a component and the component to a
 <pre>
 entity.addComponent(new ScriptComponent( new MyBehaviour() ));
 </pre>
+
+<h2>Features</h2>
+<h3>Scripting</h3>
+Provieds simple per entity behaviour.
+System -> ScriptSystem; (tag : cx.ScriptSystem)
+Component -> ScriptComponent (tag : cx.ScriptComponent
+
+<h3>Debug</h3>
+A Debugsystem is built in in Complex to provied some basic debugging functionality with Dat.Gui.js
+<h4>Add System</h4>
+`var guiSystem = new DatGuiSystem();` Create DatGuiSystem
+`world.addSystem(guiSystem);` add DatGuiSystem to the world
+`world.addSystem( new DebugSystem( guiSystem) );` Create the DebugSystem and pass the DatGuiSystem
+
+<h4>Debug an Entity</h4>
+To debug values of an entity you have to add the DebugComponent with an array of components you want to debug.
+`player.addComponent( new DebugComponent( ["SpriteComponent", "cx.ScriptComponent", "PositionComponent", 'DragableComponent'] ));`
+With this component the first level of every component will be available via DatGui. If you wish to debug an object inside the component passed in the array you have to add a property to that object called `debugable` and set it to true.
+`player.getComponent('cx.ScriptComponent').script.debugable = true;`
+
+<h4>Debug a System</h4>
+With `loadSystem` function of the DebugSystem you can make a System available in the DatGui by passing the tag value of the system. You can pass an array of values which shold be ignored in the Gui
+`world.getSystem("cx.DebugSystem").loadSystem("LogSystem", ["TYPE_VOID", "TYPE_PROCESS", "type"]);` Here we ignore TYPE_VOID, TYPE_PROCCESS and type property in the LogSystem object.
+
 
 <h2>Demos</h2>
 <a href="https://github.com/faebeee/complex-demo">Here</a>
