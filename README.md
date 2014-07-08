@@ -4,7 +4,7 @@ ComplexJS has the ability not to slow your development time down.
 With it's Component Entity System there is a high rate of reusable code for your later projects.
 <h2>Build</h2>
 You can build ComplexJS by your own. There is a dev.js script where all the files are defined which will be compiled to gether into build/complex.js
-Therefore you need to install `littlehelper` via npm 
+Therefore you need to install `littlehelper` via npm
 <pre>
 $ npm install littlehelper
 </pre>
@@ -14,7 +14,7 @@ $ npm install littlehelper
 Createa HTMLFile containing your view.
 Add ComplexJS as a source
 `<script type="text/javascript" src="./libs/complex.js"></script>`
-    
+
 <h2>World</h2>
 The world is the mainobject holding all the entities and systems.
 If you want to make your game work you have to write an update loop and call `world.update` every tick
@@ -106,7 +106,7 @@ world.getSystem("PixiSystem")
 </pre>
 
 <h2>Entities</h2>
-An entity is just a holder for several components. 
+An entity is just a holder for several components.
 
 <h3>Create entity</h3>
 <pre>
@@ -127,11 +127,11 @@ A Component have to extend the `cx.Component` class
 <pre>
 var ScriptComponent = cx.Component.extend({
 	tag:'cx.ScriptComponent', // defines a unique name to access this component later
-    
+
     //properties
 	script : null,
 	setup : false,
-    
+
     //constructor
 	init : function(script){
 		this.script = script;
@@ -212,31 +212,34 @@ entity.addComponent(new ScriptComponent( new MyBehaviour() ));
 </pre>
 
 <h2>Features</h2>
+Check out the <a href="https://github.com/faebeee/complex-demo/tree/master/shootemup">example</a>
 <h3>Scripting</h3>
-Provieds simple per entity behaviour.
-System -> ScriptSystem; (tag : cx.ScriptSystem)
-Component -> ScriptComponent (tag : cx.ScriptComponent
+<a href="https://github.com/faebeee/complexJS/tree/master/src/Custom/Script">Code</a>
+
+Provieds simple per entity behaviour
 
 <h3>Debug</h3>
-A Debugsystem is built in in Complex to provied some basic debugging functionality with Dat.Gui.js
-<h4>Add System</h4>
-`var guiSystem = new DatGuiSystem();` Create DatGuiSystem
-`world.addSystem(guiSystem);` add DatGuiSystem to the world
-`world.addSystem( new DebugSystem( guiSystem) );` Create the DebugSystem and pass the DatGuiSystem
+<a href="https://github.com/faebeee/complexJS/tree/master/src/Custom/Debug">Code</a>
 
-<h4>Debug an Entity</h4>
-To debug values of an entity you have to add the DebugComponent with an array of components you want to debug.
-`player.addComponent( new DebugComponent( ["SpriteComponent", "cx.ScriptComponent", "PositionComponent", 'DragableComponent'] ));`
-With this component the first level of every component will be available via DatGui. If you wish to debug an object inside the component passed in the array you have to add a property to that object called `debugable` and set it to true.
-`player.getComponent('cx.ScriptComponent').script.debugable = true;`
+Provides a debugoutput via DatGuiSystem with data of the components of an entity
 
-<h4>Debug a System</h4>
-With `loadSystem` function of the DebugSystem you can make a System available in the DatGui by passing the tag value of the system. You can pass an array of values which shold be ignored in the Gui
-`world.getSystem("cx.DebugSystem").loadSystem("LogSystem", ["TYPE_VOID", "TYPE_PROCESS", "type"]);` Here we ignore TYPE_VOID, TYPE_PROCCESS and type property in the LogSystem object.
+<h3>Stats</h3>
+<a href="https://github.com/faebeee/complexJS/tree/master/src/Custom/Stats">Code</a>
 
+Add stats view to the window. `world.addSystem(new StatsSystem());`.
+
+<i>Note: include the stats.js lib</i>
+
+<h3>DatGui</h3>
+<a href="https://github.com/faebeee/complexJS/tree/master/src/Custom/DatGui">Code</a>
+
+Adds a dat.gui view to the window.
+
+<i>Note: Include dat.gui lib</i>
 
 <h2>Demos</h2>
 <a href="https://github.com/faebeee/complex-demo">Here</a>
+
 <a href="https://github.com/faebeee/complex-demo/tree/master/shootemup">shootemup</a>
 
 <h2>Contribution</h2>
