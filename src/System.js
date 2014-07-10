@@ -13,6 +13,11 @@ cx.System = Class.extend({
 	},
 
     /**
+    * called as soon the system has been added to the world object
+    */
+    addedToWorld : function(){},
+
+    /**
      * Set the worldobject when the system is added
      * @param world
      */
@@ -27,5 +32,5 @@ cx.System = Class.extend({
     getWorld : function() {
         return this.world;
     },
-    
+
 });

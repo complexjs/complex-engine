@@ -1,4 +1,4 @@
-// Build Date : Tue Jul 08 2014 09:26:18 GMT+0200 (CEST)
+// Build Date : Thu Jul 10 2014 22:06:19 GMT+0200 (CEST)
 
 
 
@@ -164,6 +164,11 @@ cx.System = Class.extend({
 	},
 
     /**
+    * called as soon the system has been added to the world object
+    */
+    addedToWorld : function(){},
+
+    /**
      * Set the worldobject when the system is added
      * @param world
      */
@@ -178,7 +183,7 @@ cx.System = Class.extend({
     getWorld : function() {
         return this.world;
     },
-    
+
 });
 
 
@@ -281,6 +286,7 @@ cx.World = Class.extend({
 		} else if (system.type == system.TYPE_VOID ) {
 			this.voidSystems.push(system);
 		}
+		system.addedToWorld();
 	},
 
 	/**
@@ -406,213 +412,4 @@ cx.Manager = Class.extend({
         this.tag = this.name;
     }
 
-});
-
-
-//JSCOMPILER FILE -> src/Custom/Script/ScriptComponent.js
-var ScriptComponent = cx.Component.extend({
-	tag:'cx.ScriptComponent',
-	script : null,
-	setup : false,
-	init : function(script){
-		this._super();
-		this.script = script;
-	}
-});
-
-
-
-//JSCOMPILER FILE -> src/Custom/Script/ScriptSystem.js
-var ScriptSystem = cx.EntitySystem.extend({
-	tag : 'cx.ScriptSystem',
-
-	init : function(){
-		this._super();
-		this.components = ["cx.ScriptComponent"];
-	},
-
-	update : function( entity, components){
-		var scriptcomponent = components["cx.ScriptComponent"];
-		var script = scriptcomponent.script;
-
-		if ( scriptcomponent.setup == false ){
-			script.setup(entity);
-			scriptcomponent.setup = true;
-		}
-		script.update();
-	}
-});
-
-
-
-//JSCOMPILER FILE -> src/Custom/Script/Script.js
-cx.Script = Class.extend({
-	entity : null,
-	init : function(){
-
-	},
-	setup : function( entity ){
-		this.entity = entity;
-		this.onSetup();
-		this.isSetUp = true;
-	},
-
-	onSetup : function(){},
-	update : function(){}
-});
-
-
-
-//JSCOMPILER FILE -> src/Custom/Stats/StatsSystem.js
-var StatsSystem = cx.VoidSystem.extend({
-	stats : null,
-	tag : 'cx.statssystem',
-	mode : {FPS : 0, MS : 1},
-
-	init : function( mode, element ){
-		this._super();
-		this.stats = new Stats();
-		mode = mode || this.mode.FPS;
-		this.stats.setMode(mode); // 0: fps, 1: ms
-
-		this.stats.domElement.style.position = 'absolute';
-		this.stats.domElement.style.left = '0px';
-		this.stats.domElement.style.top = '0px';
-
-		if ( !element ){
-			document.body.appendChild( this.stats.domElement );
-		} else {
-			element.appendChild( this.stats.domElement );
-		}
-
-		this.stats.begin();
-	},
-
-	added : function(){
-
-	},
-
-	update : function () {
-		this.stats.end();
-
-		this.stats.begin();
-	},
-});
-
-
-
-//JSCOMPILER FILE -> src/Custom/DatGui/DatGuiSystem.js
-var DatGuiSystem = cx.VoidSystem.extend({
-    tag : 'cx.DatGuiSystem',
-    gui : null,
-    groups : [],
-
-    init : function(){
-        this._super();
-        this.gui = new dat.GUI();
-    },
-
-    add : function(obj, prop) {
-    	this.gui.add(obj, prop).listen();
-    },
-
-    addToGroup : function (groupName, obj, prop, min, max) {
-        var group = null;
-        if ( (group = this.groups[groupName]) == null ){
-            group = this.gui.addFolder(groupName);
-            this.groups[groupName] = group;
-
-        }
-        if ( min != null && max != null){
-            group.add(obj, prop, min, max).listen();
-        } else {
-            group.add(obj, prop).listen();
-        }
-        return group;
-    },
-
-    update : function () {
-
-    }
-});
-
-
-
-//JSCOMPILER FILE -> src/Custom/Debug/DebugSystem.js
-var DebugSystem = cx.VoidSystem.extend({
-
-	init : function(guiSystem){
-		this._super();
-		this.tag = "cx.DebugSystem";
-		this.guiSystem = guiSystem;
-	},
-
-	added : function(entity){
-		this.loadEntity(entity);
-	},
-
-	addObject : function(text, object, excluded){
-		excluded = excluded || [];
-		var keys = Object.keys(object);
-		for(var i = 0; i < keys.length; i++ ) {
-			var key = keys[i];
-			if ( key == "debugable"){
-				continue;
-			}
-			if ( this.isPropertyExcluded(key, excluded) ){
-				continue;
-			}
-			if ( typeof object[key] == "boolean" || (typeof object[key] == "number" || typeof object[key] == "string")) {
-				this.guiSystem.addToGroup(text, object, key);
-			}
-			if ( typeof object[key] == "object" && object[key] != null && object[key].debugable == true){
-				this.addObject(text, object[key]);
-			}
-		}
-	},
-	isPropertyExcluded : function( property, list){
-		for(var i = 0, len = list.length; i < len; i++){
-			if ( property == list[i]){
-				return true;
-			}
-		}
-		return false;
-	},
-	loadSystem : function( systemname, excluded ) {
-		var system = null;
-		if ( (system = this.world.getSystem(systemname)) == null ){
-			return;
-		}
-		this.addObject(system.tag, system, excluded);
-
-	},
-	loadEntity : function( entity, excluded ){
-		var debugComponent = entity.getComponent("cx.DebugComponent");
-		if ( debugComponent == null ) {
-			return;
-		}
-		var tags = debugComponent.components;
-
-		for ( var t = 0, tLen = tags.length; t < tLen; t++ ) {
-			var tag = tags[t];
-			var component = entity.getComponent(tag);
-			this.addObject(entity.tag+"."+component.tag, component, excluded);
-		}
-	},
-
-	update : function(){
-
-	}
-});
-
-
-
-//JSCOMPILER FILE -> src/Custom/Debug/DebugComponent.js
-var DebugComponent = cx.Component.extend({
-	tag : "cx.DebugComponent",
-	components : [],
-	init : function( components ){
-		this._super();
-		this.components = components;
-	},
 });

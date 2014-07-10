@@ -48,6 +48,7 @@ cx.World = Class.extend({
 		} else if (system.type == system.TYPE_VOID ) {
 			this.voidSystems.push(system);
 		}
+		system.addedToWorld();
 	},
 
 	/**
