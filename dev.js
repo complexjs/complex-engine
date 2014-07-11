@@ -16,4 +16,7 @@ var files = [
 
 helper.Compiler.compile(files, "./build/complex.js", function(){
     console.log("New Complex Build @ "+(new Date()));
-}, true);
+}, {
+    minify : true,
+	appendFileInfo : true
+});
