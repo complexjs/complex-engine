@@ -1,9 +1,9 @@
-// Build by LittleHelper. Build Date : Fri Jul 11 2014 14:21:54 GMT+0200 (CEST)
+// Build Date : Sun Jul 13 2014 11:31:48 GMT+0200 (CEST)
 
 
 
 
-// FILE >> libs/Class.js
+//JSCOMPILER FILE -> libs/Class.js
 /* Simple JavaScript Inheritance
  * By John Resig http://ejohn.org/
  * MIT Licensed.
@@ -70,7 +70,7 @@
 })();
 
 
-// FILE >> complex.js
+//JSCOMPILER FILE -> complex.js
 var cx = {
 	version : "0.9.1",
 	initFunctions : [],
@@ -86,7 +86,7 @@ var cx = {
 console.log("Complex "+cx.version);
 
 
-// FILE >> src/Component.js
+//JSCOMPILER FILE -> src/Component.js
 
 /**
  * The component object
@@ -102,7 +102,7 @@ cx.Component = Class.extend({
 
 
 
-// FILE >> src/Entity.js
+//JSCOMPILER FILE -> src/Entity.js
 /**
  * [Entity description]
  */
@@ -148,7 +148,7 @@ cx.Entity = Class.extend({
 });
 
 
-// FILE >> src/System.js
+//JSCOMPILER FILE -> src/System.js
 
 /**
  * [System description]
@@ -188,7 +188,7 @@ cx.System = Class.extend({
 
 
 
-// FILE >> src/EntitySystem.js
+//JSCOMPILER FILE -> src/EntitySystem.js
 cx.EntitySystem = cx.System.extend({
 	init : function( components ) {
 		this._super();
@@ -207,7 +207,7 @@ cx.EntitySystem = cx.System.extend({
 
 
 
-// FILE >> src/VoidSystem.js
+//JSCOMPILER FILE -> src/VoidSystem.js
 cx.VoidSystem = cx.System.extend({
     init : function(){
 		this._super();
@@ -235,7 +235,7 @@ cx.VoidSystem = cx.System.extend({
 
 
 
-// FILE >> src/World.js
+//JSCOMPILER FILE -> src/World.js
 /**
  * Holds all the current entities and systems
  */
@@ -295,6 +295,7 @@ cx.World = Class.extend({
 	 * @TODO
 	 */
 	addManager : function ( manager ){
+		manager.world = this;
 	    this.managers.push(manager);
 	},
 
@@ -401,15 +402,16 @@ cx.World = Class.extend({
 
 
 
-// FILE >> src/Manager.js
+//JSCOMPILER FILE -> src/Manager.js
 /**
  * Represents a manager to handle additional data
  * @type {*}
  */
 cx.Manager = Class.extend({
-    init : function ( name ) {
-        this.name = name;
-        this.tag = this.name;
+    tag : null,
+    world : null,
+    init : function () {
+
     }
 
 });

@@ -57,6 +57,7 @@ cx.World = Class.extend({
 	 * @TODO
 	 */
 	addManager : function ( manager ){
+		manager.world = this;
 	    this.managers.push(manager);
 	},
 

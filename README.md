@@ -158,6 +158,28 @@ var scriptComponent = hero.getComponent("cx.ScriptComponent");
 
 <a href="https://github.com/faebeee/complex-demo/tree/master/shootemup">shootemup</a>
 
+<h2>Samples</h2>
+<h3>Script</h3>
+<pre>
+var EnemyBehaviour = cx.Script.extend({
+    // constructor
+    init : function(){
+
+    },
+
+    // called when the entity and world object has been set to the script
+    onSetup : function() {
+
+    },
+
+    // called every update cycle
+    update : function ( ) {
+
+    }
+});
+</pre>
+
+
 <h2>Contribution</h2>
 Just contribute. It's OpenSource
 
