@@ -1,9 +1,9 @@
-// Build Date : Sun Jul 13 2014 11:31:48 GMT+0200 (CEST)
+// Build by LittleHelper. Build Date : Tue Jul 15 2014 13:12:55 GMT+0200 (CEST)
 
 
 
 
-//JSCOMPILER FILE -> libs/Class.js
+// FILE >> libs/Class.js
 /* Simple JavaScript Inheritance
  * By John Resig http://ejohn.org/
  * MIT Licensed.
@@ -70,7 +70,7 @@
 })();
 
 
-//JSCOMPILER FILE -> complex.js
+// FILE >> complex.js
 var cx = {
 	version : "0.9.1",
 	initFunctions : [],
@@ -86,7 +86,7 @@ var cx = {
 console.log("Complex "+cx.version);
 
 
-//JSCOMPILER FILE -> src/Component.js
+// FILE >> src/Component.js
 
 /**
  * The component object
@@ -102,24 +102,27 @@ cx.Component = Class.extend({
 
 
 
-//JSCOMPILER FILE -> src/Entity.js
+// FILE >> src/Entity.js
 /**
  * [Entity description]
  */
 cx.Entity = Class.extend({
 	components : [],
 	world : null,
+	alive : true,
     /**
      * constructor
      */
 	init : function(){
 		this.components = [];
+		this.alive = true;
+		this.remove = false;
 	},
 
 	getWorld : function(){
 		return this.world;
 	},
-	
+
 	setWorld : function( world){
 		this.world = world;
 	},
@@ -148,7 +151,8 @@ cx.Entity = Class.extend({
 });
 
 
-//JSCOMPILER FILE -> src/System.js
+
+// FILE >> src/System.js
 
 /**
  * [System description]
@@ -188,7 +192,7 @@ cx.System = Class.extend({
 
 
 
-//JSCOMPILER FILE -> src/EntitySystem.js
+// FILE >> src/EntitySystem.js
 cx.EntitySystem = cx.System.extend({
 	init : function( components ) {
 		this._super();
@@ -207,7 +211,7 @@ cx.EntitySystem = cx.System.extend({
 
 
 
-//JSCOMPILER FILE -> src/VoidSystem.js
+// FILE >> src/VoidSystem.js
 cx.VoidSystem = cx.System.extend({
     init : function(){
 		this._super();
@@ -235,7 +239,7 @@ cx.VoidSystem = cx.System.extend({
 
 
 
-//JSCOMPILER FILE -> src/World.js
+// FILE >> src/World.js
 /**
  * Holds all the current entities and systems
  */
@@ -261,8 +265,11 @@ cx.World = Class.extend({
 	/**
 	 * Remove entity from world and trigger codes from systems
 	 */
-	removeEntity : function(entity){
-		this._entityDeleted(entity);
+	removeEntity : function(entity, triggerSystem){
+		triggerSystem = triggerSystem || true;
+		if(triggerSystem){
+			this._entityDeleted(entity);
+		}
 		delete this.entities[entity.index];
 	},
 
@@ -350,11 +357,12 @@ cx.World = Class.extend({
 			system.added(entity);
 		}
 	},
-	_entityDeleted : function(){
+	_entityDeleted : function( entity ){
 		for(var s=0,len=this.voidSystems.length; s<len;s++){
 			var system = this.voidSystems[s];
 			system.removed(entity);
 		}
+		entity.delteted = true;
 	},
 
 	/**
@@ -373,8 +381,21 @@ cx.World = Class.extend({
 
 			for(var e = 0, eLen = this.entities.length; e < eLen; e++){
 				var entity = this.entities[e];
+
+				if(entity.delteted && entity.remove){
+					this.removeEntity(entity, false);
+					continue;
+				}
+
+				if( entity.remove && !entity.delteted){
+					this._entityDeleted(entity);
+					continue;
+				}
+				if( !entity.alive ) {
+					continue;
+				}
 				var entityComponents = [];
-				var updateEntity = true
+				var updateEntity = true;
 
 				for(var sC = 0, sCLen = system.components.length; sC < sCLen; sC++) {
 					var systemComponent = system.components[sC];
@@ -383,8 +404,7 @@ cx.World = Class.extend({
 					var entityComponent = entity.getComponent(systemComponent);
 					if ( entityComponent != null ){
 						entityComponents[systemComponent] = entityComponent;
-						hasEntityComponent = false;
-						continue;
+						hasEntityComponent = true;
 					}
 
 					if( !hasEntityComponent) {
@@ -402,7 +422,7 @@ cx.World = Class.extend({
 
 
 
-//JSCOMPILER FILE -> src/Manager.js
+// FILE >> src/Manager.js
 /**
  * Represents a manager to handle additional data
  * @type {*}

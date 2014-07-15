@@ -4,17 +4,20 @@
 cx.Entity = Class.extend({
 	components : [],
 	world : null,
+	alive : true,
     /**
      * constructor
      */
 	init : function(){
 		this.components = [];
+		this.alive = true;
+		this.remove = false;
 	},
 
 	getWorld : function(){
 		return this.world;
 	},
-	
+
 	setWorld : function( world){
 		this.world = world;
 	},
