@@ -1,9 +1,9 @@
-// Build by LittleHelper. Build Date : Thu Jul 17 2014 10:29:34 GMT+0200 (CEST)
+// Build Date : Thu Jul 17 2014 22:08:27 GMT+0200 (CEST)
 
 
 
 
-// FILE >> libs/Class.js
+//JSCOMPILER FILE -> libs/Class.js
 /* Simple JavaScript Inheritance
  * By John Resig http://ejohn.org/
  * MIT Licensed.
@@ -70,7 +70,7 @@
 })();
 
 
-// FILE >> complex.js
+//JSCOMPILER FILE -> complex.js
 var cx = {
 	version : "0.9.1",
 	initFunctions : [],
@@ -86,7 +86,7 @@ var cx = {
 console.log("Complex "+cx.version);
 
 
-// FILE >> src/Component.js
+//JSCOMPILER FILE -> src/Component.js
 
 /**
  * The component object
@@ -95,14 +95,14 @@ console.log("Complex "+cx.version);
 cx.Component = Class.extend({
 	tag : null,
 	init : function(){
-		
+		this.debugable = true;
 	}
 
 });
 
 
 
-// FILE >> src/Entity.js
+//JSCOMPILER FILE -> src/Entity.js
 /**
  * [Entity description]
  */
@@ -154,6 +154,10 @@ cx.Entity = Class.extend({
 		return null;
 	},
 
+	getComponents : function() {
+		return this.components;
+	},
+
 	/**
 	*	Remove a component from the entity
 	*/
@@ -187,7 +191,7 @@ cx.Entity = Class.extend({
 
 
 
-// FILE >> src/System.js
+//JSCOMPILER FILE -> src/System.js
 
 /**
  * [System description]
@@ -200,6 +204,7 @@ cx.System = Class.extend({
 	init : function(){
 		this.TYPE_VOID = "void";
 		this.TYPE_PROCESS = "process";
+        this.debugable = true;
 	},
 
     /**
@@ -227,7 +232,7 @@ cx.System = Class.extend({
 
 
 
-// FILE >> src/EntitySystem.js
+//JSCOMPILER FILE -> src/EntitySystem.js
 cx.EntitySystem = cx.System.extend({
 	init : function( components ) {
 		this._super();
@@ -246,7 +251,7 @@ cx.EntitySystem = cx.System.extend({
 
 
 
-// FILE >> src/VoidSystem.js
+//JSCOMPILER FILE -> src/VoidSystem.js
 cx.VoidSystem = cx.System.extend({
     init : function(){
 		this._super();
@@ -274,7 +279,7 @@ cx.VoidSystem = cx.System.extend({
 
 
 
-// FILE >> src/World.js
+//JSCOMPILER FILE -> src/World.js
 /**
  * Holds all the current entities and systems
  */
@@ -531,7 +536,7 @@ cx.World = Class.extend({
 
 
 
-// FILE >> src/Manager.js
+//JSCOMPILER FILE -> src/Manager.js
 /**
  * Represents a manager to handle additional data
  * @type {*}
@@ -540,7 +545,7 @@ cx.Manager = Class.extend({
     tag : null,
     world : null,
     init : function () {
-
+        this.debugable = true;
     }
 
 });

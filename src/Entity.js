@@ -49,6 +49,10 @@ cx.Entity = Class.extend({
 		return null;
 	},
 
+	getComponents : function() {
+		return this.components;
+	},
+
 	/**
 	*	Remove a component from the entity
 	*/

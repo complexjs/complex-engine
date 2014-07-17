@@ -6,7 +6,7 @@ cx.Manager = Class.extend({
     tag : null,
     world : null,
     init : function () {
-
+        this.debugable = true;
     }
 
 });

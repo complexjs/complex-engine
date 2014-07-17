@@ -10,6 +10,7 @@ cx.System = Class.extend({
 	init : function(){
 		this.TYPE_VOID = "void";
 		this.TYPE_PROCESS = "process";
+        this.debugable = true;
 	},
 
     /**
