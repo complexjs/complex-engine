@@ -1,4 +1,4 @@
-// Build by LittleHelper. Build Date : Tue Jul 15 2014 13:12:55 GMT+0200 (CEST)
+// Build by LittleHelper. Build Date : Thu Jul 17 2014 10:29:34 GMT+0200 (CEST)
 
 
 
@@ -131,7 +131,12 @@ cx.Entity = Class.extend({
      * @param component
      */
 	addComponent : function ( component ) {
-		this.components.push( component );
+		var slot = this._getFreeSlot();
+		if( slot != null ){
+			this.components[slot] = component;
+		} else {
+			this.components.push( component );
+		}
 	},
 
     /**
@@ -144,6 +149,36 @@ cx.Entity = Class.extend({
 			var component = this.components[i];
 			if(component.tag == componentName){
 				return component;
+			}
+		}
+		return null;
+	},
+
+	/**
+	*	Remove a component from the entity
+	*/
+	removeComponent : function(componentName){
+		for(var i = 0, len = this.components.length; i < len; i++){
+			var component = this.components[i];
+			if(component.tag == componentName){
+				delete this.components[i];
+			}
+		}
+	},
+
+	/**
+	*	Destroy entity and remove it from the world
+	*/
+	destroy : function(){
+		this.alive = false;
+		this.remove = true;
+	},
+
+	_getFreeSlot : function(){
+		for(var c = 0, len = this.components.length; c < len; c++){
+			var component = this.components[c];
+			if(component == undefined || component == null ){
+				return c;
 			}
 		}
 		return null;
@@ -253,12 +288,19 @@ cx.World = Class.extend({
 
     /**
      * Add entity to world
-     * @param {[type]} entity [description]
+     * @param {cx.entity} entity [description]
      */
     addEntity : function ( entity ) {
-        entity.index = this.entities.length;
-        entity.setWorld(this);
-		this.entities.push(entity);
+
+		var slot = this._getFreeEntitySlot();
+		entity.setWorld(this);
+		if( slot != null){
+			entity.index = slot;
+			this.entities[slot] = entity;
+		} else {
+        	entity.index = this.entities.length;
+			this.entities.push(entity);
+		}
 		this._entityAdded(entity);
 	},
 
@@ -275,8 +317,8 @@ cx.World = Class.extend({
 
 	/**
 	* return an entity
-	* @param  {[type]} index [description]
-	* @return {[type]}       [description]
+	* @param  {integer} index [description]
+	* @return {cx.Entity}       [description]
 	*/
 	getEntity : function ( index ) {
 		return this.entities[index];
@@ -284,32 +326,32 @@ cx.World = Class.extend({
 
 	/**
 	 * add system to world
-	 * @param {[type]} system [description]
+	 * @param {cx.VoidSystem|cx.EntitySystem} system [description]
 	 */
 	addSystem : function ( system ){
         system.setWorld(this);
 		if ( system.type == system.TYPE_PROCESS ){
-			this.processSystems.push(system);
+			var slot = this._getFreeProcessSystemSlot();
+			if(slot != null){
+				this.processSystems[slot] = system;
+			} else {
+				this.processSystems.push(system);
+			}
 		} else if (system.type == system.TYPE_VOID ) {
-			this.voidSystems.push(system);
+			var slot = this._getFreeProcessSystemSlot();
+			if(slot != null){
+				this.voidSystems[slot] = system;
+			}else {
+				this.voidSystems.push(system);
+			}
 		}
 		system.addedToWorld();
 	},
 
 	/**
-	 * add manager to world
-	 * @param {[type]} manager [description]
-	 * @TODO
-	 */
-	addManager : function ( manager ){
-		manager.world = this;
-	    this.managers.push(manager);
-	},
-
-	/**
 	 * get a system
-	 * @param  {[type]} systemName [description]
-	 * @return {[type]}            [description]
+	 * @param  {string} systemName [description]
+	 * @return {cx.System}            [description]
 	 */
 	getSystem : function( system ) {
 		var systemName = "";
@@ -337,9 +379,44 @@ cx.World = Class.extend({
 	},
 
 	/**
+	*	Remove a system from the world
+	*/
+	removeSystem : function( system ){
+		var systemName = "";
+		if ( typeof system == "string"){
+			systemName = system;
+		} else {
+			systemName = system.tag;
+		}
+
+		for(var i = 0, len = this.processSystems.length; i < len; i++) {
+			var system = this.processSystems[i];
+			if ( system.tag == systemName ){
+				delete this.processSystems[i];
+			}
+		}
+
+		for(var i = 0, len = this.voidSystems.length; i < len; i++) {
+			var system = this.voidSystems[i];
+			if ( system.tag == systemName ){
+				delete this.voidSystems[i];
+			}
+		}
+	},
+
+	/**
+	* add manager to world
+	* @param {cx.Manager} manager [description]
+	*/
+	addManager : function ( manager ){
+		manager.world = this;
+		this.managers.push(manager);
+	},
+
+	/**
 	 * get a manager
-	 * @param  {[type]} name [description]
-	 * @return {[type]}      [description]
+	 * @param  {string} name [description]
+	 * @return {cx.Manager}      [description]
 	 */
 	getManager : function ( name ) {
 	    for(var i = 0, len = this.managers.length; i < len; i++){
@@ -351,19 +428,6 @@ cx.World = Class.extend({
 		return null;
 	},
 
-	_entityAdded : function( entity ){
-		for(var s=0,len=this.voidSystems.length; s<len;s++){
-			var system = this.voidSystems[s];
-			system.added(entity);
-		}
-	},
-	_entityDeleted : function( entity ){
-		for(var s=0,len=this.voidSystems.length; s<len;s++){
-			var system = this.voidSystems[s];
-			system.removed(entity);
-		}
-		entity.delteted = true;
-	},
 
 	/**
 	 * update step
@@ -417,7 +481,52 @@ cx.World = Class.extend({
 				}
 			}
 		}
-	}
+	},
+
+	_getFreeEntitySlot : function(){
+		for(var e = 0, len = this.entities.length; e < len; e++){
+			var entity = this.entities[e];
+			if(entity == null || entity == undefined){
+				return e;
+			}
+		}
+		return null;
+	},
+
+	_getFreeProcessSystemSlot : function(){
+		for(var s = 0, len = this.processSystems.length; s < len; s++){
+			var system = this.processSystems[s];
+			if(system == undefined || system == null ){
+				return s;
+			}
+		}
+		return null;
+	},
+
+	_getFreeVoidSystemSlot : function(){
+		for(var s = 0, len = this.voidSystems.length; s < len; s++){
+			var system = this.voidSystems[s];
+			if(system == undefined || system == null ){
+				return s;
+			}
+		}
+		return null;
+	},
+
+	_entityAdded : function( entity ){
+		for(var s=0,len=this.voidSystems.length; s<len;s++){
+			var system = this.voidSystems[s];
+			system.added(entity);
+		}
+	},
+
+	_entityDeleted : function( entity ){
+		for(var s=0,len=this.voidSystems.length; s<len;s++){
+			var system = this.voidSystems[s];
+			system.removed(entity);
+		}
+		entity.delteted = true;
+	},
 });
 
 
