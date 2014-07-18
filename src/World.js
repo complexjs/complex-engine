@@ -45,6 +45,13 @@ cx.World = Class.extend({
 	},
 
 	/**
+	 * Return all entities
+	 */
+	getEntities : function(){
+		return this.entities;
+	},
+
+	/**
 	 * add system to world
 	 * @param {cx.VoidSystem|cx.EntitySystem} system [description]
 	 */
@@ -96,6 +103,15 @@ cx.World = Class.extend({
 		}
 
 		return null;
+	},
+
+	getSystems : function(type){
+		if(type == 'process'){
+			return this.processSystems;
+		}
+		if(type == 'void'){
+			return this.voidSystems;
+		}
 	},
 
 	/**

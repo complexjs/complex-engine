@@ -1,4 +1,4 @@
-// Build by LittleHelper. Build Date : Fri Jul 18 2014 08:41:31 GMT+0200 (CEST)
+// Build by LittleHelper. Build Date : Fri Jul 18 2014 15:48:59 GMT+0200 (CEST)
 
 
 
@@ -327,6 +327,13 @@ cx.World = Class.extend({
 	},
 
 	/**
+	 * Return all entities
+	 */
+	getEntities : function(){
+		return this.entities;
+	},
+
+	/**
 	 * add system to world
 	 * @param {cx.VoidSystem|cx.EntitySystem} system [description]
 	 */
@@ -378,6 +385,15 @@ cx.World = Class.extend({
 		}
 
 		return null;
+	},
+
+	getSystems : function(type){
+		if(type == 'process'){
+			return this.processSystems;
+		}
+		if(type == 'void'){
+			return this.voidSystems;
+		}
 	},
 
 	/**
