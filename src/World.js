@@ -30,11 +30,8 @@ cx.World = Class.extend({
 	/**
 	 * Remove entity from world and trigger codes from systems
 	 */
-	removeEntity : function(entity, triggerSystem){
-		triggerSystem = triggerSystem || true;
-		if(triggerSystem){
-			this._entityDeleted(entity);
-		}
+	removeEntity : function(entity){
+		this._deleteFromSystems(entity);
 		delete this.entities[entity.index];
 	},
 
@@ -169,15 +166,15 @@ cx.World = Class.extend({
 			for(var e = 0, eLen = this.entities.length; e < eLen; e++){
 				var entity = this.entities[e];
 
-				if(entity.delteted && entity.remove){
-					this.removeEntity(entity, false);
+				if(entity == null){
 					continue;
 				}
 
-				if( entity.remove && !entity.delteted){
-					this._entityDeleted(entity);
+				if(!entity.alive && entity.remove){
+					this.removeEntity(entity);
 					continue;
 				}
+
 				if( !entity.alive ) {
 					continue;
 				}
@@ -243,11 +240,10 @@ cx.World = Class.extend({
 		}
 	},
 
-	_entityDeleted : function( entity ){
+	_deleteFromSystems : function( entity ){
 		for(var s=0,len=this.voidSystems.length; s<len;s++){
 			var system = this.voidSystems[s];
 			system.removed(entity);
 		}
-		entity.delteted = true;
 	},
 });
