@@ -1,4 +1,4 @@
-// Build by LittleHelper. Build Date : Fri Jul 18 2014 15:48:59 GMT+0200 (CEST)
+// Build by LittleHelper. Build Date : Sat Aug 09 2014 13:35:34 GMT+0200 (CEST)
 
 
 
@@ -72,7 +72,7 @@
 
 // FILE >> complex.js
 var cx = {
-	version : "0.9.1",
+	version : "0.9.4",
 	initFunctions : [],
 	addInitFunction : function(cb){
 		cx.initFunctions.push(cb);
@@ -86,30 +86,29 @@ var cx = {
 console.log("Complex "+cx.version);
 
 
-// FILE >> src/Component.js
 
+// FILE >> src/Component.js
 /**
  * The component object
  * @param {[type]} data [description]
  */
 cx.Component = Class.extend({
-	tag : null,
 	init : function(){
 		this.debugable = true;
 	}
-
 });
 
 
 
 // FILE >> src/Entity.js
 /**
- * [Entity description]
+ * [init description]
  */
 cx.Entity = Class.extend({
 	components : [],
 	world : null,
 	alive : true,
+
     /**
      * constructor
      */
@@ -119,17 +118,25 @@ cx.Entity = Class.extend({
 		this.remove = false;
 	},
 
+	/**
+	 * [getWorld description]
+	 */
 	getWorld : function(){
 		return this.world;
 	},
 
+	/**
+	 * [setWorld description]
+	 * @param {cx.World} world [description]
+	 */
 	setWorld : function( world){
 		this.world = world;
 	},
-    /**
-     * add a component to the entity
-     * @param component
-     */
+
+	/**
+	 * Add a component to the entity
+	 * @param {cx.Component} component [description]
+	 */
 	addComponent : function ( component ) {
 		var slot = this._getFreeSlot();
 		if( slot != null ){
@@ -139,11 +146,10 @@ cx.Entity = Class.extend({
 		}
 	},
 
-    /**
-     * get a component by its name
-     * @param componentName
-     * @returns {*}
-     */
+	/**
+	 * Get a component from this entity
+	 * @param {string} componentName [description]
+	 */
 	getComponent : function ( componentName ) {
 		for(var i = 0, len = this.components.length; i < len; i++){
 			var component = this.components[i];
@@ -154,13 +160,17 @@ cx.Entity = Class.extend({
 		return null;
 	},
 
+	/**
+	 * Get all components
+	 */
 	getComponents : function() {
 		return this.components;
 	},
 
 	/**
-	*	Remove a component from the entity
-	*/
+	 * Remove component from this entity
+	 * @param {string} componentName [description]
+	 */
 	removeComponent : function(componentName){
 		for(var i = 0, len = this.components.length; i < len; i++){
 			var component = this.components[i];
@@ -178,6 +188,9 @@ cx.Entity = Class.extend({
 		this.remove = true;
 	},
 
+	/**
+	 * Search a free slot for a component
+	 */
 	_getFreeSlot : function(){
 		for(var c = 0, len = this.components.length; c < len; c++){
 			var component = this.components[c];
@@ -192,7 +205,6 @@ cx.Entity = Class.extend({
 
 
 // FILE >> src/System.js
-
 /**
  * [System description]
  * @param {[type]} arrayOfComponents [description]
@@ -213,8 +225,8 @@ cx.System = Class.extend({
     addedToWorld : function(){},
 
     /**
-     * Set the worldobject when the system is added
-     * @param world
+     * Set World
+     * @param {cx.World} world [description]
      */
     setWorld : function ( world ) {
         this.world = world;
@@ -222,7 +234,7 @@ cx.System = Class.extend({
 
     /**
      * retrive the world object
-     * @returns {null}
+     * @returns {cx.World}
      */
     getWorld : function() {
         return this.world;
@@ -241,10 +253,10 @@ cx.EntitySystem = cx.System.extend({
 	},
 
 	/**
-	* @param entity Entity
-	* @param components array Array contains componens accessable via tag name `components['cx.scriptcomponent']`
-	* called every tick for every entity
-	*/
+	 * Update entities
+	 * @param  {cx.Entity} entity     [description]
+	 * @param  {cx.Component[]} components [description]
+	 */
 	update : function(entity, components){}
 
 });
@@ -259,20 +271,19 @@ cx.VoidSystem = cx.System.extend({
 	},
 
     /**
-    * @param entity Entity object
-    * called when an entity is added to world
-    */
+     * Called when an entity has been added to the world
+     * @param  {cx.Entity} entity [description]
+     */
     added : function( entity ){},
 
-
     /**
-    * @param entity Entity object
-    * called when an entity isremoved from world
-    */
+     * Called when an entity has been removed from world
+     * @param  {cx.Entity} entity [description]
+     */
     removed : function( entity ){},
 
     /**
-    *    Called every tick
+    * Called every tick
     */
     update : function(){}
 });
@@ -293,7 +304,7 @@ cx.World = Class.extend({
 
     /**
      * Add entity to world
-     * @param {cx.entity} entity [description]
+     * @param {cx.Entity} entity [description]
      */
     addEntity : function ( entity ) {
 
@@ -309,11 +320,13 @@ cx.World = Class.extend({
 		this._entityAdded(entity);
 	},
 
+
 	/**
-	 * Remove entity from world and trigger codes from systems
+	 * Remove an entity from the world
+	 * @param {cx.Entity} entity [description]
 	 */
 	removeEntity : function(entity){
-		this._deleteFromSystems(entity);
+		this._entityDeleted(entity);
 		delete this.entities[entity.index];
 	},
 
@@ -335,7 +348,7 @@ cx.World = Class.extend({
 
 	/**
 	 * add system to world
-	 * @param {cx.VoidSystem|cx.EntitySystem} system [description]
+	 * @param {cx.System} system [description]
 	 */
 	addSystem : function ( system ){
         system.setWorld(this);
@@ -359,7 +372,7 @@ cx.World = Class.extend({
 
 	/**
 	 * get a system
-	 * @param  {string} systemName [description]
+	 * @param  {cx.System|string} systemName [description]
 	 * @return {cx.System}            [description]
 	 */
 	getSystem : function( system ) {
@@ -387,6 +400,10 @@ cx.World = Class.extend({
 		return null;
 	},
 
+	/**
+	 * Returns all systems of a specific type
+	 * @param {string} type process/void
+	 */
 	getSystems : function(type){
 		if(type == 'process'){
 			return this.processSystems;
@@ -397,8 +414,9 @@ cx.World = Class.extend({
 	},
 
 	/**
-	*	Remove a system from the world
-	*/
+	 * Remove a system from the world
+	 * @param {cx.System|string} system
+	 */
 	removeSystem : function( system ){
 		var systemName = "";
 		if ( typeof system == "string"){
@@ -449,7 +467,6 @@ cx.World = Class.extend({
 
 	/**
 	 * update step
-	 * @return {[type]} [description]
 	 */
 	update : function ( ) {
 
@@ -501,6 +518,9 @@ cx.World = Class.extend({
 		}
 	},
 
+	/**
+	 * Find a free slot for a new entity
+	 */
 	_getFreeEntitySlot : function(){
 		for(var e = 0, len = this.entities.length; e < len; e++){
 			var entity = this.entities[e];
@@ -511,6 +531,9 @@ cx.World = Class.extend({
 		return null;
 	},
 
+	/**
+	 * Find free slot for a processSystem
+	 */
 	_getFreeProcessSystemSlot : function(){
 		for(var s = 0, len = this.processSystems.length; s < len; s++){
 			var system = this.processSystems[s];
@@ -521,6 +544,9 @@ cx.World = Class.extend({
 		return null;
 	},
 
+	/**
+	 * Find a free slot for a voidSystem
+	 */
 	_getFreeVoidSystemSlot : function(){
 		for(var s = 0, len = this.voidSystems.length; s < len; s++){
 			var system = this.voidSystems[s];
@@ -531,6 +557,10 @@ cx.World = Class.extend({
 		return null;
 	},
 
+	/**
+	 * Notify systems when an entity has been added
+	 * @param {cx.Entity} entity
+	 */
 	_entityAdded : function( entity ){
 		for(var s=0,len=this.voidSystems.length; s<len;s++){
 			var system = this.voidSystems[s];
@@ -538,7 +568,11 @@ cx.World = Class.extend({
 		}
 	},
 
-	_deleteFromSystems : function( entity ){
+	/**
+	 * Notify systems when an entity has been removed
+	 * @param {cx.Entity} entity
+	 */
+	_entityDeleted : function( entity ){
 		for(var s=0,len=this.voidSystems.length; s<len;s++){
 			var system = this.voidSystems[s];
 			system.removed(entity);

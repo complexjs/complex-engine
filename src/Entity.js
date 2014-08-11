@@ -1,10 +1,11 @@
 /**
- * [Entity description]
+ * [init description]
  */
 cx.Entity = Class.extend({
 	components : [],
 	world : null,
 	alive : true,
+
     /**
      * constructor
      */
@@ -14,17 +15,25 @@ cx.Entity = Class.extend({
 		this.remove = false;
 	},
 
+	/**
+	 * [getWorld description]
+	 */
 	getWorld : function(){
 		return this.world;
 	},
 
+	/**
+	 * [setWorld description]
+	 * @param {cx.World} world [description]
+	 */
 	setWorld : function( world){
 		this.world = world;
 	},
-    /**
-     * add a component to the entity
-     * @param component
-     */
+
+	/**
+	 * Add a component to the entity
+	 * @param {cx.Component} component [description]
+	 */
 	addComponent : function ( component ) {
 		var slot = this._getFreeSlot();
 		if( slot != null ){
@@ -34,11 +43,10 @@ cx.Entity = Class.extend({
 		}
 	},
 
-    /**
-     * get a component by its name
-     * @param componentName
-     * @returns {*}
-     */
+	/**
+	 * Get a component from this entity
+	 * @param {string} componentName [description]
+	 */
 	getComponent : function ( componentName ) {
 		for(var i = 0, len = this.components.length; i < len; i++){
 			var component = this.components[i];
@@ -49,13 +57,17 @@ cx.Entity = Class.extend({
 		return null;
 	},
 
+	/**
+	 * Get all components
+	 */
 	getComponents : function() {
 		return this.components;
 	},
 
 	/**
-	*	Remove a component from the entity
-	*/
+	 * Remove component from this entity
+	 * @param {string} componentName [description]
+	 */
 	removeComponent : function(componentName){
 		for(var i = 0, len = this.components.length; i < len; i++){
 			var component = this.components[i];
@@ -73,6 +85,9 @@ cx.Entity = Class.extend({
 		this.remove = true;
 	},
 
+	/**
+	 * Search a free slot for a component
+	 */
 	_getFreeSlot : function(){
 		for(var c = 0, len = this.components.length; c < len; c++){
 			var component = this.components[c];

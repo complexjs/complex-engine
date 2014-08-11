@@ -6,10 +6,10 @@ cx.EntitySystem = cx.System.extend({
 	},
 
 	/**
-	* @param entity Entity
-	* @param components array Array contains componens accessable via tag name `components['cx.scriptcomponent']`
-	* called every tick for every entity
-	*/
+	 * Update entities
+	 * @param  {cx.Entity} entity     [description]
+	 * @param  {cx.Component[]} components [description]
+	 */
 	update : function(entity, components){}
 
 });

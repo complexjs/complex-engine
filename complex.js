@@ -1,5 +1,5 @@
 var cx = {
-	version : "0.9.1",
+	version : "0.9.4",
 	initFunctions : [],
 	addInitFunction : function(cb){
 		cx.initFunctions.push(cb);

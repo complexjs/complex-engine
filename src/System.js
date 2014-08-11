@@ -1,4 +1,3 @@
-
 /**
  * [System description]
  * @param {[type]} arrayOfComponents [description]
@@ -19,8 +18,8 @@ cx.System = Class.extend({
     addedToWorld : function(){},
 
     /**
-     * Set the worldobject when the system is added
-     * @param world
+     * Set World
+     * @param {cx.World} world [description]
      */
     setWorld : function ( world ) {
         this.world = world;
@@ -28,7 +27,7 @@ cx.System = Class.extend({
 
     /**
      * retrive the world object
-     * @returns {null}
+     * @returns {cx.World}
      */
     getWorld : function() {
         return this.world;

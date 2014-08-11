@@ -5,20 +5,19 @@ cx.VoidSystem = cx.System.extend({
 	},
 
     /**
-    * @param entity Entity object
-    * called when an entity is added to world
-    */
+     * Called when an entity has been added to the world
+     * @param  {cx.Entity} entity [description]
+     */
     added : function( entity ){},
 
-
     /**
-    * @param entity Entity object
-    * called when an entity isremoved from world
-    */
+     * Called when an entity has been removed from world
+     * @param  {cx.Entity} entity [description]
+     */
     removed : function( entity ){},
 
     /**
-    *    Called every tick
+    * Called every tick
     */
     update : function(){}
 });

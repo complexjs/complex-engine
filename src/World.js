@@ -11,7 +11,7 @@ cx.World = Class.extend({
 
     /**
      * Add entity to world
-     * @param {cx.entity} entity [description]
+     * @param {cx.Entity} entity [description]
      */
     addEntity : function ( entity ) {
 
@@ -27,11 +27,13 @@ cx.World = Class.extend({
 		this._entityAdded(entity);
 	},
 
+
 	/**
-	 * Remove entity from world and trigger codes from systems
+	 * Remove an entity from the world
+	 * @param {cx.Entity} entity [description]
 	 */
 	removeEntity : function(entity){
-		this._deleteFromSystems(entity);
+		this._entityDeleted(entity);
 		delete this.entities[entity.index];
 	},
 
@@ -53,7 +55,7 @@ cx.World = Class.extend({
 
 	/**
 	 * add system to world
-	 * @param {cx.VoidSystem|cx.EntitySystem} system [description]
+	 * @param {cx.System} system [description]
 	 */
 	addSystem : function ( system ){
         system.setWorld(this);
@@ -77,7 +79,7 @@ cx.World = Class.extend({
 
 	/**
 	 * get a system
-	 * @param  {string} systemName [description]
+	 * @param  {cx.System|string} systemName [description]
 	 * @return {cx.System}            [description]
 	 */
 	getSystem : function( system ) {
@@ -105,6 +107,10 @@ cx.World = Class.extend({
 		return null;
 	},
 
+	/**
+	 * Returns all systems of a specific type
+	 * @param {string} type process/void
+	 */
 	getSystems : function(type){
 		if(type == 'process'){
 			return this.processSystems;
@@ -115,8 +121,9 @@ cx.World = Class.extend({
 	},
 
 	/**
-	*	Remove a system from the world
-	*/
+	 * Remove a system from the world
+	 * @param {cx.System|string} system
+	 */
 	removeSystem : function( system ){
 		var systemName = "";
 		if ( typeof system == "string"){
@@ -167,7 +174,6 @@ cx.World = Class.extend({
 
 	/**
 	 * update step
-	 * @return {[type]} [description]
 	 */
 	update : function ( ) {
 
@@ -219,6 +225,9 @@ cx.World = Class.extend({
 		}
 	},
 
+	/**
+	 * Find a free slot for a new entity
+	 */
 	_getFreeEntitySlot : function(){
 		for(var e = 0, len = this.entities.length; e < len; e++){
 			var entity = this.entities[e];
@@ -229,6 +238,9 @@ cx.World = Class.extend({
 		return null;
 	},
 
+	/**
+	 * Find free slot for a processSystem
+	 */
 	_getFreeProcessSystemSlot : function(){
 		for(var s = 0, len = this.processSystems.length; s < len; s++){
 			var system = this.processSystems[s];
@@ -239,6 +251,9 @@ cx.World = Class.extend({
 		return null;
 	},
 
+	/**
+	 * Find a free slot for a voidSystem
+	 */
 	_getFreeVoidSystemSlot : function(){
 		for(var s = 0, len = this.voidSystems.length; s < len; s++){
 			var system = this.voidSystems[s];
@@ -249,6 +264,10 @@ cx.World = Class.extend({
 		return null;
 	},
 
+	/**
+	 * Notify systems when an entity has been added
+	 * @param {cx.Entity} entity
+	 */
 	_entityAdded : function( entity ){
 		for(var s=0,len=this.voidSystems.length; s<len;s++){
 			var system = this.voidSystems[s];
@@ -256,7 +275,11 @@ cx.World = Class.extend({
 		}
 	},
 
-	_deleteFromSystems : function( entity ){
+	/**
+	 * Notify systems when an entity has been removed
+	 * @param {cx.Entity} entity
+	 */
+	_entityDeleted : function( entity ){
 		for(var s=0,len=this.voidSystems.length; s<len;s++){
 			var system = this.voidSystems[s];
 			system.removed(entity);
