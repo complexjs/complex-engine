@@ -1,7 +1,7 @@
 /**
  * [init description]
  */
-cx.Entity = Class.extend({
+cx.Entity = cx.GameObject.extend({
 	components : [],
 	world : null,
 	alive : true,

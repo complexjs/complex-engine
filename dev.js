@@ -5,6 +5,7 @@ var files = [
 	'libs/Class.js',
 
 	'complex.js',
+	'src/GameObject.js',
 	'src/Component.js',
 	'src/Entity.js',
 	'src/System.js',

@@ -1,4 +1,4 @@
-// Build by LittleHelper. Build Date : Sat Aug 09 2014 13:35:34 GMT+0200 (CEST)
+// Build by LittleHelper. Build Date : Mon Aug 11 2014 21:21:24 GMT+0200 (CEST)
 
 
 
@@ -87,6 +87,16 @@ console.log("Complex "+cx.version);
 
 
 
+// FILE >> src/GameObject.js
+cx.GameObject = Class.extend({
+    init : function(){
+        this.tag = "cx.GameObject";
+        this.debugable=true;
+    }
+})
+
+
+
 // FILE >> src/Component.js
 /**
  * The component object
@@ -104,7 +114,7 @@ cx.Component = Class.extend({
 /**
  * [init description]
  */
-cx.Entity = Class.extend({
+cx.Entity = cx.GameObject.extend({
 	components : [],
 	world : null,
 	alive : true,
@@ -591,7 +601,6 @@ cx.Manager = Class.extend({
     tag : null,
     world : null,
     init : function () {
-        this.debugable = true;
-    }
 
+    }
 });
