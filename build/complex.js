@@ -1,4 +1,4 @@
-// Build by LittleHelper. Build Date : Mon Aug 11 2014 21:21:24 GMT+0200 (CEST)
+// Build by LittleHelper. Build Date : Tue Aug 12 2014 18:46:58 GMT+0200 (CEST)
 
 
 
@@ -330,7 +330,6 @@ cx.World = Class.extend({
 		this._entityAdded(entity);
 	},
 
-
 	/**
 	 * Remove an entity from the world
 	 * @param {cx.Entity} entity [description]
@@ -350,10 +349,18 @@ cx.World = Class.extend({
 	},
 
 	/**
-	 * Return all entities
-	 */
+	* Return all entities
+	*/
 	getEntities : function(){
-		return this.entities;
+		var entities = [];
+		for(var e = 0, len=this.entities.length; e < len; e++){
+			var entity = this.entities[e];
+			if(entity == undefined || entity == null){
+				continue;
+			}
+			entities.push(entity);
+		}
+		return entities;
 	},
 
 	/**
@@ -468,7 +475,7 @@ cx.World = Class.extend({
 	    for(var i = 0, len = this.managers.length; i < len; i++){
 			var manager = this.managers[i];
 			if(manager.tag == name){
-				return manager;
+				return this.managers[i];
 			}
 		}
 		return null;
