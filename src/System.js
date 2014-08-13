@@ -2,14 +2,13 @@
  * [System description]
  * @param {[type]} arrayOfComponents [description]
  */
-cx.System = Class.extend({
+cx.System = cx.GameObject.extend({
     world : null,
     tag : null,
 
 	init : function(){
 		this.TYPE_VOID = "void";
 		this.TYPE_PROCESS = "process";
-        this.debugable = true;
 	},
 
     /**

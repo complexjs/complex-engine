@@ -1,3 +1,5 @@
+'use strict';
+
 var cx = {
 	version : "0.9.4",
 	initFunctions : [],
@@ -10,4 +12,5 @@ var cx = {
 		}
 	}
 };
+
 console.log("Complex "+cx.version);

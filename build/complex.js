@@ -1,4 +1,4 @@
-// Build by LittleHelper. Build Date : Tue Aug 12 2014 18:46:58 GMT+0200 (CEST)
+// Build by LittleHelper. Build Date : Wed Aug 13 2014 08:22:51 GMT+0200 (CEST)
 
 
 
@@ -71,6 +71,8 @@
 
 
 // FILE >> complex.js
+'use strict';
+
 var cx = {
 	version : "0.9.4",
 	initFunctions : [],
@@ -83,6 +85,7 @@ var cx = {
 		}
 	}
 };
+
 console.log("Complex "+cx.version);
 
 
@@ -102,9 +105,9 @@ cx.GameObject = Class.extend({
  * The component object
  * @param {[type]} data [description]
  */
-cx.Component = Class.extend({
+cx.Component = cx.GameObject.extend({
 	init : function(){
-		this.debugable = true;
+		this._super();
 	}
 });
 
@@ -219,14 +222,13 @@ cx.Entity = cx.GameObject.extend({
  * [System description]
  * @param {[type]} arrayOfComponents [description]
  */
-cx.System = Class.extend({
+cx.System = cx.GameObject.extend({
     world : null,
     tag : null,
 
 	init : function(){
 		this.TYPE_VOID = "void";
 		this.TYPE_PROCESS = "process";
-        this.debugable = true;
 	},
 
     /**
@@ -304,13 +306,17 @@ cx.VoidSystem = cx.System.extend({
 /**
  * Holds all the current entities and systems
  */
-cx.World = Class.extend({
+cx.World = cx.GameObject.extend({
 	entities : [],
     systems : [],
 	voidSystems: [],
 	processSystems : [],
     managers : [],
     tag : 'cx.World',
+
+	init : function(){
+		this._super();
+	},
 
     /**
      * Add entity to world
@@ -604,10 +610,10 @@ cx.World = Class.extend({
  * Represents a manager to handle additional data
  * @type {*}
  */
-cx.Manager = Class.extend({
+cx.Manager = cx.GameObject.extend({
     tag : null,
     world : null,
     init : function () {
-
+        this._super();
     }
 });

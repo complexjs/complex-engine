@@ -1,13 +1,17 @@
 /**
  * Holds all the current entities and systems
  */
-cx.World = Class.extend({
+cx.World = cx.GameObject.extend({
 	entities : [],
     systems : [],
 	voidSystems: [],
 	processSystems : [],
     managers : [],
     tag : 'cx.World',
+
+	init : function(){
+		this._super();
+	},
 
     /**
      * Add entity to world

@@ -2,8 +2,8 @@
  * The component object
  * @param {[type]} data [description]
  */
-cx.Component = Class.extend({
+cx.Component = cx.GameObject.extend({
 	init : function(){
-		this.debugable = true;
+		this._super();
 	}
 });
