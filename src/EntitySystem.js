@@ -10,6 +10,20 @@ cx.EntitySystem = cx.System.extend({
 	 * @param  {cx.Entity} entity     [description]
 	 * @param  {cx.Component[]} components [description]
 	 */
-	update : function(entity, components){}
+	update : function(entity, components){},
+
+	/**
+	 * [added description]
+	 * @param  {cx.Entity} entity [description]
+	 * @return {[type]}        [description]
+	 */
+	added : function (entity){},
+
+	/**
+	 * [removed description]
+	 * @param  {cx.Entity} entity [description]
+	 * @return {[type]}        [description]
+	 */
+	removed : function(entity){}
 
 });

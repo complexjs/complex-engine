@@ -284,6 +284,10 @@ cx.World = cx.GameObject.extend({
 			var system = this.voidSystems[s];
 			system.added(entity);
 		}
+		for(var s=0,len=this.processSystems.length; s<len;s++){
+			var system = this.processSystems[s];
+			system.added(entity);
+		}
 	},
 
 	/**
@@ -293,6 +297,10 @@ cx.World = cx.GameObject.extend({
 	_entityDeleted : function( entity ){
 		for(var s=0,len=this.voidSystems.length; s<len;s++){
 			var system = this.voidSystems[s];
+			system.removed(entity);
+		}
+		for(var s=0,len=this.processSystems.length; s<len;s++){
+			var system = this.processSystems[s];
 			system.removed(entity);
 		}
 	},

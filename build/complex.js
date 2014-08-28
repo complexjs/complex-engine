@@ -1,4 +1,4 @@
-// Build by LittleHelper. Build Date : Wed Aug 13 2014 08:22:51 GMT+0200 (CEST)
+// Build by LittleHelper. Build Date : Thu Aug 28 2014 20:49:03 GMT+0200 (CEST)
 
 
 
@@ -269,7 +269,21 @@ cx.EntitySystem = cx.System.extend({
 	 * @param  {cx.Entity} entity     [description]
 	 * @param  {cx.Component[]} components [description]
 	 */
-	update : function(entity, components){}
+	update : function(entity, components){},
+
+	/**
+	 * [added description]
+	 * @param  {cx.Entity} entity [description]
+	 * @return {[type]}        [description]
+	 */
+	added : function (entity){},
+
+	/**
+	 * [removed description]
+	 * @param  {cx.Entity} entity [description]
+	 * @return {[type]}        [description]
+	 */
+	removed : function(entity){}
 
 });
 
@@ -589,6 +603,10 @@ cx.World = cx.GameObject.extend({
 			var system = this.voidSystems[s];
 			system.added(entity);
 		}
+		for(var s=0,len=this.processSystems.length; s<len;s++){
+			var system = this.processSystems[s];
+			system.added(entity);
+		}
 	},
 
 	/**
@@ -598,6 +616,10 @@ cx.World = cx.GameObject.extend({
 	_entityDeleted : function( entity ){
 		for(var s=0,len=this.voidSystems.length; s<len;s++){
 			var system = this.voidSystems[s];
+			system.removed(entity);
+		}
+		for(var s=0,len=this.processSystems.length; s<len;s++){
+			var system = this.processSystems[s];
 			system.removed(entity);
 		}
 	},
