@@ -2,8 +2,6 @@ var helper = require('littlehelper');
 
 helper.init();
 var files = [
-	'libs/Class.js',
-
 	'complex.js',
 	'src/GameObject.js',
 	'src/Component.js',

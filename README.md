@@ -36,60 +36,7 @@ animloop.init();
 </pre>
 
 <h2>Systems</h2>
-The system is handling the datahandling of all components. For example moving around a object or rendering all entities to the canvas.
-There where 2 different systemtypes `cx.EntitySystem` and `cx.VoidSystem`
-
-<h4>cx.EntitySystem</h4>
-The EntitySystem is a system which reacts on entites which owns the same components as configured in the system
-
-<pre>
-var MySystem = cx.EntitySystem.extend({
-    tag : "MySystem", // used to identify the system and retrive it back from the world
-    components : ["PositionComponent", "SizeComponents"], // the value of the tag property in your components
-
-    //constructor
-    init : function(){
-
-    },
-     /**
-     * called for an entity if the required components are matching these of the entity
-     * @param entity
-     * @param componens Key Value store. Components can be accessed with the componentName `components["myComponent"]`
-     */
-    update : function( entity, componens){
-        //do what ever you want with your entity and its components
-    }
-});
-</pre>
-
-<h4>cx.VoidSystem</h4>
-VoidSystem is a system which does not react on each entity but is called everytime `world.update` is called. With this system you can easily implement other libraries like PIXI.js where you only have to call `update()` once every tick
-
-<pre>
-var PixiSystem = cx.VoidSystem.extend({
-    tag : 'PixiSystem',
-
-    init : function(){
-        this.stage = new PIXI.Stage(0x66FF99);
-        this.renderer = PIXI.autoDetectRenderer(400, 300);
-        this.type = this.TYPE_VOID;
-
-        document.body.appendChild(this.renderer.view);
-    },
-
-    //called when an entity is added to world
-    added : function ( entity ){
-        var spriteComponent = null
-        if ( (spriteComponent = entity.getComponent('sprite')) != null ){
-            this.stage.addChild(spriteComponent.sprite);
-        }
-    },
-
-    update: function () {
-        this.renderer.render(this.stage);
-    }
-});
-</pre>
+@TODO
 
 <h3>Use a system</h3>
 To make a system working you have to add it to the `cx.World`
@@ -120,24 +67,7 @@ world.addEntity(hero);
 </pre>
 
 <h2>Components</h2>
-A Component is a object which holds data for a specific entity. This data is processed by a system
-
-<h3>Create a Component</h3>
-A Component have to extend the `cx.Component` class
-<pre>
-var ScriptComponent = cx.Component.extend({
-	tag:'cx.ScriptComponent', // defines a unique name to access this component later
-
-    //properties
-	script : null,
-	setup : false,
-
-    //constructor
-	init : function(script){
-		this.script = script;
-	}
-});
-</pre>
+@TODO
 
 <h3>Add a component</h3>
 To process the data in an component for a specific entity we have to add the component to that entity
@@ -157,28 +87,6 @@ var scriptComponent = hero.getComponent("cx.ScriptComponent");
 <a href="https://github.com/faebeee/complex-demo">Here</a>
 
 <a href="https://github.com/faebeee/complex-demo/tree/master/shootemup">shootemup</a>
-
-<h2>Samples</h2>
-<h3>Script</h3>
-<pre>
-var EnemyBehaviour = cx.Script.extend({
-    // constructor
-    init : function(){
-
-    },
-
-    // called when the entity and world object has been set to the script
-    onSetup : function() {
-
-    },
-
-    // called every update cycle
-    update : function ( ) {
-
-    }
-});
-</pre>
-
 
 <h2>Contribution</h2>
 Just contribute. It's OpenSource

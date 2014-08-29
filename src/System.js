@@ -2,34 +2,64 @@
  * [System description]
  * @param {[type]} arrayOfComponents [description]
  */
-cx.System = cx.GameObject.extend({
-    world : null,
-    tag : null,
+(function(){
+    var System = function()
+    {
+        cx.GameObject.call(this);
+        this.world = null;
+        this.tag = null;
+    }
 
-	init : function(){
-		this.TYPE_VOID = "void";
-		this.TYPE_PROCESS = "process";
-	},
+    System.TYPE_VOID = "void";
+    System.TYPE_PROCESS = "process";
+
+    System.prototype = Object.create(cx.GameObject);
+    System.prototype.constructor = System;
+
 
     /**
     * called as soon the system has been added to the world object
     */
-    addedToWorld : function(){},
+    System.prototype.addedToWorld = function()
+    {
+
+    }
 
     /**
-     * Set World
+     * Called when an entity has been added to the world
+     * @param  {cx.Entity} entity [description]
+     */
+    System.prototype.added = function( entity )
+    {
+
+    }
+
+    /**
+     * Called when an entity has been removed from world
+     * @param  {cx.Entity} entity [description]
+     */
+    System.prototype.removed = function( entity )
+    {
+
+    }
+
+    /**
+     * [setWorld description]
      * @param {cx.World} world [description]
      */
-    setWorld : function ( world ) {
+    System.prototype.setWorld = function ( world )
+    {
         this.world = world;
-    },
+    }
 
     /**
-     * retrive the world object
-     * @returns {cx.World}
+     * [getWorld description]
+     * @return {cx.World} world
      */
-    getWorld : function() {
+    System.prototype.getWorld = function ( )
+    {
         return this.world;
-    },
+    }
 
-});
+    cx.System = System;
+})();

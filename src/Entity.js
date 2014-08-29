@@ -1,100 +1,119 @@
 /**
  * [init description]
  */
-cx.Entity = cx.GameObject.extend({
-	components : [],
-	world : null,
-	alive : true,
-
-    /**
-     * constructor
-     */
-	init : function(){
+(function(){
+	var Entity = function()
+	{
+		ow.GameObject.call(this);
 		this.components = [];
 		this.alive = true;
 		this.remove = false;
-	},
+	}
+
+	Entity.prototype = Object.create(cx.GameObject);
+	Entity.prototype.constructor = Entity;
 
 	/**
 	 * [getWorld description]
+	 * @return cx.World
 	 */
-	getWorld : function(){
+	Entity.prototype.getWorld = function()
+	{
 		return this.world;
-	},
+	}
 
-	/**
-	 * [setWorld description]
-	 * @param {cx.World} world [description]
-	 */
-	setWorld : function( world){
+ 	/**
+ 	 * [setWorld description]
+ 	 * @param {cx.World} world [description]
+ 	 */
+	Entity.prototype.setWorld = function ( world )
+	{
 		this.world = world;
-	},
+	}
 
 	/**
-	 * Add a component to the entity
+	 * add component to this entity
 	 * @param {cx.Component} component [description]
 	 */
-	addComponent : function ( component ) {
+	Entity.prototype.addComponent = function( component )
+	{
 		var slot = this._getFreeSlot();
-		if( slot != null ){
+		if( slot != null )
+			{
 			this.components[slot] = component;
-		} else {
+		}
+		else
+		{
 			this.components.push( component );
 		}
-	},
+	}
 
 	/**
-	 * Get a component from this entity
+	 * [getComponent description]
 	 * @param {string} componentName [description]
+	 * @return {cx.Component|null}
 	 */
-	getComponent : function ( componentName ) {
-		for(var i = 0, len = this.components.length; i < len; i++){
+	Entity.prototype.getComponent = function ( componentName)
+	{
+		for(var i = 0, len = this.components.length; i < len; i++)
+		{
 			var component = this.components[i];
-			if(component.tag == componentName){
+			if(component.tag == componentName)
+			{
 				return component;
 			}
 		}
 		return null;
-	},
+	}
 
 	/**
-	 * Get all components
-	 */
-	getComponents : function() {
-		return this.components;
-	},
-
-	/**
-	 * Remove component from this entity
+	 * [removeComponent description]
 	 * @param {string} componentName [description]
 	 */
-	removeComponent : function(componentName){
-		for(var i = 0, len = this.components.length; i < len; i++){
+	Entity.prototype.removeComponent = function ( componentName )
+	{
+		for(var i = 0, len = this.components.length; i < len; i++)
+		{
 			var component = this.components[i];
-			if(component.tag == componentName){
+			if(component.tag == componentName)
+			{
 				delete this.components[i];
 			}
 		}
-	},
+	}
 
 	/**
-	*	Destroy entity and remove it from the world
-	*/
-	destroy : function(){
-		this.alive = false;
-		this.remove = true;
-	},
-
-	/**
-	 * Search a free slot for a component
+	 * [getComponents description]
+	 * @return {cx.Component[]} components
 	 */
-	_getFreeSlot : function(){
-		for(var c = 0, len = this.components.length; c < len; c++){
+	Entity.prototype.getComponents = function ( )
+	{
+		return this.components;
+	}
+
+	/**
+	 * search an empty slot for a new component (pooling)
+	 */
+	Entity.prototype._getFreeSlot = function(){
+		for(var c = 0, len = this.components.length; c < len; c++)
+			{
 			var component = this.components[c];
-			if(component == undefined || component == null ){
+			if(component == undefined || component == null )
+				{
 				return c;
 			}
 		}
 		return null;
 	}
-});
+
+	/**
+	*	Destroy entity and remove it from the world
+	*/
+	Entity.prototype.destroy = function()
+	{
+		this.alive = false;
+		this.remove = true;
+	},
+
+	cx.Entity = Entity;
+})();

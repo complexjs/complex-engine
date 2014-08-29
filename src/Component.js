@@ -2,8 +2,11 @@
  * The component object
  * @param {[type]} data [description]
  */
-cx.Component = cx.GameObject.extend({
-	init : function(){
-		this._super();
+(function(){
+	var Component = function(){
+		cx.GameObject.call(this);
 	}
-});
+	Component.prototype = Object.create(cx.GameObject.prototype);
+    Component.prototype.constructor = Component;
+	cx.Component = Component;
+})();

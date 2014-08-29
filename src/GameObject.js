@@ -1,6 +1,7 @@
-cx.GameObject = Class.extend({
-    init : function(){
-        this.tag = "cx.GameObject";
-        this.debugable=true;
+(function(){
+    var GameObject = function(){
+        this.tag = null;
+        this.debugable = true;
     }
-})
+    cx.GameObject = GameObject;
+})();
