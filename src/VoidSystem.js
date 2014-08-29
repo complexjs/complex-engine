@@ -1,4 +1,8 @@
 (function(){
+
+    /**
+     * @constructor
+     */
     var VoidSystem = function()
     {
         cx.System.call(this);

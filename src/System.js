@@ -3,6 +3,10 @@
  * @param {[type]} arrayOfComponents [description]
  */
 (function(){
+
+    /**
+     * @constructor
+     */
     var System = function()
     {
         cx.GameObject.call(this);

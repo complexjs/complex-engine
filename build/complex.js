@@ -1,4 +1,4 @@
-// Build by LittleHelper. Build Date : Fri Aug 29 2014 08:41:08 GMT+0200 (CEST)
+// Build by LittleHelper. Build Date : Fri Aug 29 2014 08:55:30 GMT+0200 (CEST)
 
 
 
@@ -25,6 +25,10 @@ console.log("Complex "+cx.version);
 
 // FILE >> src/GameObject.js
 (function(){
+
+    /**
+     * @constructor
+     */
     var GameObject = function(){
         this.tag = null;
         this.debugable = true;
@@ -40,6 +44,9 @@ console.log("Complex "+cx.version);
  * @param {[type]} data [description]
  */
 (function(){
+	/**
+	 * @constructor
+	 */
 	var Component = function(){
 		cx.GameObject.call(this);
 	}
@@ -55,6 +62,11 @@ console.log("Complex "+cx.version);
  * [init description]
  */
 (function(){
+
+
+	/**
+	* @constructor
+	*/
 	var Entity = function()
 	{
 		ow.GameObject.call(this);
@@ -179,6 +191,10 @@ console.log("Complex "+cx.version);
  * @param {[type]} arrayOfComponents [description]
  */
 (function(){
+
+    /**
+     * @constructor
+     */
     var System = function()
     {
         cx.GameObject.call(this);
@@ -244,6 +260,10 @@ console.log("Complex "+cx.version);
 
 // FILE >> src/EntitySystem.js
 (function(){
+
+	/**
+	* @constructor
+	*/
 	var EntitySystem = function()
 	{
 		cx.System.call(this);
@@ -272,6 +292,10 @@ console.log("Complex "+cx.version);
 
 // FILE >> src/VoidSystem.js
 (function(){
+
+    /**
+     * @constructor
+     */
     var VoidSystem = function()
     {
         cx.System.call(this);
@@ -299,6 +323,10 @@ console.log("Complex "+cx.version);
  * Holds all the current entities and systems
  */
 (function(){
+
+	/**
+	* @constructor
+	*/
 	var World = function(){
 		cx.GameObject.call(this);
 		this.entities = [];
@@ -622,6 +650,10 @@ console.log("Complex "+cx.version);
  * @type {*}
  */
 (function(){
+
+    /**
+     * @constructor
+     */
     var Manager = function()
     {
         cx.GameObject.call(this);

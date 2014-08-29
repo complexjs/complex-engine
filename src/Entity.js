@@ -2,6 +2,11 @@
  * [init description]
  */
 (function(){
+
+
+	/**
+	* @constructor
+	*/
 	var Entity = function()
 	{
 		ow.GameObject.call(this);

@@ -1,4 +1,8 @@
 (function(){
+
+	/**
+	* @constructor
+	*/
 	var EntitySystem = function()
 	{
 		cx.System.call(this);

@@ -3,6 +3,10 @@
  * @type {*}
  */
 (function(){
+
+    /**
+     * @constructor
+     */
     var Manager = function()
     {
         cx.GameObject.call(this);

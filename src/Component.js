@@ -3,6 +3,9 @@
  * @param {[type]} data [description]
  */
 (function(){
+	/**
+	 * @constructor
+	 */
 	var Component = function(){
 		cx.GameObject.call(this);
 	}

@@ -2,6 +2,10 @@
  * Holds all the current entities and systems
  */
 (function(){
+
+	/**
+	* @constructor
+	*/
 	var World = function(){
 		cx.GameObject.call(this);
 		this.entities = [];
