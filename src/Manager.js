@@ -1,21 +1,17 @@
 /**
  * Represents a manager to handle additional data
- * @type {*}
+ *
+ * @constructor
  */
-(function(){
+var Manager = function()
+{
+    GameObject.call(this);
 
-    /**
-     * @constructor
-     */
-    var Manager = function()
-    {
-        cx.GameObject.call(this);
-        this.tag = null;
-        this.world = null;
-    }
+    this.world = null;
+};
 
-    Manager.prototype = Object.create(cx.GameObject);
-    Manager.prototype.constructor = Manager;
+Manager.prototype = Object.create(GameObject.prototype);
+Manager.prototype.constructor = Manager;
+Manager.prototype.name = 'cx.Manager';
 
-    cx.Manager = Manager;
-})();
+cx.Manager = Manager;
