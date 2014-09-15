@@ -1,15 +1,14 @@
 /**
- * The component object
- * @param {[type]} data [description]
+* The component object
+* @param {[type]} data [description]
+*/
+
+/**
+ * @constructor
  */
-(function(){
-	/**
-	 * @constructor
-	 */
-	var Component = function(){
-		cx.GameObject.call(this);
-	}
-	Component.prototype = Object.create(cx.GameObject.prototype);
-    Component.prototype.constructor = Component;
-	cx.Component = Component;
-})();
+var Component = function(){
+	cx.GameObject.call(this);
+}
+Component.prototype = Object.create(cx.GameObject.prototype);
+Component.prototype.constructor = Component;
+cx.Component = Component;
