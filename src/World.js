@@ -103,6 +103,21 @@ World.prototype.removeSystem = function(system)
     }
 };
 
+World.prototype.getSystem = function ( system )
+{
+    var i = 0, len=this.systems.length;
+    for(i=0;i<len;i++)
+    {
+        var s = this.systems[i];
+        if(s.name == system)
+        {
+            return s;
+        }
+    }
+    return null;
+
+}
+
 /**
 * add manager to world
 * @param {cx.Manager} manager [description]

@@ -1,4 +1,4 @@
-// Build by LittleHelper. Build Date : Fri Aug 29 2014 16:28:22 GMT+0200 (CEST)
+// Build by LittleHelper. Build Date : Mon Sep 15 2014 18:06:59 GMT+0200 (CEST)
 
 
 
@@ -263,7 +263,7 @@ Entity.prototype.removeComponent = function(component)
 };
 
 Entity.prototype.removeComponents = Entity.prototype.removeComponent;
-Entity.prototype.remove = Entity.prototype.remove;
+Entity.prototype.remove = Entity.prototype.removeComponent;
 
 Entity.prototype._removeMultiple = function(components)
 {
@@ -418,7 +418,7 @@ EntitySystem.prototype.render = function(alpha)
 
 EntitySystem.prototype.entityAddedComponent = function(entity, component) 
 {
-    
+    if (!component.isOneOf(this.components)) return;
 
     if (entity.has(this.components))
     {
@@ -428,7 +428,9 @@ EntitySystem.prototype.entityAddedComponent = function(entity, component)
 
 EntitySystem.prototype.entityRemovedComponent = function(entity, component) 
 {
-    if (entity.has(this.components))
+    if (!component.isOneOf(this.components)) return;
+
+    if (!entity.has(this.components))
     {
         this.entityRemoved(entity);
     }
@@ -568,6 +570,21 @@ World.prototype.removeSystem = function(system)
     }
 };
 
+World.prototype.getSystem = function ( system )
+{
+    var i = 0, len=this.systems.length;
+    for(i=0;i<len;i++)
+    {
+        var s = this.systems[i];
+        if(s.name == system)
+        {
+            return s;
+        }
+    }
+    return null;
+
+}
+
 /**
 * add manager to world
 * @param {cx.Manager} manager [description]
@@ -701,6 +718,7 @@ World.prototype._entityDestroyed = function(entity)
 };
 
 cx.World = World;
+
 
 
 // FILE >> src/Manager.js
