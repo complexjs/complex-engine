@@ -1,4 +1,4 @@
-// Build by LittleHelper. Build Date : Mon Sep 15 2014 17:30:10 GMT+0200 (CEST)
+// Build by LittleHelper. Build Date : Wed Jan 28 2015 11:15:11 GMT+0100 (CET)
 
 
 
@@ -12,9 +12,30 @@ var cx = {
 	addInitFunction : function(cb){
 		cx.initFunctions.push(cb);
 	},
+
 	init : function(){
 		for(var i = 0, len = cx.initFunctions.length; i < len; i++){
 			cx.initFunctions[i]();
+		}
+	},
+
+	loop : {
+		update : function(){},
+		init : function ( ) {
+			// shim layer with setTimeout fallback
+			window.requestAnimFrame = (function(){
+				return  window.requestAnimationFrame       ||
+				window.webkitRequestAnimationFrame ||
+				window.mozRequestAnimationFrame    ||
+				function( callback ){
+					window.setTimeout(callback, 1000 / 60);
+				};
+			})();
+
+			(function loop(){
+				requestAnimFrame(loop);
+				cx.loop.update();
+			})();
 		}
 	}
 };
