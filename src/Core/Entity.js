@@ -7,14 +7,10 @@
 */
 var Entity = function()
 {
-	cx.GameObject.call(this);
 	this.components = [];
 	this.alive = true;
 	this.remove = false;
 }
-
-Entity.prototype = Object.create(cx.GameObject.prototype);
-Entity.prototype.constructor = Entity;
 
 /**
  * [getWorld description]

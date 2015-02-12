@@ -1,4 +1,4 @@
-// Build by LittleHelper. Build Date : Wed Jan 28 2015 11:15:11 GMT+0100 (CET)
+// Build by LittleHelper. Build Date : Thu Feb 12 2015 08:43:54 GMT+0100 (CET)
 
 
 
@@ -9,6 +9,7 @@
 var cx = {
 	version : "0.9.4",
 	initFunctions : [],
+	rendering : true,
 	addInitFunction : function(cb){
 		cx.initFunctions.push(cb);
 	},
@@ -33,8 +34,11 @@ var cx = {
 			})();
 
 			(function loop(){
-				requestAnimFrame(loop);
-				cx.loop.update();
+				if(cx.rendering)
+				{
+					requestAnimFrame(loop);
+					cx.loop.update();
+				}
 			})();
 		}
 	}
@@ -44,19 +48,7 @@ console.log("Complex "+cx.version);
 
 
 
-// FILE >> src/GameObject.js
-/**
- * @constructor
- */
-var GameObject = function(){
-    this.tag = null;
-    this.debugable = true;
-}
-cx.GameObject = GameObject;
-
-
-
-// FILE >> src/Component.js
+// FILE >> src/Core/Component.js
 /**
 * The component object
 * @param {[type]} data [description]
@@ -65,16 +57,15 @@ cx.GameObject = GameObject;
 /**
  * @constructor
  */
-var Component = function(){
-	cx.GameObject.call(this);
+var Component = function()
+{
+
 }
-Component.prototype = Object.create(cx.GameObject.prototype);
-Component.prototype.constructor = Component;
 cx.Component = Component;
 
 
 
-// FILE >> src/Entity.js
+// FILE >> src/Core/Entity.js
 /**
 * [init description]
 */
@@ -84,14 +75,10 @@ cx.Component = Component;
 */
 var Entity = function()
 {
-	cx.GameObject.call(this);
 	this.components = [];
 	this.alive = true;
 	this.remove = false;
 }
-
-Entity.prototype = Object.create(cx.GameObject.prototype);
-Entity.prototype.constructor = Entity;
 
 /**
  * [getWorld description]
@@ -199,131 +186,7 @@ cx.Entity = Entity;
 
 
 
-// FILE >> src/System.js
-/**
- * [System description]
- * @param {[type]} arrayOfComponents [description]
- */
-
-/**
- * @constructor
- */
-var System = function()
-{
-    cx.GameObject.call(this);
-    this.world = null;
-    this.tag = null;
-}
-
-System.TYPE_VOID = "void";
-System.TYPE_PROCESS = "process";
-
-System.prototype = Object.create(cx.GameObject.prototype);
-System.prototype.constructor = System;
-
-
-/**
-* called as soon the system has been added to the world object
-*/
-System.prototype.addedToWorld = function()
-{
-
-}
-
-/**
- * Called when an entity has been added to the world
- * @param  {cx.Entity} entity [description]
- */
-System.prototype.added = function( entity )
-{
-
-}
-
-/**
- * Called when an entity has been removed from world
- * @param  {cx.Entity} entity [description]
- */
-System.prototype.removed = function( entity )
-{
-
-}
-
-/**
- * [setWorld description]
- * @param {cx.World} world [description]
- */
-System.prototype.setWorld = function ( world )
-{
-    this.world = world;
-}
-
-/**
- * [getWorld description]
- * @return {cx.World} world
- */
-System.prototype.getWorld = function ( )
-{
-    return this.world;
-}
-
-cx.System = System;
-
-
-
-// FILE >> src/EntitySystem.js
-/**
-* @constructor
-*/
-var EntitySystem = function()
-{
-	cx.System.call(this);
-	this.components = [];
-	this.type = cx.System.TYPE_PROCESS;
-}
-
-EntitySystem.prototype = Object.create(cx.System.prototype);
-EntitySystem.prototype.constructor = EntitySystem;
-
-/**
-* Update entities
-* @param  {cx.Entity} entity     [description]
-* @param  {cx.Component[]} components [description]
-*/
-EntitySystem.prototype.update = function ( entity, components )
-{
-
-}
-
-cx.EntitySystem = EntitySystem;
-
-
-
-// FILE >> src/VoidSystem.js
-/**
- * @constructor
- */
-var VoidSystem = function()
-{
-    cx.System.call(this);
-    this.type = cx.System.TYPE_VOID;
-}
-
-VoidSystem.prototype = Object.create(cx.System.prototype);
-VoidSystem.prototype.consctructor = VoidSystem;
-
-/**
-* Called every tick
-*/
-VoidSystem.prototype.update = function ()
-{
-
-}
-
-cx.VoidSystem = VoidSystem;
-
-
-
-// FILE >> src/World.js
+// FILE >> src/Core/World.js
 /**
  * Holds all the current entities and systems
  */
@@ -332,16 +195,13 @@ cx.VoidSystem = VoidSystem;
 * @constructor
 */
 var World = function(){
-	cx.GameObject.call(this);
+
 	this.entities = [];
 	this.voidSystems = [];
 	this.entitySystems = [];
 	this.managers = [];
 	this.tag = 'cx.World';
 }
-
-World.prototype = Object.create(cx.GameObject.prototype);
-World.prototype.constructor = World;
 
 /**
 * Add entity to world
@@ -405,8 +265,11 @@ World.prototype.getEntities = function(){
 * add system to world
 * @param {cx.System} system [description]
 */
-World.prototype.addSystem = function ( system ){
-	system.setWorld(this);
+World.prototype.addSystem = function ( system )
+{
+	system.world = this;
+	console.log(system);
+	
 	if ( system.type == cx.System.TYPE_PROCESS ){
 		var slot = this._getFreeProcessSystemSlot();
 		if(slot != null){
@@ -645,7 +508,126 @@ cx.World = World;
 
 
 
-// FILE >> src/Manager.js
+// FILE >> src/System/System.js
+/**
+ * [System description]
+ * @param {[type]} arrayOfComponents [description]
+ */
+
+/**
+ * @constructor
+ */
+var System = function()
+{
+    this.world = null;
+    this.tag = null;
+}
+
+System.TYPE_VOID = "void";
+System.TYPE_PROCESS = "process";
+
+/**
+* called as soon the system has been added to the world object
+*/
+System.prototype.addedToWorld = function()
+{
+
+}
+
+/**
+ * Called when an entity has been added to the world
+ * @param  {cx.Entity} entity [description]
+ */
+System.prototype.added = function( entity )
+{
+
+}
+
+/**
+ * Called when an entity has been removed from world
+ * @param  {cx.Entity} entity [description]
+ */
+System.prototype.removed = function( entity )
+{
+
+}
+
+/**
+ * [setWorld description]
+ * @param {cx.World} world [description]
+ */
+System.prototype.setWorld = function ( world )
+{
+    this.world = world;
+}
+
+/**
+ * [getWorld description]
+ * @return {cx.World} world
+ */
+System.prototype.getWorld = function ( )
+{
+    return this.world;
+}
+
+cx.System = System;
+
+
+
+// FILE >> src/System/EntitySystem.js
+/**
+* @constructor
+*/
+var EntitySystem = function()
+{
+	cx.System.call(this);
+	this.components = [];
+	this.type = cx.System.TYPE_PROCESS;
+}
+
+EntitySystem.prototype = Object.create(cx.System.prototype);
+EntitySystem.prototype.constructor = EntitySystem;
+
+/**
+* Update entities
+* @param  {cx.Entity} entity     [description]
+* @param  {cx.Component[]} components [description]
+*/
+EntitySystem.prototype.update = function ( entity, components )
+{
+
+}
+
+cx.EntitySystem = EntitySystem;
+
+
+
+// FILE >> src/System/VoidSystem.js
+/**
+ * @constructor
+ */
+var VoidSystem = function()
+{
+    cx.System.call(this);
+    this.type = cx.System.TYPE_VOID;
+}
+
+VoidSystem.prototype = Object.create(cx.System.prototype);
+VoidSystem.prototype.consctructor = VoidSystem;
+
+/**
+* Called every tick
+*/
+VoidSystem.prototype.update = function ()
+{
+
+}
+
+cx.VoidSystem = VoidSystem;
+
+
+
+// FILE >> src/Manager/Manager.js
 /**
  * Represents a manager to handle additional data
  * @type {*}
@@ -656,12 +638,8 @@ cx.World = World;
  */
 var Manager = function()
 {
-    cx.GameObject.call(this);
     this.tag = null;
     this.world = null;
 }
-
-Manager.prototype = Object.create(cx.GameObject.prototype);
-Manager.prototype.constructor = Manager;
 
 cx.Manager = Manager;

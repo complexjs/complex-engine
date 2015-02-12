@@ -3,14 +3,16 @@ var helper = require('littlehelper');
 helper.init();
 var files = [
 	'complex.js',
-	'src/GameObject.js',
-	'src/Component.js',
-	'src/Entity.js',
-	'src/System.js',
-	'src/EntitySystem.js',
-	'src/VoidSystem.js',
-	'src/World.js',
-	'src/Manager.js'
+
+	'src/Core/Component.js',
+	'src/Core/Entity.js',
+	'src/Core/World.js',
+
+	'src/System/System.js',
+	'src/System/EntitySystem.js',
+	'src/System/VoidSystem.js',
+
+	'src/Manager/Manager.js'
 ];
 
 helper.Compiler.compile(files, "./build/complex.js", function(){

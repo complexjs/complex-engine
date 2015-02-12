@@ -8,17 +8,12 @@
  */
 var System = function()
 {
-    cx.GameObject.call(this);
     this.world = null;
     this.tag = null;
 }
 
 System.TYPE_VOID = "void";
 System.TYPE_PROCESS = "process";
-
-System.prototype = Object.create(cx.GameObject.prototype);
-System.prototype.constructor = System;
-
 
 /**
 * called as soon the system has been added to the world object

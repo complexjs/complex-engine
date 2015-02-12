@@ -27,16 +27,19 @@ var world = new cx.World();
 </pre>
 
 <h3>Update the world</h3>
-Override the updatefunction of the animloop object. After calling `animloop.init()` the function `animloop.update()` is called every tick
+Override the updatefunction of the cx.loop object. After that you can initialize the rendering & update stuff.
+If you prefer to pause the rendering you can do that by setting `cx.rendering` to `false`
 <pre>
-animloop.update = function(){
+cx.loop.update = function(){
     world.update();
 }
-animloop.init();
+cx.loop.init();
 </pre>
 
 <h2>Systems</h2>
-@TODO
+<h3>EntitySystem</h3>
+
+
 
 <h3>Use a system</h3>
 To make a system working you have to add it to the `cx.World`
@@ -82,11 +85,6 @@ To access the component and its data you can access it via its unique name
 <pre>
 var scriptComponent = hero.getComponent("cx.ScriptComponent");
 </pre>
-
-<h2>Demos</h2>
-<a href="https://github.com/faebeee/complex-demo">Here</a>
-
-<a href="https://github.com/faebeee/complex-demo/tree/master/shootemup">shootemup</a>
 
 <h2>Contribution</h2>
 Just contribute. It's OpenSource

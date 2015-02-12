@@ -6,16 +6,13 @@
 * @constructor
 */
 var World = function(){
-	cx.GameObject.call(this);
+
 	this.entities = [];
 	this.voidSystems = [];
 	this.entitySystems = [];
 	this.managers = [];
 	this.tag = 'cx.World';
 }
-
-World.prototype = Object.create(cx.GameObject.prototype);
-World.prototype.constructor = World;
 
 /**
 * Add entity to world
@@ -79,8 +76,11 @@ World.prototype.getEntities = function(){
 * add system to world
 * @param {cx.System} system [description]
 */
-World.prototype.addSystem = function ( system ){
-	system.setWorld(this);
+World.prototype.addSystem = function ( system )
+{
+	system.world = this;
+	console.log(system);
+	
 	if ( system.type == cx.System.TYPE_PROCESS ){
 		var slot = this._getFreeProcessSystemSlot();
 		if(slot != null){
