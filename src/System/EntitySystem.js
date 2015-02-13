@@ -21,4 +21,16 @@ EntitySystem.prototype.update = function ( entity, components )
 
 }
 
+/**
+* render entities
+* @param  {cx.Entity} entity     [description]
+* @param  {cx.Component[]} components [description]
+*/
+EntitySystem.prototype.render = function ( entity, components )
+{
+	
+}
+
+
+
 cx.EntitySystem = EntitySystem;

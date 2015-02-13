@@ -18,4 +18,10 @@ VoidSystem.prototype.update = function ()
 
 }
 
+
+System.prototype.render = function()
+{
+
+}
+
 cx.VoidSystem = VoidSystem;

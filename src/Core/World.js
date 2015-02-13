@@ -79,8 +79,6 @@ World.prototype.getEntities = function(){
 World.prototype.addSystem = function ( system )
 {
 	system.world = this;
-	console.log(system);
-	
 	if ( system.type == cx.System.TYPE_PROCESS ){
 		var slot = this._getFreeProcessSystemSlot();
 		if(slot != null){
@@ -194,15 +192,36 @@ World.prototype.getManager = function ( name ) {
 }
 
 /**
+ * Render step
+ * @return {[type]} [description]
+ */
+World.prototype.render = function()
+{
+	for(var s = 0, sLen = this.voidSystems.length; s < sLen; s++) {
+		var system = this.voidSystems[s];
+		system.render();
+	}
+}
+
+/**
 * update step
 */
 World.prototype.update = function ( ) {
 
+	this._updateVoidSystem();
+	this._updateEntitySystem();
+}
+
+World.prototype._updateVoidSystem = function()
+{
 	for(var s = 0, sLen = this.voidSystems.length; s < sLen; s++) {
 		var system = this.voidSystems[s];
 		system.update();
 	}
+};
 
+World.prototype._updateEntitySystem = function()
+{
 	for(var s = 0, sLen = this.entitySystems.length; s < sLen; s++) {
 		var system = this.entitySystems[s];
 
