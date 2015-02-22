@@ -15,76 +15,15 @@ Createa HTMLFile containing your view.
 Add ComplexJS as a source
 `<script type="text/javascript" src="./libs/complex.js"></script>`
 
-<h2>World</h2>
-The world is the mainobject holding all the entities and systems.
-If you want to make your game work you have to write an update loop and call `world.update` every tick
-Therefore I created a small lib called <a href="https://github.com/faebeee/Animloop">Animloop.js</a>
+Basic Steps
+<ul>
+<li>create World</li>
+<li>add Systems</li>
+<li>create Entity</li>
+<li>add Components to Entity</li>
+<li>Start Rendering/Update Loop</li>
+</ul>
 
-<h3>Create the world</h3>
-
-<pre>
-var world = new cx.World();
-</pre>
-
-<h3>Update the world</h3>
-Override the updatefunction of the cx.loop object. After that you can initialize the rendering & update stuff.
-If you prefer to pause the rendering you can do that by setting `cx.rendering` to `false`
-<pre>
-cx.loop.update = function(){
-    world.update();
-}
-cx.loop.init();
-</pre>
-
-<h2>Systems</h2>
-<h3>EntitySystem</h3>
-
-
-
-<h3>Use a system</h3>
-To make a system working you have to add it to the `cx.World`
-<pre>
-world.addSystem(new MySystem());
-</pre>
-
-<h3>Get a system</h3>
-To retrive a system you can call `getSystem(name)` where you have access to the world object.
-The parameter `tag` is the tag property of each system and should be unique
-
-<pre>
-world.getSystem("PixiSystem")
-</pre>
-
-<h2>Entities</h2>
-An entity is just a holder for several components.
-
-<h3>Create entity</h3>
-<pre>
-var hero = new cx.Entity();
-</pre>
-
-<h3>Add entity</h3>
-To process and access all the components added to an entity you have to add it to the `cx.World` object. So every tick the systems can handle and modify the components data
-<pre>
-world.addEntity(hero);
-</pre>
-
-<h2>Components</h2>
-@TODO
-
-<h3>Add a component</h3>
-To process the data in an component for a specific entity we have to add the component to that entity
-<pre>
-var hero = new cx.Entity();
-hero.addComponent(new ScriptComponent());
-</pre>
-From now on you can access the `ScriptComponent` on the heroEntity
-
-<h3>Get a component</h3>
-To access the component and its data you can access it via its unique name
-<pre>
-var scriptComponent = hero.getComponent("cx.ScriptComponent");
-</pre>
 
 <h2>Contribution</h2>
 Just contribute. It's OpenSource
