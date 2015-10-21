@@ -1,0 +1,12 @@
+{
+    "author": {
+        "name": "Fabio Gianini"
+    },
+    "repository": {
+        "url": "https://github.com/faebeee/complexJS"
+    },
+    "dependencies": {
+        "littlehelper" : ">= x"
+  },
+  "engine": "*"
+}
