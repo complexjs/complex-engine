@@ -204,6 +204,15 @@ World.prototype.render = function()
 }
 
 /**
+ * Step
+ * @return {[type]} [description]
+ */
+World.prototype.step = function(){
+	this.update();
+	this.render();
+}
+
+/**
 * update step
 */
 World.prototype.update = function ( ) {

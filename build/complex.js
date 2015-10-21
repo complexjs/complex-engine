@@ -1,4 +1,4 @@
-// Build by LittleHelper. Build Date : Thu Feb 12 2015 09:03:04 GMT+0100 (CET)
+// Build by LittleHelper. Build Date : Wed Oct 21 2015 18:43:50 GMT+0200 (CEST)
 
 
 
@@ -388,6 +388,15 @@ World.prototype.render = function()
 		var system = this.voidSystems[s];
 		system.render();
 	}
+}
+
+/**
+ * Step
+ * @return {[type]} [description]
+ */
+World.prototype.step = function(){
+	this.update();
+	this.render();
 }
 
 /**
