@@ -1,4 +1,4 @@
-// Build by LittleHelper. Build Date : Wed Oct 21 2015 18:43:50 GMT+0200 (CEST)
+// Build by LittleHelper. Build Date : Wed Oct 21 2015 23:35:17 GMT+0200 (CEST)
 
 
 
@@ -238,8 +238,10 @@ World.prototype.removeEntity = function(entity)
 * @param  {integer} index [description]
 * @return {cx.Entity}       [description]
 */
-World.prototype.getEntity = function ( index )
-{
+World.prototype.getEntity = function ( index ) {
+	if(this.entities[index] == undefined){
+				throw "Entity "+index+" not found";
+	}
 	return this.entities[index];
 }
 
@@ -311,7 +313,7 @@ World.prototype.getSystem = function( system ) {
 		}
 	}
 
-	return null;
+	throw "System "+systemName+" not found";
 }
 
 /**
@@ -375,7 +377,8 @@ World.prototype.getManager = function ( name ) {
 			return this.managers[i];
 		}
 	}
-	return null;
+
+		throw "System "+name+" not found";
 }
 
 /**
@@ -408,6 +411,9 @@ World.prototype.update = function ( ) {
 	this._updateEntitySystem();
 }
 
+/**
+* Updates the void systems
+*/
 World.prototype._updateVoidSystem = function()
 {
 	for(var s = 0, sLen = this.voidSystems.length; s < sLen; s++) {
@@ -416,6 +422,9 @@ World.prototype._updateVoidSystem = function()
 	}
 };
 
+/**
+* Updates the entitysystems
+*/
 World.prototype._updateEntitySystem = function()
 {
 	for(var s = 0, sLen = this.entitySystems.length; s < sLen; s++) {
