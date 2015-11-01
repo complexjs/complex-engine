@@ -1,13 +1,7 @@
-/**
-* The component object
-* @param {[type]} data [description]
-*/
-
-/**
- * @constructor
- */
-var Component = function()
-{
-
+class Component {
+        constructor () {
+            this.tag = null;
+        }
 }
+
 cx.Component = Component;

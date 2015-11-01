@@ -1,27 +1,16 @@
-/**
- * @constructor
- */
-var VoidSystem = function()
-{
-    cx.System.call(this);
-    this.type = cx.System.TYPE_VOID;
-}
+class VoidSystem extends cx.System {
+    constructor() {
+        super.constructor();
+        this.type = cx.System.getTypeVoid();
+    }
 
-VoidSystem.prototype = Object.create(cx.System.prototype);
-VoidSystem.prototype.consctructor = VoidSystem;
+    update () {
 
-/**
-* Called every tick
-*/
-VoidSystem.prototype.update = function ()
-{
+    }
 
-}
+    render () {
 
-
-System.prototype.render = function()
-{
-
+    }
 }
 
 cx.VoidSystem = VoidSystem;

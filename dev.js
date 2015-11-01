@@ -15,9 +15,11 @@ var files = [
 	'src/Manager/Manager.js'
 ];
 
+helper.Compiler.defineHeader("'use strict';\n");
+
 helper.Compiler.compile(files, "./build/complex.js", function(){
     console.log("New Complex Build @ "+(new Date()));
 }, {
-    minify : true,
+    minify : false,
 	appendFileInfo : true
 });

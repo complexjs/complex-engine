@@ -1,36 +1,19 @@
-/**
-* @constructor
-*/
-var EntitySystem = function()
-{
-	cx.System.call(this);
-	this.components = [];
-	this.type = cx.System.TYPE_PROCESS;
+class EntitySystem extends cx.System {
+
+	constructor () {
+		super.constructor();
+
+		this.components = [];
+		this.type = cx.System.getTypeProcess();
+	}
+
+	update (entity, components) {
+
+	}
+
+	render ( entity, components){
+
+	}
 }
-
-EntitySystem.prototype = Object.create(cx.System.prototype);
-EntitySystem.prototype.constructor = EntitySystem;
-
-/**
-* Update entities
-* @param  {cx.Entity} entity     [description]
-* @param  {cx.Component[]} components [description]
-*/
-EntitySystem.prototype.update = function ( entity, components )
-{
-
-}
-
-/**
-* render entities
-* @param  {cx.Entity} entity     [description]
-* @param  {cx.Component[]} components [description]
-*/
-EntitySystem.prototype.render = function ( entity, components )
-{
-	
-}
-
-
 
 cx.EntitySystem = EntitySystem;
