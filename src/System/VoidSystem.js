@@ -1,16 +1,27 @@
-class VoidSystem extends cx.System {
-    constructor() {
-        super.constructor();
-        this.type = cx.System.getTypeVoid();
+/**
+ * 
+ */
+class cxVoidSystem extends cxSystem
+{
+    constructor()
+    {
+        super();
+        this.type = cxSystem.getTypeVoid();
     }
 
-    update () {
+    /**
+     * update system
+     */
+    update ()
+    {
 
     }
 
-    render () {
+    /**
+     * render system
+     */
+    render ()
+    {
 
     }
 }
-
-cx.VoidSystem = VoidSystem;

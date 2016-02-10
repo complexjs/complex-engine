@@ -1,4 +1,32 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Core/World.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Core/World.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * 
  */
 class cxWorld
@@ -83,7 +111,7 @@ class cxWorld
 	getEntities ()
 	{
 		var entities = [];
-		for(var e = 0, len=this.entities.length; e < len; e++)
+		for(var e = 0, len=this.entities.length; e &lt; len; e++)
 		{
 			var entity = this.entities[e];
 			if(entity == undefined || entity == null){
@@ -144,7 +172,7 @@ class cxWorld
 			systemName = system.tag;
 		}
 
-		for(var i = 0, len = this.entitySystems.length; i < len; i++)
+		for(var i = 0, len = this.entitySystems.length; i &lt; len; i++)
 		{
 			var system = this.entitySystems[i];
 			if ( system.tag == systemName )
@@ -153,7 +181,7 @@ class cxWorld
 			}
 		}
 
-		for(var i = 0, len = this.voidSystems.length; i < len; i++)
+		for(var i = 0, len = this.voidSystems.length; i &lt; len; i++)
 		{
 			var system = this.voidSystems[i];
 			if ( system.tag == systemName )
@@ -195,7 +223,7 @@ class cxWorld
 			systemName = system.tag;
 		}
 
-		for(var i = 0, len = this.entitySystems.length; i < len; i++)
+		for(var i = 0, len = this.entitySystems.length; i &lt; len; i++)
 		{
 			var system = this.entitySystems[i];
 			if ( system.tag == systemName )
@@ -204,7 +232,7 @@ class cxWorld
 			}
 		}
 
-		for(var i = 0, len = this.voidSystems.length; i < len; i++)
+		for(var i = 0, len = this.voidSystems.length; i &lt; len; i++)
 		{
 			var system = this.voidSystems[i];
 			if ( system.tag == systemName )
@@ -231,7 +259,7 @@ class cxWorld
 	 */
 	getManager (name)
 	{
-		for(var i = 0, len = this.managers.length; i < len; i++)
+		for(var i = 0, len = this.managers.length; i &lt; len; i++)
 		{
 			var manager = this.managers[i];
 			if(manager.tag == name)
@@ -248,7 +276,7 @@ class cxWorld
 	 */
 	render ()
 	{
-		for(var s = 0, sLen = this.voidSystems.length; s < sLen; s++)
+		for(var s = 0, sLen = this.voidSystems.length; s &lt; sLen; s++)
 		{
 			var system = this.voidSystems[s];
 			system.render();
@@ -278,7 +306,7 @@ class cxWorld
 	 */
 	_updateVoidSystem ()
 	{
-		for(var s = 0, sLen = this.voidSystems.length; s < sLen; s++)
+		for(var s = 0, sLen = this.voidSystems.length; s &lt; sLen; s++)
 		{
 			var system = this.voidSystems[s];
 			system.update();
@@ -290,11 +318,11 @@ class cxWorld
 	 */
 	_updateEntitySystem ()
 	{
-		for(var s = 0, sLen = this.entitySystems.length; s < sLen; s++)
+		for(var s = 0, sLen = this.entitySystems.length; s &lt; sLen; s++)
 		{
 			var system = this.entitySystems[s];
 
-			for(var e = 0, eLen = this.entities.length; e < eLen; e++)
+			for(var e = 0, eLen = this.entities.length; e &lt; eLen; e++)
 			{
 				var entity = this.entities[e];
 
@@ -303,7 +331,7 @@ class cxWorld
 					continue;
 				}
 
-				if(!entity.alive && entity.remove)
+				if(!entity.alive &amp;&amp; entity.remove)
 				{
 					this.removeEntity(entity);
 					continue;
@@ -316,7 +344,7 @@ class cxWorld
 				var entityComponents = [];
 				var updateEntity = true;
 
-				for(var sC = 0, sCLen = system.components.length; sC < sCLen; sC++)
+				for(var sC = 0, sCLen = system.components.length; sC &lt; sCLen; sC++)
 				{
 					var systemComponent = system.components[sC];
 					var hasEntityComponent = false;
@@ -347,7 +375,7 @@ class cxWorld
 	 * @return int
 	 */
 	_getFreeEntitySlot () {
-		for(var e = 0, len = this.entities.length; e < len; e++){
+		for(var e = 0, len = this.entities.length; e &lt; len; e++){
 			var entity = this.entities[e];
 			if(entity == null || entity == undefined){
 				return e;
@@ -361,7 +389,7 @@ class cxWorld
 	 * @return int
 	 */
 	_getFreeProcessSystemSlot () {
-		for(var s = 0, len = this.entitySystems.length; s < len; s++){
+		for(var s = 0, len = this.entitySystems.length; s &lt; len; s++){
 			var system = this.entitySystems[s];
 			if(system == undefined || system == null ){
 				return s;
@@ -374,7 +402,7 @@ class cxWorld
 	 * recycle systemslot
 	 */
 	_getFreeVoidSystemSlot () {
-		for(var s = 0, len = this.voidSystems.length; s < len; s++){
+		for(var s = 0, len = this.voidSystems.length; s &lt; len; s++){
 			var system = this.voidSystems[s];
 			if(system == undefined || system == null ){
 				return s;
@@ -389,13 +417,13 @@ class cxWorld
 	 */
 	_entityAdded ( entity )
 	{
-		for(var s=0,len=this.voidSystems.length; s<len;s++)
+		for(var s=0,len=this.voidSystems.length; s&lt;len;s++)
 		{
 			var system = this.voidSystems[s];
 			system.added(entity);
 		}
 
-		for(var s=0,len=this.entitySystems.length; s<len;s++)
+		for(var s=0,len=this.entitySystems.length; s&lt;len;s++)
 		{
 			var system = this.entitySystems[s];
 			system.added(entity);
@@ -408,13 +436,13 @@ class cxWorld
 	 */
 	_entityDeleted ( entity )
 	{
-		for(var s=0,len=this.voidSystems.length; s<len;s++)
+		for(var s=0,len=this.voidSystems.length; s&lt;len;s++)
 		{
 			var system = this.voidSystems[s];
 			system.removed(entity);
 		}
 
-		for(var s=0,len=this.entitySystems.length; s<len;s++)
+		for(var s=0,len=this.entitySystems.length; s&lt;len;s++)
 		{
 			var system = this.entitySystems[s];
 			system.removed(entity);
@@ -422,3 +450,26 @@ class cxWorld
 	}
 
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="cxComponent.html">cxComponent</a></li><li><a href="cxEntity.html">cxEntity</a></li><li><a href="cxEntitySystem.html">cxEntitySystem</a></li><li><a href="cxManager.html">cxManager</a></li><li><a href="cxSystem.html">cxSystem</a></li><li><a href="cxVoidSystem.html">cxVoidSystem</a></li><li><a href="cxWorld.html">cxWorld</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Wed Feb 10 2016 16:21:03 GMT+0100 (CET)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

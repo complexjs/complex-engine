@@ -1,19 +1,35 @@
-class EntitySystem extends cx.System {
+/**
+ * 
+ */
+class cxEntitySystem extends cxSystem
+{
+	constructor ()
+	{
+		super();
 
-	constructor () {
-		super.constructor();
-
+		/**
+		 * @type {String[]}
+		 */
 		this.components = [];
-		this.type = cx.System.getTypeProcess();
+
+		this.type = cxSystem.getTypeProcess();
 	}
 
-	update (entity, components) {
+	/**
+	 * @param  {cxEntity} entity
+	 * @param  {cxComponent[]} components
+	 */
+	update (entity, components)
+	{
 
 	}
 
-	render ( entity, components){
+	/**
+	 * @param  {cxEntity} entity
+	 * @param  {cxComponent[]} components
+	 */
+	render ( entity, components)
+	{
 
 	}
 }
-
-cx.EntitySystem = EntitySystem;

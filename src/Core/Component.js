@@ -1,7 +1,23 @@
-class Component {
-        constructor () {
-            this.tag = null;
-        }
-}
+/**
+ * 
+ */
+class cxComponent
+{
+    constructor ()
+    {
+        /**
+         * Tag
+         * @type {string}
+         */
+        this.tag = null;
+    }
 
-cx.Component = Component;
+    /**
+     * get tag
+     * @return {string}
+     */
+    getTag ()
+    {
+        return this.tag;
+    }
+}

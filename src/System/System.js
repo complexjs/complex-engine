@@ -1,51 +1,60 @@
-class System {
-
-    constructor () {
-        this.world = null;
+/**
+ * 
+ */
+class cxSystem
+{
+    constructor ()
+    {
+        /**
+         * @type {string}
+         */
         this.tag = null;
+
+        /**
+         * @type {cxWorld}
+         */
+        this.world = null;
     }
 
     /**
-     * [addedToWorld description]
-     * @return {[type]} [description]
+     * get notified when system is added to world
      */
-    addedToWorld () {
-
-    }
-
-    /**
-     * [added description]
-     * @param  {cx.Entity} entity [description]
-     * @return {[type]}        [description]
-     */
-    added (entity){
+    addedToWorld ()
+    {
 
     }
 
     /**
-     * [removed description]
-     * @param  {cx.Entity} entity [description]
-     * @return {[type]}        [description],
+     * get notified when entity is added to world
+     * @param  {cxEntity} entity
      */
-    removed ( entity ) {
+    added (entity)
+    {
 
     }
 
     /**
-     * [getTypeProcess description]
-     * @return {[type]} [description]
+     * get notified when entity is removed from world
+     * @param  {cxEntity} entity
      */
-    static getTypeProcess () {
+    removed ( entity )
+    {
+
+    }
+
+    /**
+     * @return string
+     */
+    static getTypeProcess ()
+    {
         return "type_process";
     }
 
     /**
-     * [getTypeVoid description]
-     * @return {[type]} [description]
+     * @return string
      */
-    static getTypeVoid () {
+    static getTypeVoid ()
+    {
         return "type_void";
     }
 }
-
-cx.System = System;
