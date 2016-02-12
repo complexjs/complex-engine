@@ -1,5 +1,5 @@
 'use strict';
-// Build by LittleHelper. Build Date : Wed Feb 10 2016 16:14:47 GMT+0100 (CET)
+// Build by LittleHelper. Build Date : Fri Feb 12 2016 13:39:12 GMT+0100 (CET)
 
 
 
@@ -48,6 +48,9 @@ console.log("Complex "+cx.version);
 
 
 // FILE >> src/Core/Component.js
+/**
+ *
+ */
 class cxComponent
 {
     constructor ()
@@ -72,6 +75,9 @@ class cxComponent
 
 
 // FILE >> src/Core/Entity.js
+/**
+ *
+ */
 class cxEntity
 {
 	constructor ()
@@ -80,7 +86,7 @@ class cxEntity
 		 * [components description]
 		 * @type {cxComponent[]}
 		 */
-		this.component = [];
+		this.components = [];
 
 		/**
 		 * [alive description]
@@ -208,6 +214,9 @@ class cxEntity
 
 
 // FILE >> src/Core/World.js
+/**
+ *
+ */
 class cxWorld
 {
 	constructor ()
@@ -308,7 +317,7 @@ class cxWorld
 	 */
 	addSystem ( system ) {
 		system.world = this;
-		if ( system.type == cx.System.TYPE_PROCESS )
+		if ( system.type == cxSystem.getTypeProcess() )
 		{
 			var slot = this._getFreeProcessSystemSlot();
 			if(slot != null)
@@ -320,7 +329,7 @@ class cxWorld
 				this.entitySystems.push(system);
 			}
 		}
-		else if (system.type == cx.System.TYPE_VOID )
+		else if (system.type == cxSystem.getTypeVoid() )
 		{
 			var slot = this._getFreeProcessSystemSlot();
 			if(slot != null)
@@ -379,10 +388,10 @@ class cxWorld
 	 */
 	getSystems ( type )
 	{
-		if(type == 'process'){
+		if(type == cxSystem.getTypeProcess()){
 			return this.entitySystems;
 		}
-		if(type == 'void'){
+		if(type == cxSystem.getTypeVoid() ){
 			return this.voidSystems;
 		}
 	}
@@ -633,6 +642,9 @@ class cxWorld
 
 
 // FILE >> src/System/System.js
+/**
+ * 
+ */
 class cxSystem
 {
     constructor ()
@@ -694,6 +706,9 @@ class cxSystem
 
 
 // FILE >> src/System/EntitySystem.js
+/**
+ * 
+ */
 class cxEntitySystem extends cxSystem
 {
 	constructor ()
@@ -730,6 +745,9 @@ class cxEntitySystem extends cxSystem
 
 
 // FILE >> src/System/VoidSystem.js
+/**
+ * 
+ */
 class cxVoidSystem extends cxSystem
 {
     constructor()
@@ -758,6 +776,9 @@ class cxVoidSystem extends cxSystem
 
 
 // FILE >> src/Manager/Manager.js
+/**
+ * 
+ */
 class cxManager
 {
     constructor()

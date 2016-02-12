@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 class cxEntity
 {
@@ -9,7 +9,7 @@ class cxEntity
 		 * [components description]
 		 * @type {cxComponent[]}
 		 */
-		this.component = [];
+		this.components = [];
 
 		/**
 		 * [alive description]

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 class cxWorld
 {
@@ -101,7 +101,7 @@ class cxWorld
 	 */
 	addSystem ( system ) {
 		system.world = this;
-		if ( system.type == cx.System.TYPE_PROCESS )
+		if ( system.type == cxSystem.getTypeProcess() )
 		{
 			var slot = this._getFreeProcessSystemSlot();
 			if(slot != null)
@@ -113,7 +113,7 @@ class cxWorld
 				this.entitySystems.push(system);
 			}
 		}
-		else if (system.type == cx.System.TYPE_VOID )
+		else if (system.type == cxSystem.getTypeVoid() )
 		{
 			var slot = this._getFreeProcessSystemSlot();
 			if(slot != null)
@@ -172,10 +172,10 @@ class cxWorld
 	 */
 	getSystems ( type )
 	{
-		if(type == 'process'){
+		if(type == cxSystem.getTypeProcess()){
 			return this.entitySystems;
 		}
-		if(type == 'void'){
+		if(type == cxSystem.getTypeVoid() ){
 			return this.voidSystems;
 		}
 	}
