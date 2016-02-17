@@ -1,5 +1,5 @@
 'use strict';
-// Build by LittleHelper. Build Date : Fri Feb 12 2016 13:39:12 GMT+0100 (CET)
+// Build by LittleHelper. Build Date : Wed Feb 17 2016 12:07:41 GMT+0100 (CET)
 
 
 
@@ -140,6 +140,24 @@ class cxEntity
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Get a component from the entity by its tag name
+	 * @param  {string} componentName
+	 * @return cxComponent
+	 */
+	hasComponent ( componentName )
+	{
+		for(var i = 0, len = this.components.length; i < len; i++)
+		{
+			var component = this.components[i];
+			if(component.tag == componentName)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**

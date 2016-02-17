@@ -66,6 +66,24 @@ class cxEntity
 	}
 
 	/**
+	 * Get a component from the entity by its tag name
+	 * @param  {string} componentName
+	 * @return cxComponent
+	 */
+	hasComponent ( componentName )
+	{
+		for(var i = 0, len = this.components.length; i < len; i++)
+		{
+			var component = this.components[i];
+			if(component.tag == componentName)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * remove a component from the entity
 	 * @param  {string} componentName
 	 */
