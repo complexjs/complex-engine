@@ -3,8 +3,12 @@
  */
 class cxEntity
 {
-	constructor ()
+	/**
+	 * @param  {string} name Name of the entity
+	 */
+	constructor (name)
 	{
+		name = name || "Entity";
 		/**
 		 * [components description]
 		 * @type {cxComponent[]}
@@ -28,6 +32,12 @@ class cxEntity
 		 * @type {cxWorld}
 		 */
 		this.world = null;
+
+		/**
+		 * name of the entity
+		 * @type {string}
+		 */
+		this.name = name;
 	}
 
 	/**
