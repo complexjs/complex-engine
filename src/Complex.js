@@ -1,14 +1,14 @@
-var cx = {
-	version : "0.9.6",
+var Complex = {
+	version : "1.1.0",
 	initFunctions : [],
 	rendering : true,
 	addInitFunction : function(cb){
-		cx.initFunctions.push(cb);
+		Complex.initFunctions.push(cb);
 	},
 
 	init : function(){
-		for(var i = 0, len = cx.initFunctions.length; i < len; i++){
-			cx.initFunctions[i]();
+		for(var i = 0, len = Complex.initFunctions.length; i < len; i++){
+			Complex.initFunctions[i]();
 		}
 	},
 
@@ -26,14 +26,14 @@ var cx = {
 			})();
 
 			(function loop(){
-				if(cx.rendering)
+				if(Complex.rendering)
 				{
 					requestAnimFrame(loop);
-					cx.loop.update();
+					Complex.loop.update();
 				}
 			})();
 		}
 	}
 };
 
-console.log("Complex "+cx.version);
+console.log("Complex "+Complex.version);
