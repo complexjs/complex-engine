@@ -2,7 +2,7 @@
     "name":"complex-engine",
     "description": "JS Component Entity Framework for Gamedevelopment",
     "license": "MIT",
-    "version":"1.0.1",
+    "version":"1.0.2",
     "author": {
         "name": "Fabio Gianini"
     },
@@ -10,7 +10,8 @@
         "url": "https://github.com/faebeee/complexJS"
     },
     "dependencies": {
-        "littlehelper" : ">= x"
-  },
+	"gulp":">= x",
+	"gulp-concat":">= x"
+    },
   "engine": "*"
 }

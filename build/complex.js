@@ -1,53 +1,41 @@
-'use strict';
-// Build by LittleHelper. Build Date : Fri Mar 04 2016 13:14:33 GMT+0100 (CET)
+/**
+ * 
+ */
+class cxManager
+{
+    constructor()
+    {
+        /**
+         * Tag
+         * @type {string}
+         */
+        this.tag = null;
+
+        /**
+         * @type {cxWorld}
+         */
+        ths.world = null;
+    }
+
+    /**
+     * @return {string}
+     */
+    getTag ()
+    {
+        return this.tag;
+    }
+
+    /**
+     * @return {cxWorld}
+     */
+    getWorld ()
+    {
+        return this.world;
+    }
 
 
+}
 
-
-// FILE >> complex.js
-var cx = {
-	version : "0.9.6",
-	initFunctions : [],
-	rendering : true,
-	addInitFunction : function(cb){
-		cx.initFunctions.push(cb);
-	},
-
-	init : function(){
-		for(var i = 0, len = cx.initFunctions.length; i < len; i++){
-			cx.initFunctions[i]();
-		}
-	},
-
-	loop : {
-		update : function(){},
-		init : function ( ) {
-			// shim layer with setTimeout fallback
-			window.requestAnimFrame = (function(){
-				return  window.requestAnimationFrame       ||
-				window.webkitRequestAnimationFrame ||
-				window.mozRequestAnimationFrame    ||
-				function( callback ){
-					window.setTimeout(callback, 1000 / 60);
-				};
-			})();
-
-			(function loop(){
-				if(cx.rendering)
-				{
-					requestAnimFrame(loop);
-					cx.loop.update();
-				}
-			})();
-		}
-	}
-};
-
-console.log("Complex "+cx.version);
-
-
-
-// FILE >> src/Core/Component.js
 /**
  *
  */
@@ -72,9 +60,6 @@ class cxComponent
     }
 }
 
-
-
-// FILE >> src/Core/Entity.js
 /**
  *
  */
@@ -239,9 +224,6 @@ class cxEntity
 	}
 }
 
-
-
-// FILE >> src/Core/World.js
 /**
  *
  */
@@ -667,9 +649,42 @@ class cxWorld
 
 }
 
+/**
+ * 
+ */
+class cxEntitySystem extends cxSystem
+{
+	constructor ()
+	{
+		super();
 
+		/**
+		 * @type {String[]}
+		 */
+		this.components = [];
 
-// FILE >> src/System/System.js
+		this.type = cxSystem.getTypeProcess();
+	}
+
+	/**
+	 * @param  {cxEntity} entity
+	 * @param  {cxComponent[]} components
+	 */
+	update (entity, components)
+	{
+
+	}
+
+	/**
+	 * @param  {cxEntity} entity
+	 * @param  {cxComponent[]} components
+	 */
+	render ( entity, components)
+	{
+
+	}
+}
+
 /**
  * 
  */
@@ -731,48 +746,6 @@ class cxSystem
     }
 }
 
-
-
-// FILE >> src/System/EntitySystem.js
-/**
- * 
- */
-class cxEntitySystem extends cxSystem
-{
-	constructor ()
-	{
-		super();
-
-		/**
-		 * @type {String[]}
-		 */
-		this.components = [];
-
-		this.type = cxSystem.getTypeProcess();
-	}
-
-	/**
-	 * @param  {cxEntity} entity
-	 * @param  {cxComponent[]} components
-	 */
-	update (entity, components)
-	{
-
-	}
-
-	/**
-	 * @param  {cxEntity} entity
-	 * @param  {cxComponent[]} components
-	 */
-	render ( entity, components)
-	{
-
-	}
-}
-
-
-
-// FILE >> src/System/VoidSystem.js
 /**
  * 
  */
@@ -801,43 +774,42 @@ class cxVoidSystem extends cxSystem
     }
 }
 
+var cx = {
+	version : "0.9.6",
+	initFunctions : [],
+	rendering : true,
+	addInitFunction : function(cb){
+		cx.initFunctions.push(cb);
+	},
 
+	init : function(){
+		for(var i = 0, len = cx.initFunctions.length; i < len; i++){
+			cx.initFunctions[i]();
+		}
+	},
 
-// FILE >> src/Manager/Manager.js
-/**
- * 
- */
-class cxManager
-{
-    constructor()
-    {
-        /**
-         * Tag
-         * @type {string}
-         */
-        this.tag = null;
+	loop : {
+		update : function(){},
+		init : function ( ) {
+			// shim layer with setTimeout fallback
+			window.requestAnimFrame = (function(){
+				return  window.requestAnimationFrame       ||
+				window.webkitRequestAnimationFrame ||
+				window.mozRequestAnimationFrame    ||
+				function( callback ){
+					window.setTimeout(callback, 1000 / 60);
+				};
+			})();
 
-        /**
-         * @type {cxWorld}
-         */
-        ths.world = null;
-    }
+			(function loop(){
+				if(cx.rendering)
+				{
+					requestAnimFrame(loop);
+					cx.loop.update();
+				}
+			})();
+		}
+	}
+};
 
-    /**
-     * @return {string}
-     */
-    getTag ()
-    {
-        return this.tag;
-    }
-
-    /**
-     * @return {cxWorld}
-     */
-    getWorld ()
-    {
-        return this.world;
-    }
-
-
-}
+console.log("Complex "+cx.version);
