@@ -2,7 +2,7 @@
     "name":"complex-engine",
     "description": "JS Component Entity Framework for Gamedevelopment",
     "license": "MIT",
-    "version":"1.1.0",
+    "version":"1.1.1",
     "author": {
         "name": "Fabio Gianini"
     },
