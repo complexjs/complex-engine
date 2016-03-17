@@ -1,24 +1,3 @@
-class Complex
-{
-	constructor()
-	{
-		this.version = "1.1.2";
-		this.scene = null;
-		console.log("Complex "+this.version);
-	}
-
-	loadScene ( cxScene )
-	{
-		this.scene = cxScene;
-		this.scene.load();
-	}
-
-	update ()
-	{
-		this.scene.update();
-	}
-}
-
 /**
  *
  */
@@ -692,42 +671,6 @@ class cxManager
 /**
  * 
  */
-class cxEntitySystem extends cxSystem
-{
-	constructor ()
-	{
-		super();
-
-		/**
-		 * @type {String[]}
-		 */
-		this.components = [];
-
-		this.type = cxSystem.getTypeProcess();
-	}
-
-	/**
-	 * @param  {cxEntity} entity
-	 * @param  {cxComponent[]} components
-	 */
-	update (entity, components)
-	{
-
-	}
-
-	/**
-	 * @param  {cxEntity} entity
-	 * @param  {cxComponent[]} components
-	 */
-	render ( entity, components)
-	{
-
-	}
-}
-
-/**
- * 
- */
 class cxSystem
 {
     constructor ()
@@ -784,6 +727,42 @@ class cxSystem
     {
         return "type_void";
     }
+}
+
+/**
+ * 
+ */
+class cxEntitySystem extends cxSystem
+{
+	constructor ()
+	{
+		super();
+
+		/**
+		 * @type {String[]}
+		 */
+		this.components = [];
+
+		this.type = cxSystem.getTypeProcess();
+	}
+
+	/**
+	 * @param  {cxEntity} entity
+	 * @param  {cxComponent[]} components
+	 */
+	update (entity, components)
+	{
+
+	}
+
+	/**
+	 * @param  {cxEntity} entity
+	 * @param  {cxComponent[]} components
+	 */
+	render ( entity, components)
+	{
+
+	}
 }
 
 /**
