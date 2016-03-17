@@ -1,6 +1,47 @@
 /**
  *
  */
+class Complex
+{
+	constructor()
+	{
+		/**
+		 * Version
+		 * @type {String}
+		 */
+		this.version = "1.1.4";
+
+		/**
+		 * the scene
+		 * @type {cxScene}
+		 */
+		this.scene = null;
+		console.log("Complex "+this.version);
+	}
+
+	/**
+	 * load a scene to be rendered
+	 * @param  {cxScene} cxScene [description]
+	 * @return {[type]}         [description]
+	 */
+	loadScene ( cxScene )
+	{
+		this.scene = cxScene;
+		this.scene.load();
+	}
+
+	/**
+	 * render the loaded scene
+	 */
+	update ()
+	{
+		this.scene.update();
+	}
+}
+
+/**
+ *
+ */
 class cxComponent
 {
     constructor ()

@@ -3,7 +3,9 @@ var concat = require('gulp-concat');
 var version = require('gulp-version-injector');
 
 gulp.task('default', function() {
-  return gulp.src(['./src/Core/*.js',
+  return gulp.src([
+    './src/Complex.js',
+    './src/Core/*.js',
     './src/Manager/*.js',
     './src/System/System.js',
     './src/System/EntitySystem.js',
