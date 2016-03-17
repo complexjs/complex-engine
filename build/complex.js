@@ -1,79 +1,22 @@
-var Complex = {
-	version : "1.1.0",
-	initFunctions : [],
-	rendering : true,
-	addInitFunction : function(cb){
-		Complex.initFunctions.push(cb);
-	},
-
-	init : function(){
-		for(var i = 0, len = Complex.initFunctions.length; i < len; i++){
-			Complex.initFunctions[i]();
-		}
-	},
-
-	loop : {
-		update : function(){},
-		init : function ( ) {
-			// shim layer with setTimeout fallback
-			window.requestAnimFrame = (function(){
-				return  window.requestAnimationFrame       ||
-				window.webkitRequestAnimationFrame ||
-				window.mozRequestAnimationFrame    ||
-				function( callback ){
-					window.setTimeout(callback, 1000 / 60);
-				};
-			})();
-
-			(function loop(){
-				if(Complex.rendering)
-				{
-					requestAnimFrame(loop);
-					Complex.loop.update();
-				}
-			})();
-		}
-	}
-};
-
-console.log("Complex "+Complex.version);
-
-/**
- * 
- */
-class cxManager
+class Complex
 {
-    constructor()
-    {
-        /**
-         * Tag
-         * @type {string}
-         */
-        this.tag = null;
+	constructor()
+	{
+		this.version = "1.1.2";
+		this.scene = null;
+		console.log("Complex "+this.version);
+	}
 
-        /**
-         * @type {cxWorld}
-         */
-        ths.world = null;
-    }
+	loadScene ( cxScene )
+	{
+		this.scene = cxScene;
+		this.scene.load();
+	}
 
-    /**
-     * @return {string}
-     */
-    getTag ()
-    {
-        return this.tag;
-    }
-
-    /**
-     * @return {cxWorld}
-     */
-    getWorld ()
-    {
-        return this.world;
-    }
-
-
+	update ()
+	{
+		this.scene.update();
+	}
 }
 
 /**
@@ -270,7 +213,6 @@ class cxScene
     {
         this.name = name;
         this.world = new cxWorld();
-        this.load();
     }
 
     load ()
@@ -706,6 +648,44 @@ class cxWorld
 			system.removed(entity);
 		}
 	}
+
+}
+
+/**
+ * 
+ */
+class cxManager
+{
+    constructor()
+    {
+        /**
+         * Tag
+         * @type {string}
+         */
+        this.tag = null;
+
+        /**
+         * @type {cxWorld}
+         */
+        ths.world = null;
+    }
+
+    /**
+     * @return {string}
+     */
+    getTag ()
+    {
+        return this.tag;
+    }
+
+    /**
+     * @return {cxWorld}
+     */
+    getWorld ()
+    {
+        return this.world;
+    }
+
 
 }
 

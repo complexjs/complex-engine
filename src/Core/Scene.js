@@ -4,7 +4,6 @@ class cxScene
     {
         this.name = name;
         this.world = new cxWorld();
-        this.load();
     }
 
     load ()
