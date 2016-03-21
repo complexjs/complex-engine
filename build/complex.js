@@ -12,7 +12,7 @@ class Complex
 		 * Version
 		 * @type {String}
 		 */
-		this.version = "1.1.5";
+		this.version = "1.1.6";
 
 		/**
 		 * the scene
@@ -808,7 +808,7 @@ class cxEntitySystem extends cxSystem
 		 * Name of components the entity should have
 		 * @type {array}
 		 */
-		this.components = array();
+		this.components = [];
 
 		/**
 		 * Type of the process
