@@ -1,5 +1,5 @@
 /**
- * 
+ * A system reacting on entities with specifiy components
  */
 class cxEntitySystem extends cxSystem
 {
@@ -8,10 +8,15 @@ class cxEntitySystem extends cxSystem
 		super();
 
 		/**
-		 * @type {String[]}
+		 * Name of components the entity should have
+		 * @type {array}
 		 */
-		this.components = [];
+		this.components = array();
 
+		/**
+		 * Type of the process
+		 * @type {string}
+		 */
 		this.type = cxSystem.getTypeProcess();
 	}
 

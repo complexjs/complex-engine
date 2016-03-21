@@ -1,8 +1,11 @@
 /**
- *
+ * Complex Core
  */
 class Complex
 {
+	/**
+	 *
+	 */
 	constructor()
 	{
 		/**
@@ -16,13 +19,13 @@ class Complex
 		 * @type {cxScene}
 		 */
 		this.scene = null;
+
 		console.log("Complex "+this.version);
 	}
 
 	/**
 	 * load a scene to be rendered
 	 * @param  {cxScene} cxScene [description]
-	 * @return {[type]}         [description]
 	 */
 	loadScene ( cxScene )
 	{

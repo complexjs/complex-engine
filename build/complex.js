@@ -1,28 +1,31 @@
 /**
- *
+ * Complex Core
  */
 class Complex
 {
+	/**
+	 *
+	 */
 	constructor()
 	{
 		/**
 		 * Version
 		 * @type {String}
 		 */
-		this.version = "1.1.4";
+		this.version = "1.1.5";
 
 		/**
 		 * the scene
 		 * @type {cxScene}
 		 */
 		this.scene = null;
+
 		console.log("Complex "+this.version);
 	}
 
 	/**
 	 * load a scene to be rendered
 	 * @param  {cxScene} cxScene [description]
-	 * @return {[type]}         [description]
 	 */
 	loadScene ( cxScene )
 	{
@@ -227,27 +230,49 @@ class cxEntity
 	}
 }
 
+/**
+ * The current scene with is rendered on screen
+ */
 class cxScene
 {
+    /**
+     * [constructor description]
+     * @param  {string} name Name of the scene
+     */
     constructor( name )
     {
+        /**
+         * Name of the scene
+         * @type {String}
+         */
         this.name = name;
+
+        /**
+         * The world
+         * @type {cxWorld}
+         */
         this.world = new cxWorld();
     }
 
+    /**
+     * Called when the world is loaded by the ComplexCore
+     */
     load ()
     {
 
     }
 
+    /**
+     * Updates the worldobject
+     */
     update ()
     {
-
+        this.world.step();
     }
 }
 
 /**
- *
+ * The world contains all entities, systems and managers
  */
 class cxWorld
 {
@@ -710,7 +735,7 @@ class cxManager
 }
 
 /**
- * 
+ * Abstract System
  */
 class cxSystem
 {
@@ -771,7 +796,7 @@ class cxSystem
 }
 
 /**
- * 
+ * A system reacting on entities with specifiy components
  */
 class cxEntitySystem extends cxSystem
 {
@@ -780,10 +805,15 @@ class cxEntitySystem extends cxSystem
 		super();
 
 		/**
-		 * @type {String[]}
+		 * Name of components the entity should have
+		 * @type {array}
 		 */
-		this.components = [];
+		this.components = array();
 
+		/**
+		 * Type of the process
+		 * @type {string}
+		 */
 		this.type = cxSystem.getTypeProcess();
 	}
 
@@ -807,13 +837,18 @@ class cxEntitySystem extends cxSystem
 }
 
 /**
- * 
+ * A void system
  */
 class cxVoidSystem extends cxSystem
 {
     constructor()
     {
         super();
+
+        /**
+         * Type of the world
+         * @type {string}
+         */
         this.type = cxSystem.getTypeVoid();
     }
 

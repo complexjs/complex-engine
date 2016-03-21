@@ -1,5 +1,5 @@
 /**
- * 
+ * Abstract System
  */
 class cxSystem
 {

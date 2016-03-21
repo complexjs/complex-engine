@@ -1,5 +1,5 @@
 /**
- *
+ * The world contains all entities, systems and managers
  */
 class cxWorld
 {

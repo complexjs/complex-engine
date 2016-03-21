@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: System/EntitySystem.js</title>
+    <title>JSDoc: Source: Core/Scene.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: System/EntitySystem.js</h1>
+    <h1 class="page-title">Source: Core/Scene.js</h1>
 
     
 
@@ -27,44 +27,44 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * A system reacting on entities with specifiy components
+ * The current scene with is rendered on screen
  */
-class cxEntitySystem extends cxSystem
+class cxScene
 {
-	constructor ()
-	{
-		super();
+    /**
+     * [constructor description]
+     * @param  {string} name Name of the scene
+     */
+    constructor( name )
+    {
+        /**
+         * Name of the scene
+         * @type {String}
+         */
+        this.name = name;
 
-		/**
-		 * Name of components the entity should have
-		 * @type {array}
-		 */
-		this.components = array();
+        /**
+         * The world
+         * @type {cxWorld}
+         */
+        this.world = new cxWorld();
+    }
 
-		/**
-		 * Type of the process
-		 * @type {string}
-		 */
-		this.type = cxSystem.getTypeProcess();
-	}
+    /**
+     * Called when the world is loaded by the ComplexCore
+     */
+    load ()
+    {
 
-	/**
-	 * @param  {cxEntity} entity
-	 * @param  {cxComponent[]} components
-	 */
-	update (entity, components)
-	{
+    }
 
-	}
-
-	/**
-	 * @param  {cxEntity} entity
-	 * @param  {cxComponent[]} components
-	 */
-	render ( entity, components)
-	{
-
-	}
+    /**
+     * Updates the worldobject
+     */
+    update ()
+    {
+        this.world.step();
+    }
 }
 </code></pre>
         </article>

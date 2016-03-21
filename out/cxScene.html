@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: cxVoidSystem</title>
+    <title>JSDoc: Class: cxScene</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: cxVoidSystem</h1>
+    <h1 class="page-title">Class: cxScene</h1>
 
     
 
@@ -28,9 +28,9 @@
 
 <header>
     
-        <h2>cxVoidSystem</h2>
+        <h2>cxScene</h2>
         
-            <div class="class-description">A void system</div>
+            <div class="class-description">The current scene with is rendered on screen</div>
         
     
 </header>
@@ -44,18 +44,71 @@
     <h2>Constructor</h2>
     
 
-    <h4 class="name" id="cxVoidSystem"><span class="type-signature"></span>new cxVoidSystem<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="cxScene"><span class="type-signature"></span>new cxScene<span class="signature">(name)</span><span class="type-signature"></span></h4>
 
     
 
 
 
+<div class="description">
+    [constructor description]
+</div>
 
 
 
 
 
 
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Name of the scene</td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -91,7 +144,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="System_VoidSystem.js.html">System/VoidSystem.js</a>, <a href="System_VoidSystem.js.html#line4">line 4</a>
+        <a href="Core_Scene.js.html">Core/Scene.js</a>, <a href="Core_Scene.js.html#line4">line 4</a>
     </li></ul></dd>
     
 
@@ -135,13 +188,13 @@
 
         
             
-<h4 class="name" id="type"><span class="type-signature"></span>type<span class="type-signature"> :string</span></h4>
+<h4 class="name" id="name"><span class="type-signature"></span>name<span class="type-signature"> :String</span></h4>
 
 
 
 
 <div class="description">
-    Type of the world
+    Name of the scene
 </div>
 
 
@@ -150,7 +203,7 @@
     <ul>
         <li>
             
-<span class="param-type">string</span>
+<span class="param-type">String</span>
 
 
         </li>
@@ -189,7 +242,79 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="System_VoidSystem.js.html">System/VoidSystem.js</a>, <a href="System_VoidSystem.js.html#line14">line 14</a>
+        <a href="Core_Scene.js.html">Core/Scene.js</a>, <a href="Core_Scene.js.html#line16">line 16</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="world"><span class="type-signature"></span>world<span class="type-signature"> :<a href="cxWorld.html">cxWorld</a></span></h4>
+
+
+
+
+<div class="description">
+    The world
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><a href="cxWorld.html">cxWorld</a></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Core_Scene.js.html">Core/Scene.js</a>, <a href="Core_Scene.js.html#line22">line 22</a>
     </li></ul></dd>
     
 
@@ -216,14 +341,14 @@
 
     
 
-    <h4 class="name" id="render"><span class="type-signature"></span>render<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="load"><span class="type-signature"></span>load<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    render system
+    Called when the world is loaded by the ComplexCore
 </div>
 
 
@@ -267,7 +392,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="System_VoidSystem.js.html">System/VoidSystem.js</a>, <a href="System_VoidSystem.js.html#line28">line 28</a>
+        <a href="Core_Scene.js.html">Core/Scene.js</a>, <a href="Core_Scene.js.html#line28">line 28</a>
     </li></ul></dd>
     
 
@@ -305,7 +430,7 @@
 
 
 <div class="description">
-    update system
+    Updates the worldobject
 </div>
 
 
@@ -349,7 +474,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="System_VoidSystem.js.html">System/VoidSystem.js</a>, <a href="System_VoidSystem.js.html#line20">line 20</a>
+        <a href="Core_Scene.js.html">Core/Scene.js</a>, <a href="Core_Scene.js.html#line36">line 36</a>
     </li></ul></dd>
     
 
