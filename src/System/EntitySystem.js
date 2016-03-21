@@ -11,7 +11,7 @@ class cxEntitySystem extends cxSystem
 		 * Name of components the entity should have
 		 * @type {array}
 		 */
-		this.components = array();
+		this.components = [];
 
 		/**
 		 * Type of the process
