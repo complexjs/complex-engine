@@ -29,6 +29,7 @@ class Complex
 	 */
 	loadScene ( cxScene )
 	{
+		cxScene.cx = this;
 		this.scene = cxScene;
 		this.scene.load();
 	}

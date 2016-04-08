@@ -20,6 +20,12 @@ class cxScene
          * @type {cxWorld}
          */
         this.world = new cxWorld();
+
+        /**
+         * Complex Core
+         * @type {Complex}
+         */
+        this.cx = null;
     }
 
     /**

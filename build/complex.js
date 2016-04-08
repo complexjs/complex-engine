@@ -12,7 +12,7 @@ class Complex
 		 * Version
 		 * @type {String}
 		 */
-		this.version = "1.1.8";
+		this.version = "1.1.9";
 
 		/**
 		 * the scene
@@ -29,6 +29,7 @@ class Complex
 	 */
 	loadScene ( cxScene )
 	{
+		cxScene.cx = this;
 		this.scene = cxScene;
 		this.scene.load();
 	}
@@ -252,6 +253,12 @@ class cxScene
          * @type {cxWorld}
          */
         this.world = new cxWorld();
+
+        /**
+         * Complex Core
+         * @type {Complex}
+         */
+        this.cx = null;
     }
 
     /**

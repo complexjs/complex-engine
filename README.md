@@ -30,6 +30,9 @@ Reference [Game.js](https://github.com/faebeee/ComplexJS-Game/blob/master/src/Ga
 
 Checkout [ComplexJS-Game](https://github.com/faebeee/ComplexJS-Game) implementation
 
+## Extensions
+* [complex-scripting](https://github.com/faebeee/complex-scripting) Scripting behaviour for entities
+
 ## Doc
 Documentation can be found in `./out`
 
