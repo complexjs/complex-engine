@@ -24,7 +24,7 @@ class cxWorld
 		/**
 		 * @type {cxManager[]}
 		 */
-		this.manager = [];
+		this.managers = [];
 
 		/**
 		 * @type {String}
