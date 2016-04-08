@@ -12,7 +12,7 @@ class Complex
 		 * Version
 		 * @type {String}
 		 */
-		this.version = "1.1.9";
+		this.version = "1.1.10";
 
 		/**
 		 * the scene
@@ -704,7 +704,7 @@ class cxWorld
 }
 
 /**
- * 
+ *
  */
 class cxManager
 {
@@ -719,7 +719,7 @@ class cxManager
         /**
          * @type {cxWorld}
          */
-        ths.world = null;
+        this.world = null;
     }
 
     /**

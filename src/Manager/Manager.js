@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 class cxManager
 {
@@ -14,7 +14,7 @@ class cxManager
         /**
          * @type {cxWorld}
          */
-        ths.world = null;
+        this.world = null;
     }
 
     /**
