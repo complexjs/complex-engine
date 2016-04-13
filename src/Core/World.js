@@ -125,7 +125,24 @@ class cxWorld
 				this.voidSystems.push(system);
 			}
 		}
-		system.addedToWorld();
+	}
+
+	/**
+	 * After all systems has been added, this should be called to initiate them
+	 */
+	initSystems()
+	{
+		for(var i = 0, len = this.entitySystems.length; i < len; i++)
+		{
+			var system = this.entitySystems[i];
+			system.addedToWorld();
+		}
+
+		for(var i = 0, len = this.voidSystems.length; i < len; i++)
+		{
+			var system = this.voidSystems[i];
+			system.addedToWorld();
+		}
 	}
 
 	/**
