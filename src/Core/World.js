@@ -257,7 +257,7 @@ class cxWorld
 			}
 		}
 
-		throw "System "+name+" not found";
+		throw "Manager "+name+" not found";
 	}
 
 	/**

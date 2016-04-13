@@ -12,7 +12,7 @@ class Complex
 		 * Version
 		 * @type {String}
 		 */
-		this.version = "1.1.14";
+		this.version = "1.1.15";
 
 		/**
 		 * the scene
@@ -537,7 +537,7 @@ class cxWorld
 			}
 		}
 
-		throw "System "+name+" not found";
+		throw "Manager "+name+" not found";
 	}
 
 	/**
