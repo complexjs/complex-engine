@@ -11,7 +11,7 @@ gulp.task('default', function() {
     './src/System/EntitySystem.js',
     './src/System/VoidSystem.js',
     ])
-    .pipe(concat('Complex.js'))
+    .pipe(concat('complex-engine.js'))
     .pipe(version('package.json'))
-    .pipe(gulp.dest('./build/'));
+    .pipe(gulp.dest('dist/'));
 });

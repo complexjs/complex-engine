@@ -12,7 +12,7 @@ class Complex
 		 * Version
 		 * @type {String}
 		 */
-		this.version = "1.1.11";
+		this.version = "1.1.12";
 
 		/**
 		 * the scene
