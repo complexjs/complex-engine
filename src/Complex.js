@@ -41,4 +41,33 @@ class Complex
 	{
 		this.scene.update();
 	}
+
+	/**
+	 * [start description]
+	 * @return {[type]} [description]
+	 */
+	start ()
+	{
+		// shim layer with setTimeout fallback
+	    window.requestAnimFrame = (function(){
+	        return  window.requestAnimationFrame       ||
+	        window.webkitRequestAnimationFrame ||
+	        window.mozRequestAnimationFrame    ||
+	        function( callback ){
+	            window.setTimeout(callback, 1000 / 60);
+	        };
+	    })();
+
+	    this._animFrame();
+	}
+
+	/**
+	 * [_animFrame description]
+	 * @return {[type]} [description]
+	 */
+	_animFrame()
+	{
+		requestAnimFrame(this._animFrame);
+		this.update();
+	}
 }
