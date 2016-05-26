@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Complex Core
  */
@@ -71,3 +73,5 @@ class Complex
 		this.update();
 	}
 }
+
+module.exports = Complex;
