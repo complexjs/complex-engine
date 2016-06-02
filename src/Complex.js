@@ -10,11 +10,7 @@ class Complex
 	 */
 	constructor()
 	{
-		/**
-		 * Version
-		 * @type {String}
-		 */
-		this.version = "%%VERSION%%";
+		this.version = "2.1.0";
 
 		/**
 		 * the scene
@@ -27,7 +23,7 @@ class Complex
 
 	/**
 	 * load a scene to be rendered
-	 * @param  {cxScene} cxScene [description]
+	 * @param  {cxScene} cxScene
 	 */
 	loadScene ( cxScene )
 	{
@@ -45,8 +41,7 @@ class Complex
 	}
 
 	/**
-	 * [start description]
-	 * @return {[type]} [description]
+	 * Start the render loop
 	 */
 	start ()
 	{
@@ -64,8 +59,7 @@ class Complex
 	}
 
 	/**
-	 * [_animFrame description]
-	 * @return {[type]} [description]
+	 * The animation frame
 	 */
 	_animFrame()
 	{
