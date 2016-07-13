@@ -3,7 +3,7 @@
 /**
  * Complex Core
  */
-export default class Complex
+export class Complex
 {
 	/**
 	 *
