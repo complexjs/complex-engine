@@ -3,14 +3,14 @@
 /**
  * Complex Core
  */
-class Complex
+export default class Complex
 {
 	/**
 	 *
 	 */
 	constructor()
 	{
-		this.version = "2.1.0";
+		this.version = "3.0.0";
 
 		/**
 		 * the scene
@@ -67,5 +67,3 @@ class Complex
 		this.update();
 	}
 }
-
-module.exports = Complex;
