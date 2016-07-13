@@ -2,7 +2,7 @@
 /**
  *
  */
-export default class cxEntity
+module.exports = class cxEntity
 {
 	/**
 	 * @param  {string} name Name of the entity

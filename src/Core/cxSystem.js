@@ -3,7 +3,7 @@
 /**
  * Abstract System
  */
-export default class cxSystem
+module.exports = class cxSystem
 {
     constructor ()
     {

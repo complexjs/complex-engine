@@ -3,7 +3,7 @@
 /**
  *
  */
-export default class cxManager
+module.exports = class cxManager
 {
     constructor()
     {

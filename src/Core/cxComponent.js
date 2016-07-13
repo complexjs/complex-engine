@@ -3,7 +3,7 @@
 /**
  *
  */
-export default class cxComponent
+module.exports = class cxComponent
 {
     constructor ()
     {

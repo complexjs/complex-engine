@@ -1,21 +1,13 @@
 'use strict';
 
-import Complex from './src/Complex';
-import cxComponent from './src/Core/cxComponent';
-import cxEntity from './src/Core/cxEntity';
-import cxManager from './src/Core/cxManager';
-import cxScene from './src/Core/cxScene';
-import cxSystem from './src/Core/cxSystem';
-import cxEntitySystem from './src/Core/System/cxEntitySystem';
-import cxVoidSystem from './src/Core/System/cxVoidSystem';
-import cxWorld from './src/Core/cxWorld';
-
-export Complex;
-export cxWorld;
-export cxComponent;
-export cxManager;
-export cxEntity;
-export cxScene;
-export cxSystem;
-export cxEntitySystem;
-export cxVoidSystem;
+module.exports = {
+    Complex : require('./src/Complex'),
+    cxComponent : require('./src/Core/cxComponent'),
+    cxEntity : require('./src/Core/cxEntity'),
+    cxManager : require('./src/Core/cxManager'),
+    cxScene : require('./src/Core/cxScene'),
+    cxSystem : require('./src/Core/cxSystem'),
+    cxEntitySystem : require('./src/Core/System/cxEntitySystem'),
+    cxVoidSystem : require('./src/Core/System/cxVoidSystem'),
+    cxWorld : require('./src/Core/cxWorld')
+}

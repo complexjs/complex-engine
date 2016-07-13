@@ -1,12 +1,13 @@
 "use strict";
 
-import cxSystem from '../cxSystem';
+
+let cxSystem = require('../cxSystem');
 
 
 /**
  * A void system
  */
-export default class cxVoidSystem extends cxSystem
+module.exports = class cxVoidSystem extends cxSystem
 {
     constructor()
     {
@@ -35,5 +36,3 @@ export default class cxVoidSystem extends cxSystem
 
     }
 }
-
-module.exports = cxVoidSystem;

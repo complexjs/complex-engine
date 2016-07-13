@@ -1,11 +1,11 @@
 "use strict";
 
-import cxWorld from './cxWorld'
+let cxWorld = require('./cxWorld');
 
 /**
  * The current scene with is rendered on screen
  */
-export default class cxScene
+module.exports = class cxScene
 {
     /**
      * [constructor description]

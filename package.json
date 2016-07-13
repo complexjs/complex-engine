@@ -2,7 +2,7 @@
     "name":"complex-engine",
     "description": "JS Component Entity Framework for Gamedevelopment",
     "license": "MIT",
-    "version":"3.1.0",
+    "version":"3.2.1",
     "keywords" : ["engine", "game", "gamedev", "development", "html5", "gameengine", "indie", "component", "entity", "system"],
     "author": {
         "name": "Fabio Gianini"

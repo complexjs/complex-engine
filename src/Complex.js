@@ -3,7 +3,7 @@
 /**
  * Complex Core
  */
-export class Complex
+module.exports = class Complex
 {
 	/**
 	 *

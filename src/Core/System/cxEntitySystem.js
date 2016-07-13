@@ -1,11 +1,11 @@
 "use strict";
 
-import cxSystem from '../cxSystem';
+let cxSystem = require('../cxSystem');
 
 /**
  * A system reacting on entities with specifiy components
  */
-export default class cxEntitySystem extends cxSystem
+module.exports = class cxEntitySystem extends cxSystem
 {
 	constructor ()
 	{

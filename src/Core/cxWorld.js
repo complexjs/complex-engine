@@ -1,10 +1,10 @@
 "use strict";
 
-import {cxSystem} from 'complex-engine-system';
+let cxSystem = require('./cxSystem');
 /**
  * The world contains all entities, systems and managers
  */
-export default class cxWorld
+module.exports = class cxWorld
 {
 	constructor ()
 	{
