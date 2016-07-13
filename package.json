@@ -17,5 +17,5 @@
         "complex-engine-world" : "^1.0.0",
         "complex-engine-system" : "^1.0.0",
         "complex-engine-component" : "^1.0.0"
-    },
+    }
 }
