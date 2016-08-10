@@ -3,30 +3,19 @@
 /**
  * Complex Core
  */
-module.exports = class Complex
-{
+module.exports = class Complex {
 	/**
 	 *
 	 */
-	constructor()
-	{
-		this.version = "3.0.0";
-
-		/**
-		 * the scene
-		 * @type {cxScene}
-		 */
+	constructor() {
 		this.scene = null;
-
-		console.log("Complex "+this.version);
 	}
 
 	/**
 	 * load a scene to be rendered
-	 * @param  {cxScene} cxScene
+	 * @param cxScene cxScene
 	 */
-	loadScene ( cxScene )
-	{
+	loadScene ( cxScene ) {
 		cxScene.cx = this;
 		this.scene = cxScene;
 		this.scene.load();
@@ -35,16 +24,14 @@ module.exports = class Complex
 	/**
 	 * render the loaded scene
 	 */
-	update ()
-	{
+	update () {
 		this.scene.update();
 	}
 
 	/**
 	 * Start the render loop
 	 */
-	start ()
-	{
+	start () {
 		// shim layer with setTimeout fallback
 	    window.requestAnimFrame = (function(){
 	        return  window.requestAnimationFrame       ||
@@ -61,8 +48,7 @@ module.exports = class Complex
 	/**
 	 * The animation frame
 	 */
-	_animFrame()
-	{
+	_animFrame() {
 		requestAnimFrame(this._animFrame);
 		this.update();
 	}

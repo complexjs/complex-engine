@@ -5,40 +5,36 @@ let cxSystem = require('../cxSystem');
 /**
  * A system reacting on entities with specifiy components
  */
-module.exports = class cxEntitySystem extends cxSystem
-{
-	constructor ()
-	{
+module.exports = class cxEntitySystem extends cxSystem {
+	constructor () {
 		super();
 
 		/**
 		 * Name of components the entity should have
-		 * @type {array}
+		 * @type String[]
 		 */
 		this.components = [];
 
 		/**
 		 * Type of the process
-		 * @type {string}
+		 * @type String
 		 */
 		this.type = cxSystem.getTypeProcess();
 	}
 
 	/**
-	 * @param  {cxEntity} entity
-	 * @param  {cxComponent[]} components
+	 * @param cxEntity entity
+	 * @param cxComponent[] components
 	 */
-	update (entity, components)
-	{
-
+	update (entity, components) {
+		throw 'Method not implemented';
 	}
 
 	/**
-	 * @param  {cxEntity} entity
-	 * @param  {cxComponent[]} components
+	 * @param cxEntity entity
+	 * @param cxComponent[] components
 	 */
-	render ( entity, components)
-	{
-
+	render ( entity, components) {
+		throw 'Method not implemented';
 	}
 }

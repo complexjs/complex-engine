@@ -3,23 +3,20 @@
 /**
  *
  */
-module.exports = class cxComponent
-{
-    constructor ()
-    {
+module.exports = class cxComponent {
+    constructor () {
         /**
          * Tag
-         * @type {string}
+         * @type String
          */
         this.tag = null;
     }
 
     /**
      * get tag
-     * @return {string}
+     * @return String
      */
-    getTag ()
-    {
+    getTag () {
         return this.tag;
     }
 }
