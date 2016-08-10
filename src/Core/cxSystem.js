@@ -2,17 +2,18 @@
 
 /**
  * Abstract System
+ * @class cxSystem
  */
-module.exports = class cxSystem
-{
-    constructor ()
-    {
+module.exports = class cxSystem {
+    constructor () {
         /**
-         * @type {string}
+         * @property tag
+         * @type {String}
          */
         this.tag = null;
 
         /**
+         * @property world
          * @type {cxWorld}
          */
         this.world = null;
@@ -20,43 +21,42 @@ module.exports = class cxSystem
 
     /**
      * get notified when system is added to world
+     * @method addedToWorld
      */
-    addedToWorld ()
-    {
+    addedToWorld () {
 
     }
 
     /**
      * get notified when entity is added to world
+     * @method added
      * @param  {cxEntity} entity
      */
-    added (entity)
-    {
+    added (entity) {
 
     }
 
     /**
      * get notified when entity is removed from world
-     * @param  {cxEntity} entity
+     * @method removed
+     * @param  cxEntity entity
      */
-    removed ( entity )
-    {
+    removed ( entity ) {
 
     }
 
     /**
+     * 
      * @return string
      */
-    static getTypeProcess ()
-    {
+    static getTypeProcess () {
         return "type_process";
     }
 
     /**
      * @return string
      */
-    static getTypeVoid ()
-    {
+    static getTypeVoid () {
         return "type_void";
     }
 }

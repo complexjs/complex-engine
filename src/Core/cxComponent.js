@@ -1,20 +1,21 @@
 "use strict";
 
 /**
- *
+ * @class cxComponent
  */
 module.exports = class cxComponent {
     constructor () {
         /**
-         * Tag
-         * @type String
+         * @property tag
+         * @type {String}
          */
         this.tag = null;
     }
 
     /**
      * get tag
-     * @return String
+     * @method getTag
+     * @return {String}
      */
     getTag () {
         return this.tag;

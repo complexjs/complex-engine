@@ -1,39 +1,37 @@
 "use strict";
 
 /**
- *
+ * @class cxManager
  */
-module.exports = class cxManager
-{
-    constructor()
-    {
+module.exports = class cxManager {
+    constructor() {
         /**
-         * Tag
-         * @type {string}
+         * @property tag
+         * @type {String}
          */
         this.tag = null;
 
         /**
+         * @property world
          * @type {cxWorld}
          */
         this.world = null;
     }
 
     /**
-     * @return {string}
+     * @method getTag
+     * @return {String}
      */
-    getTag ()
-    {
+    getTag () {
         return this.tag;
     }
 
     /**
+     * @method getWorld
      * @return {cxWorld}
      */
-    getWorld ()
-    {
+    getWorld () {
         return this.world;
     }
-
 
 }

@@ -1,96 +1,103 @@
 "use strict";
 
 let cxSystem = require('./cxSystem');
+
 /**
  * The world contains all entities, systems and managers
+ * @class cxWorld
  */
-module.exports = class cxWorld
-{
-	constructor ()
-	{
+module.exports = class cxWorld {
+	constructor () {
 		/**
-		 * @type {cxEntity[]}
+		 * @property entities
+		 * @type {Array<cxEntity>}
 		 */
 		this.entities = [];
 
 		/**
-		 * @type {cxVoidSystem[]}
+		 * @property voidSystems
+		 * @type {Array<cxVoidSystem>}
 		 */
 		this.voidSystems = [];
 
-
 		/**
-		 * @type {cxEntitySystem[]}
+		 * @property entitySystems
+		 * @type {Array<cxEntitySystem>}
 		 */
 		this.entitySystems = [];
 
 		/**
-		 * @type {cxManager[]}
+		 * @property managers
+		 * @type {Array<cxManager>}
 		 */
 		this.managers = [];
 
 		/**
+		 * @property tag
 		 * @type {String}
 		 */
-		this.tag = 'cx.World';
+		this.tag = 'cx.world';
+
+		/**
+		 * @property initialized
+		* @type Boolean
+		*/
+		this.initialized = false;
 	}
 
 	/**
 	 * Add entity to world
+	 * @method addEntity
 	 * @param {cxEntity} entity
 	 */
 	addEntity (entity) {
-		var slot = this._getFreeEntitySlot();
+		let slot = this._getFreeEntitySlot();
 		entity.setWorld(this);
-		if( slot != null)
-		{
+
+		if( slot != null) {
 			entity.index = slot;
 			this.entities[slot] = entity;
-		}
-		else
-		{
+		} else {
 			entity.index = this.entities.length;
 			this.entities.push(entity);
 		}
+
 		this._entityAdded(entity);
 	}
 
 	/**
 	 * remove entity from world
+	 * @method removeEntity
 	 * @param  {cxEntity} entity
 	 */
-	removeEntity ( entity )
-	{
+	removeEntity ( entity ) {
 		this._entityDeleted(entity);
 		delete this.entities[entity.index];
 	}
 
 	/**
 	 * Get entity from world by its id
-	 * @param  {int} int
-	 * @return cxEntity
+	 * @method getEntity
+	 * @param  {Integer} int
+	 * @return {cxEntity}
 	 */
-	getEntity ( index )
-	{
-		if(this.entities[index] == undefined)
-		{
+	getEntity ( index ) {
+		if(this.entities[index] == undefined) {
 			throw "Entity "+index+" not found";
 		}
 		return this.entities[index];
 	}
 
 	/**
-	 * Get all entities from world
-	 * @return cxEntity[]
+	 * Get all entities from wold
+	 * @method getEntities
+	 * @return {Array<cxEntity>}
 	 */
-	getEntities ()
-	{
-		var entities = [];
-		for(var e = 0, len=this.entities.length; e < len; e++)
-		{
-			var entity = this.entities[e];
+	getEntities () {
+		let entities = [];
+		for(let e = 0, len=this.entities.length; e < len; e++) {
+			let entity = this.entities[e];
 			if(entity == undefined || entity == null){
-
 				continue;
 			}
 			entities.push(entity);
@@ -100,31 +107,23 @@ module.exports = class cxWorld
 
 	/**
 	 * Add a system to world
+	 * @method addSystem
 	 * @param {cxSystem} system
 	 */
 	addSystem ( system ) {
 		system.world = this;
-		if ( system.type == cxSystem.getTypeProcess() )
-		{
-			var slot = this._getFreeProcessSystemSlot();
-			if(slot != null)
-			{
+		if ( system.type == cxSystem.getTypeProcess() ) {
+			let slot = this._getFreeProcessSystemSlot();
+			if(slot != null) {
 				this.entitySystems[slot] = system;
-			}
-			else
-			{
+			} else {
 				this.entitySystems.push(system);
 			}
-		}
-		else if (system.type == cxSystem.getTypeVoid() )
-		{
-			var slot = this._getFreeProcessSystemSlot();
-			if(slot != null)
-			{
+		}else if (system.type == cxSystem.getTypeVoid() ){
+			let slot = this._getFreeProcessSystemSlot();
+			if(slot != null) {
 				this.voidSystems[slot] = system;
-			}
-			else
-			{
+			} else {
 				this.voidSystems.push(system);
 			}
 		}
@@ -132,52 +131,47 @@ module.exports = class cxWorld
 
 	/**
 	 * After all systems has been added, this should be called to initiate them
+	 * @method init
 	 */
-	initSystems()
-	{
-		for(var i = 0, len = this.entitySystems.length; i < len; i++)
-		{
-			var system = this.entitySystems[i];
+	init() {
+
+		for(let i = 0, len = this.entitySystems.length; i < len; i++) {
+			let system = this.entitySystems[i];
 			system.addedToWorld();
 		}
 
-		for(var i = 0, len = this.voidSystems.length; i < len; i++)
-		{
-			var system = this.voidSystems[i];
+		for(let i = 0, len = this.voidSystems.length; i < len; i++) {
+			let system = this.voidSystems[i];
 			system.addedToWorld();
 		}
+
+		this.initialized = true;
 	}
 
 	/**
 	 * get a system
+	 * @method getSystem
 	 * @param  {string|cxSystem} system
-	 * @return cxSystem
+	 * @return {cxSystem}
 	 */
 	getSystem ( system ) {
-		var systemName = "";
-		if ( typeof system == "string")
-		{
+		let systemName = "";
+		if ( typeof system == "string") {
 			systemName = system;
-		}
-		else
-		{
+		} else {
 			systemName = system.tag;
 		}
 
-		for(var i = 0, len = this.entitySystems.length; i < len; i++)
-		{
-			var system = this.entitySystems[i];
-			if ( system.tag == systemName )
-			{
+		for(let i = 0, len = this.entitySystems.length; i < len; i++) {
+			let system = this.entitySystems[i];
+			if ( system.tag == systemName ) {
 				return system;
 			}
 		}
 
-		for(var i = 0, len = this.voidSystems.length; i < len; i++)
-		{
-			var system = this.voidSystems[i];
-			if ( system.tag == systemName )
-			{
+		for(let i = 0, len = this.voidSystems.length; i < len; i++) {
+			let system = this.voidSystems[i];
+			if ( system.tag == systemName ) {
 				return system;
 			}
 		}
@@ -186,49 +180,28 @@ module.exports = class cxWorld
 	}
 
 	/**
-	 * Get all systems
-	 * @param  {string} type
-	 * @return cxSystem[]
-	 */
-	getSystems ( type )
-	{
-		if(type == cxSystem.getTypeProcess()){
-			return this.entitySystems;
-		}
-		if(type == cxSystem.getTypeVoid() ){
-			return this.voidSystems;
-		}
-	}
-
-	/**
 	 * Remove system
+	 * @method removeSystem
 	 * @param  {string|cxSystem} system
 	 */
 	removeSystem ( system ) {
-		var systemName = "";
-		if ( typeof system == "string")
-		{
+		let systemName = "";
+		if ( typeof system == "string") {
 			systemName = system;
-		}
-		else
-		{
+		} else {
 			systemName = system.tag;
 		}
 
-		for(var i = 0, len = this.entitySystems.length; i < len; i++)
-		{
-			var system = this.entitySystems[i];
-			if ( system.tag == systemName )
-			{
+		for(let i = 0, len = this.entitySystems.length; i < len; i++) {
+			let system = this.entitySystems[i];
+			if ( system.tag == systemName ) {
 				delete this.entitySystems[i];
 			}
 		}
 
-		for(var i = 0, len = this.voidSystems.length; i < len; i++)
-		{
-			var system = this.voidSystems[i];
-			if ( system.tag == systemName )
-			{
+		for(let i = 0, len = this.voidSystems.length; i < len; i++) {
+			let system = this.voidSystems[i];
+			if ( system.tag == systemName ) {
 				delete this.voidSystems[i];
 			}
 		}
@@ -236,26 +209,24 @@ module.exports = class cxWorld
 
 	/**
 	 * Add Manager
+	 * @method addManager
 	 * @param {cxManager} manager
 	 */
-	addManager ( manager)
-	{
+	addManager ( manager) {
 		manager.world = this;
 		this.managers.push(manager);
 	}
 
 	/**
 	 * Get Manager
-	 * @param  {string} name
-	 * @return cxManager
+	 * @method getManager
+	 * @param  {String} name
+	 * @return {cxManager}
 	 */
-	getManager (name)
-	{
-		for(var i = 0, len = this.managers.length; i < len; i++)
-		{
-			var manager = this.managers[i];
-			if(manager.tag == name)
-			{
+	getManager (name) {
+		for(let i = 0, len = this.managers.length; i < len; i++) {
+			let manager = this.managers[i];
+			if(manager.tag == name) {
 				return this.managers[i];
 			}
 		}
@@ -264,98 +235,76 @@ module.exports = class cxWorld
 	}
 
 	/**
-	 * Render loop
-	 */
-	render ()
-	{
-		for(var s = 0, sLen = this.voidSystems.length; s < sLen; s++)
-		{
-			var system = this.voidSystems[s];
-			system.render();
-		}
-	}
-
-	/**
 	 * world loop
+	 * @method step
 	 */
-	step ()
-	{
+	step () {
 		this.update();
-		this.render();
 	}
 
 	/**
 	 * Update method
+	 * @method update
 	 */
-	update ( )
-	{
+	update ( ) {
+		if(this.initialized === false){
+			throw new Error('Not initialized');
+		}
+
 		this._updateVoidSystem();
 		this._updateEntitySystem();
 	}
 
 	/**
 	 * update systems
+	 * @method _updateVoidSystem
 	 */
-	_updateVoidSystem ()
-	{
-		for(var s = 0, sLen = this.voidSystems.length; s < sLen; s++)
-		{
-			var system = this.voidSystems[s];
+	_updateVoidSystem () {
+		for(let s = 0, sLen = this.voidSystems.length; s < sLen; s++) {
+			let system = this.voidSystems[s];
 			system.update();
 		}
 	}
 
 	/**
 	 * update systems
+	 * @method _updateEntitySystem
 	 */
-	_updateEntitySystem ()
-	{
-		for(var s = 0, sLen = this.entitySystems.length; s < sLen; s++)
-		{
-			var system = this.entitySystems[s];
+	_updateEntitySystem () {
+		for(let s = 0, sLen = this.entitySystems.length; s < sLen; s++) {
+			let system = this.entitySystems[s];
 
-			for(var e = 0, eLen = this.entities.length; e < eLen; e++)
-			{
-				var entity = this.entities[e];
+			for(let e = 0, eLen = this.entities.length; e < eLen; e++) {
+				let entity = this.entities[e];
 
-				if(entity == null)
-				{
+				if(entity == null) {
 					continue;
 				}
 
-				if(!entity.alive && entity.remove)
-				{
+				if(!entity.alive && entity.remove) {
 					this.removeEntity(entity);
 					continue;
 				}
 
-				if( !entity.alive )
-				{
+				if( !entity.alive ) {
 					continue;
 				}
-				var entityComponents = [];
-				var updateEntity = true;
 
-				for(var sC = 0, sCLen = system.components.length; sC < sCLen; sC++)
-				{
-					var systemComponent = system.components[sC];
-					var hasEntityComponent = false;
+				let entityComponents = [];
+				let updateEntity = true;
 
-					var entityComponent = entity.getComponent(systemComponent);
-					if ( entityComponent != null )
-					{
-						entityComponents[systemComponent] = entityComponent;
-						hasEntityComponent = true;
-					}
+				for(let sC = 0, sCLen = system.components.length; sC < sCLen; sC++) {
+					let systemComponent = system.components[sC];
+					let entityComponent = entity.getComponent(systemComponent);
 
-					if( !hasEntityComponent)
-					{
+					if( entityComponent === null ) {
 						updateEntity = false;
+					}else{
+						entityComponents[systemComponent] = entityComponent;
 					}
 				}
 
-				if(updateEntity)
-				{
+				if(updateEntity) {
 					system.update(entity, entityComponents);
 				}
 			}
@@ -364,11 +313,12 @@ module.exports = class cxWorld
 
 	/**
 	 * recycle entityslots
-	 * @return int
+	 * @method _getFreeEntitySlot
+	 * @return {Integer}
 	 */
 	_getFreeEntitySlot () {
-		for(var e = 0, len = this.entities.length; e < len; e++){
-			var entity = this.entities[e];
+		for(let e = 0, len = this.entities.length; e < len; e++){
+			let entity = this.entities[e];
 			if(entity == null || entity == undefined){
 				return e;
 			}
@@ -378,11 +328,12 @@ module.exports = class cxWorld
 
 	/**
 	 * recycle systemslot
-	 * @return int
+	 * @method _getFreeProcessSystemSlot
+	 * @return {Integer}
 	 */
 	_getFreeProcessSystemSlot () {
-		for(var s = 0, len = this.entitySystems.length; s < len; s++){
-			var system = this.entitySystems[s];
+		for(let s = 0, len = this.entitySystems.length; s < len; s++){
+			let system = this.entitySystems[s];
 			if(system == undefined || system == null ){
 				return s;
 			}
@@ -392,10 +343,11 @@ module.exports = class cxWorld
 
 	/**
 	 * recycle systemslot
+	 * @method _getFreeVoidSystemSlot
 	 */
 	_getFreeVoidSystemSlot () {
-		for(var s = 0, len = this.voidSystems.length; s < len; s++){
-			var system = this.voidSystems[s];
+		for(let s = 0, len = this.voidSystems.length; s < len; s++){
+			let system = this.voidSystems[s];
 			if(system == undefined || system == null ){
 				return s;
 			}
@@ -405,38 +357,34 @@ module.exports = class cxWorld
 
 	/**
 	 * notify systems for new entity
-	 * @param  {cxEntity} entity
+	 * @method _entityAdded
+	 * @param {cxEntity} entity
 	 */
-	_entityAdded ( entity )
-	{
-		for(var s=0,len=this.voidSystems.length; s<len;s++)
-		{
-			var system = this.voidSystems[s];
+	_entityAdded ( entity ){
+		for(let s=0,len=this.voidSystems.length; s<len;s++) {
+			let system = this.voidSystems[s];
 			system.added(entity);
 		}
 
-		for(var s=0,len=this.entitySystems.length; s<len;s++)
-		{
-			var system = this.entitySystems[s];
+		for(let s=0,len=this.entitySystems.length; s<len;s++) {
+			let system = this.entitySystems[s];
 			system.added(entity);
 		}
 	}
 
 	/**
 	 * notify systems for deleted entity
-	 * @param  {cxEntity} entity
+	 * @method _entityDeleted
+	 * @param {cxEntity} entity
 	 */
-	_entityDeleted ( entity )
-	{
-		for(var s=0,len=this.voidSystems.length; s<len;s++)
-		{
-			var system = this.voidSystems[s];
+	_entityDeleted ( entity ) {
+		for(let s=0,len=this.voidSystems.length; s<len;s++) {
+			let system = this.voidSystems[s];
 			system.removed(entity);
 		}
 
-		for(var s=0,len=this.entitySystems.length; s<len;s++)
-		{
-			var system = this.entitySystems[s];
+		for(let s=0,len=this.entitySystems.length; s<len;s++) {
+			let system = this.entitySystems[s];
 			system.removed(entity);
 		}
 	}

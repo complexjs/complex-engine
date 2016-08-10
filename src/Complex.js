@@ -2,18 +2,21 @@
 
 /**
  * Complex Core
+ * @class Complex
  */
 module.exports = class Complex {
-	/**
-	 *
-	 */
 	constructor() {
+		/**
+		 * @property scene
+		 * @type {cxScene}
+		 */
 		this.scene = null;
 	}
 
 	/**
 	 * load a scene to be rendered
-	 * @param cxScene cxScene
+	 * @method loadScene
+	 * @param {cxScene} cxScene
 	 */
 	loadScene ( cxScene ) {
 		cxScene.cx = this;
@@ -23,6 +26,7 @@ module.exports = class Complex {
 
 	/**
 	 * render the loaded scene
+	 * @method update
 	 */
 	update () {
 		this.scene.update();
@@ -30,6 +34,7 @@ module.exports = class Complex {
 
 	/**
 	 * Start the render loop
+	 * @method start
 	 */
 	start () {
 		// shim layer with setTimeout fallback
@@ -47,6 +52,7 @@ module.exports = class Complex {
 
 	/**
 	 * The animation frame
+	 * @method _animFrame
 	 */
 	_animFrame() {
 		requestAnimFrame(this._animFrame);

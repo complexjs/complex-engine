@@ -1,9 +1,10 @@
 "use strict";
 
 let cxSystem = require('../cxSystem');
+let NotImplemented = require('../Exception/NotImplemented');
 
 /**
- * A void system
+ * @class cxVoidSystem
  */
 module.exports = class cxVoidSystem extends cxSystem
 {
@@ -13,22 +14,18 @@ module.exports = class cxVoidSystem extends cxSystem
 
         /**
          * Type of the world
-         * @type String
+         * @property type
+         * @type {String}
          */
         this.type = cxSystem.getTypeVoid();
     }
 
     /**
      * update system
+     * @method update
      */
     update () {
-        throw 'Method not implemented';
+        throw new NotImplemented();
     }
 
-    /**
-     * render system
-     */
-    render () {
-        throw 'Method not implemented';
-    }
 }

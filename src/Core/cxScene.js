@@ -1,32 +1,32 @@
 "use strict";
 
 let cxWorld = require('./cxWorld');
+let NotImplemented = require('./Exception/NotImplemented');
 
 /**
  * The current scene with is rendered on screen
+ * @class cxScene
  */
-module.exports = class cxScene
-{
+module.exports = class cxScene {
     /**
-     * [constructor description]
-     * @param  {string} name Name of the scene
+     * @method constructor
+     * @param {String} name
      */
-    constructor( name )
-    {
+    constructor( name ) {
         /**
-         * Name of the scene
+         * @property name
          * @type {String}
          */
         this.name = name;
 
         /**
-         * The world
+         * @property world
          * @type {cxWorld}
          */
         this.world = new cxWorld();
 
         /**
-         * Complex Core
+         * @property cx
          * @type {Complex}
          */
         this.cx = null;
@@ -34,17 +34,17 @@ module.exports = class cxScene
 
     /**
      * Called when the world is loaded by the ComplexCore
+     * @method load
      */
-    load ()
-    {
-
+    load () {
+        throw new NotImplemented();
     }
 
     /**
      * Updates the worldobject
+     * @method update
      */
-    update ()
-    {
+    update () {
         this.world.step();
     }
 }

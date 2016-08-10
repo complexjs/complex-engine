@@ -1,46 +1,54 @@
 "use strict";
+
 /**
- *
+ * @class cxEntity
  */
 module.exports = class cxEntity
 {
 	/**
-	 * @param String name Name of the entity
+	 * @param {String} name Name of the entity
 	 */
 	constructor (name) {
 		name = name || "Entity";
+
 		/**
-		 * @type cxComponent[]
+		 * @property components
+		 * @type {Array<cxComponent>}
 		 */
 		this.components = [];
 
 		/**
-		 * @type Boolean
+		 * @property alive
+		 * @type {Boolean}
 		 */
 		this.alive = true;
 
 		/**
-		 * @type Boolean
+		 * @property remove
+		 * @type {Boolean}
 		 */
 		this.remove = false;
 
 		/**
-		 * @type cxWorld
+		 * @property world
+		 * @type {cxWorld}
 		 */
 		this.world = null;
 
 		/**
-		 * @type String
+		 * @property name
+		 * @type {String}
 		 */
 		this.name = name;
 	}
 
 	/**
 	 * Add a component to the entity
-	 * @param cxComponent component
+	 * @method addComponent
+	 * @param {cxComponent} component
 	 */
 	addComponent ( component ) {
-		var slot = this._getFreeSlot();
+		let slot = this._getFreeSlot();
 		if( slot != null ) {
 			this.components[slot] = component;
 		} else{
@@ -50,12 +58,13 @@ module.exports = class cxEntity
 
 	/**
 	 * Get a component from the entity by its tag name
-	 * @param  String componentName
-	 * @return cxComponent
+	 * @method getComponent
+	 * @param  {String} componentName
+	 * @return {cxComponent}
 	 */
 	getComponent ( componentName ) {
-		for(var i = 0, len = this.components.length; i < len; i++) {
-			var component = this.components[i];
+		for(let i = 0, len = this.components.length; i < len; i++) {
+			let component = this.components[i];
 			if(component.tag == componentName) {
 				return component;
 			}
@@ -65,12 +74,13 @@ module.exports = class cxEntity
 
 	/**
 	 * Get a component from the entity by its tag name
-	 * @param  String componentName
-	 * @return cxComponent
+	 * @method hasComponent
+	 * @param  {String} componentName
+	 * @return {Boolean}
 	 */
 	hasComponent ( componentName ) {
-		for(var i = 0, len = this.components.length; i < len; i++) {
-			var component = this.components[i];
+		for(let i = 0, len = this.components.length; i < len; i++) {
+			let component = this.components[i];
 			if(component.tag == componentName) {
 				return true;
 			}
@@ -80,11 +90,12 @@ module.exports = class cxEntity
 
 	/**
 	 * remove a component from the entity
-	 * @param String componentName
+	 * @method removeComponent
+	 * @param {String} componentName
 	 */
 	removeComponent ( componentName ) {
-		for(var i = 0, len = this.components.length; i < len; i++) {
-			var component = this.components[i];
+		for(let i = 0, len = this.components.length; i < len; i++) {
+			let component = this.components[i];
 			if(component.tag == componentName) {
 				delete this.components[i];
 			}
@@ -93,7 +104,8 @@ module.exports = class cxEntity
 
 	/**
 	 * Get all components from the entity
-	 * @return cxComponent[]
+	 * @method getComponents
+	 * @return {Array<cxComponent>}
 	 */
 	getComponents () {
 		return this.components;
@@ -101,11 +113,12 @@ module.exports = class cxEntity
 
 	/**
 	 * Reuses old component slots in the array
-	 * @return int
+	 * @method _getFreeSlot
+	 * @return {Integer}
 	 */
 	_getFreeSlot () {
-		for(var c = 0, len = this.components.length; c < len; c++) {
-			var component = this.components[c];
+		for(let c = 0, len = this.components.length; c < len; c++) {
+			let component = this.components[c];
 			if(component == undefined || component == null ) {
 				return c;
 			}
@@ -115,6 +128,7 @@ module.exports = class cxEntity
 
 	/**
 	 * Kills the entity
+	 * @method destroy
 	 */
 	destroy () {
 		this.alive = false;
@@ -123,7 +137,8 @@ module.exports = class cxEntity
 
 	/**
 	 * Get the worlobject from the entity
-	 * @return cxWorld
+	 * @method getWorld
+	 * @return {cxWorld}
 	 */
 	getWorld () {
 		return this.world;
@@ -131,7 +146,8 @@ module.exports = class cxEntity
 
 	/**
 	 * Set the worldobject
-	 * @param cxWorld world
+	 * @method setWorld
+	 * @param {cxWorld} world
 	 */
 	setWorld ( world ) {
 		this.world = world;

@@ -1,40 +1,34 @@
 "use strict";
 
 let cxSystem = require('../cxSystem');
+let NotImplemented = require('../Exception/NotImplemented');
 
 /**
- * A system reacting on entities with specifiy components
- */
+* @class cxEntitySystem
+*/
 module.exports = class cxEntitySystem extends cxSystem {
 	constructor () {
 		super();
 
 		/**
-		 * Name of components the entity should have
-		 * @type String[]
+		 * @property components
+		 * @type {Array<String>}
 		 */
 		this.components = [];
 
 		/**
-		 * Type of the process
-		 * @type String
+		 * @type {String}
 		 */
 		this.type = cxSystem.getTypeProcess();
 	}
 
 	/**
-	 * @param cxEntity entity
-	 * @param cxComponent[] components
+	 * @method update
+	 * @param {cxEntity} entity
+	 * @param {Array<cxComponent>} components
 	 */
 	update (entity, components) {
-		throw 'Method not implemented';
+		throw new NotImplemented();
 	}
 
-	/**
-	 * @param cxEntity entity
-	 * @param cxComponent[] components
-	 */
-	render ( entity, components) {
-		throw 'Method not implemented';
-	}
 }
