@@ -1,6 +1,11 @@
 "use strict";
 
 let cxSystem = require('./cxSystem');
+let cxEntity = require('./cxEntity');
+let cxManager = require('./cxManager');
+let cxEntitySystem = require('./System/cxEntitySystem');
+let cxVoidSystem = require('./System/cxVoidSystem');
+let InvalidClass = require('./Exception/InvalidClass');
 
 /**
  * The world contains all entities, systems and managers
@@ -51,6 +56,10 @@ module.exports = class cxWorld {
 	 * @param {cxEntity} entity
 	 */
 	addEntity (entity) {
+		if(entity instanceof cxEntity === false){
+			throw new InvalidClass('cxEntity');
+		}
+
 		let slot = this._getFreeEntitySlot();
 		entity.setWorld(this);
 
@@ -111,15 +120,20 @@ module.exports = class cxWorld {
 	 * @param {cxSystem} system
 	 */
 	addSystem ( system ) {
+		if(system instanceof cxSystem === false){
+			throw new InvalidClass('cxSystem')
+		}
+
 		system.world = this;
-		if ( system.type == cxSystem.getTypeProcess() ) {
+
+		if(system instanceof cxEntitySystem === true){
 			let slot = this._getFreeProcessSystemSlot();
 			if(slot != null) {
 				this.entitySystems[slot] = system;
 			} else {
 				this.entitySystems.push(system);
 			}
-		}else if (system.type == cxSystem.getTypeVoid() ){
+		}else if(system instanceof cxVoidSystem === true){
 			let slot = this._getFreeProcessSystemSlot();
 			if(slot != null) {
 				this.voidSystems[slot] = system;
@@ -127,6 +141,7 @@ module.exports = class cxWorld {
 				this.voidSystems.push(system);
 			}
 		}
+
 	}
 
 	/**
@@ -194,6 +209,9 @@ module.exports = class cxWorld {
 
 		for(let i = 0, len = this.entitySystems.length; i < len; i++) {
 			let system = this.entitySystems[i];
+			if(system === undefined){
+				continue;
+			}
 			if ( system.tag == systemName ) {
 				delete this.entitySystems[i];
 			}
@@ -201,6 +219,9 @@ module.exports = class cxWorld {
 
 		for(let i = 0, len = this.voidSystems.length; i < len; i++) {
 			let system = this.voidSystems[i];
+			if(system === undefined){
+				continue;
+			}
 			if ( system.tag == systemName ) {
 				delete this.voidSystems[i];
 			}
@@ -213,6 +234,9 @@ module.exports = class cxWorld {
 	 * @param {cxManager} manager
 	 */
 	addManager ( manager) {
+		if(manager instanceof cxManager === false){
+			throw new InvalidClass('cxManager');
+		}
 		manager.world = this;
 		this.managers.push(manager);
 	}

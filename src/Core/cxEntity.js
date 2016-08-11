@@ -1,5 +1,8 @@
 "use strict";
 
+let InvalidClass = require('./Exception/InvalidClass');
+let cxComponent = require('./cxComponent');
+
 /**
  * @class cxEntity
  */
@@ -48,6 +51,10 @@ module.exports = class cxEntity
 	 * @param {cxComponent} component
 	 */
 	addComponent ( component ) {
+		if(component instanceof cxComponent === false){
+			throw new InvalidClass('cxComponent');
+		}
+
 		let slot = this._getFreeSlot();
 		if( slot != null ) {
 			this.components[slot] = component;
@@ -62,14 +69,15 @@ module.exports = class cxEntity
 	 * @param  {String} componentName
 	 * @return {cxComponent}
 	 */
-	getComponent ( componentName ) {
+	getComponents ( componentName ) {
+		let components = [];
 		for(let i = 0, len = this.components.length; i < len; i++) {
 			let component = this.components[i];
 			if(component.tag == componentName) {
-				return component;
+				components.push(component);
 			}
 		}
-		return null;
+		return components;
 	}
 
 	/**
@@ -107,7 +115,7 @@ module.exports = class cxEntity
 	 * @method getComponents
 	 * @return {Array<cxComponent>}
 	 */
-	getComponents () {
+	getAllComponents () {
 		return this.components;
 	}
 

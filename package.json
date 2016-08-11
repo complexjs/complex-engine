@@ -1,14 +1,33 @@
 {
-    "name":"complex-engine",
+    "name": "complex-engine",
     "description": "JS Component Entity Framework for Gamedevelopment",
     "license": "MIT",
-    "version":"3.2.1",
-    "keywords" : ["engine", "game", "gamedev", "development", "html5", "gameengine", "indie", "component", "entity", "system"],
+    "version": "3.2.1",
+    "keywords": [
+        "engine",
+        "game",
+        "gamedev",
+        "development",
+        "html5",
+        "gameengine",
+        "indie",
+        "component",
+        "entity",
+        "system"
+    ],
     "author": {
         "name": "Fabio Gianini"
     },
     "repository": {
         "url": "https://github.com/faebeee/complex-engine"
     },
-    "main" : "./Complex.js"
+    "main": "./Complex.js",
+    "devDependencies": {
+        "mocha": "^3.0.2",
+        "unit.js": "^2.0.0"
+    },
+    "scripts":{
+        "test" : "mocha test/Run.js"
+    }
+
 }

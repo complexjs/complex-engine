@@ -1,4 +1,7 @@
-"use strict";
+'use strict';
+
+let cxScene = require('./Core/cxScene');
+let InvalidClass = require('./Core/Exception/InvalidClass');
 
 /**
  * Complex Core
@@ -16,11 +19,14 @@ module.exports = class Complex {
 	/**
 	 * load a scene to be rendered
 	 * @method loadScene
-	 * @param {cxScene} cxScene
+	 * @param {cxScene} scene
 	 */
-	loadScene ( cxScene ) {
-		cxScene.cx = this;
-		this.scene = cxScene;
+	loadScene ( scene ) {
+		if(scene instanceof cxScene === false){
+			throw new InvalidClass('cxScene');
+		}
+		scene.cx = this;
+		this.scene = scene;
 		this.scene.load();
 	}
 
