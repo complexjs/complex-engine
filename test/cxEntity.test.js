@@ -25,7 +25,7 @@ describe('cxEntity', function(){
         test.array(entity.components).hasLength(3);
     });
 
-    it('addComponent', function(){
+    it('addComponent invalid', function(){
         let cxEntity = require('../Complex').cxEntity;
         class MockComponent{
 
