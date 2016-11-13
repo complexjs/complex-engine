@@ -51,9 +51,9 @@ module.exports = class cxEntity
 	 * @param {cxComponent} component
 	 */
 	addComponent ( component ) {
-		if(component instanceof cxComponent === false){
-			throw new InvalidClass('cxComponent');
-		}
+		//if(component instanceof cxComponent === false){
+	//		throw new InvalidClass('cxComponent');
+		//}
 
 		let slot = this._getFreeSlot();
 		if( slot != null ) {

@@ -56,9 +56,9 @@ module.exports = class cxWorld {
 	 * @param {cxEntity} entity
 	 */
 	addEntity (entity) {
-		if(entity instanceof cxEntity === false){
-			throw new InvalidClass('cxEntity');
-		}
+		//if(entity instanceof cxEntity === false){
+		//	throw new InvalidClass('cxEntity');
+		//}
 
 		let slot = this._getFreeEntitySlot();
 		entity.setWorld(this);
@@ -119,10 +119,10 @@ module.exports = class cxWorld {
 	 * @method addSystem
 	 * @param {cxSystem} system
 	 */
-	addSystem ( system ) {
-		if(system instanceof cxSystem === false){
-			throw new InvalidClass('cxSystem')
-		}
+	addSystem(system) {
+		//if(system instanceof cxSystem === false){
+		//	throw new InvalidClass('cxSystem')
+		//}
 
 		system.world = this;
 
@@ -234,9 +234,9 @@ module.exports = class cxWorld {
 	 * @param {cxManager} manager
 	 */
 	addManager ( manager) {
-		if(manager instanceof cxManager === false){
-			throw new InvalidClass('cxManager');
-		}
+		//if(manager instanceof cxManager === false){
+		//	throw new InvalidClass('cxManager');
+		//}
 		manager.world = this;
 		this.managers.push(manager);
 	}
