@@ -1,12 +1,12 @@
 "use strict";
 
-let InvalidClass = require('./Exception/InvalidClass');
-let cxComponent = require('./cxComponent');
+import InvalidClass from './Exception/InvalidClass';
+import cxComponent from './cxComponent';
 
 /**
  * @class cxEntity
  */
-module.exports = class cxEntity
+export default class cxEntity
 {
 	/**
 	 * @param {String} name Name of the entity

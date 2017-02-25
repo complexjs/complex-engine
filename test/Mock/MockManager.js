@@ -1,6 +1,6 @@
 'use strict';
 
-let cxManager = require('../../Complex').cxManager;
+let cxManager = require('../../bin/Complex').cxManager;
 
 module.exports = class MockManager extends cxManager{
     constructor(){

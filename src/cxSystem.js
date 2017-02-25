@@ -4,7 +4,7 @@
  * Abstract System
  * @class cxSystem
  */
-module.exports = class cxSystem {
+export default class cxSystem {
     constructor () {
         /**
          * @property tag
@@ -30,7 +30,7 @@ module.exports = class cxSystem {
     /**
      * get notified when entity is added to world
      * @method added
-     * @param  {cxEntity} entity
+     * @param {cxEntity} entity
      */
     added (entity) {
 
@@ -39,7 +39,7 @@ module.exports = class cxSystem {
     /**
      * get notified when entity is removed from world
      * @method removed
-     * @param  cxEntity entity
+     * @param {cxEntity} entity
      */
     removed ( entity ) {
 

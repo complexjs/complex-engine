@@ -1,10 +1,10 @@
 'use strict';
 
 let test = require('unit.js');
+let Complex = require('../bin/Complex').Complex;
 
 describe('Complex', function(){
     it('should load a scene', function(){
-        let Complex = require('../Complex').Complex;
 
         let MockScene = require('./Mock/MockScene');
 
@@ -15,7 +15,6 @@ describe('Complex', function(){
     });
 
     it('should not load a invalid scene', function(){
-        let Complex = require('../Complex').Complex;
         class MyScene {
 
         }

@@ -3,7 +3,7 @@
 /**
  * @class cxComponent
  */
-module.exports = class cxComponent {
+export default class cxComponent {
     constructor () {
         /**
          * @property tag

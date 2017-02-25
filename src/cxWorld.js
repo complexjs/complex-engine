@@ -1,17 +1,17 @@
 "use strict";
 
-let cxSystem = require('./cxSystem');
-let cxEntity = require('./cxEntity');
-let cxManager = require('./cxManager');
-let cxEntitySystem = require('./System/cxEntitySystem');
-let cxVoidSystem = require('./System/cxVoidSystem');
-let InvalidClass = require('./Exception/InvalidClass');
+import cxSystem from './cxSystem';
+import cxEntity from './cxEntity';
+import cxManager from './cxManager';
+import cxEntitySystem from './System/cxEntitySystem';
+import cxVoidSystem from './System/cxVoidSystem';
+import InvalidClass from './Exception/InvalidClass';
 
 /**
  * The world contains all entities, systems and managers
  * @class cxWorld
  */
-module.exports = class cxWorld {
+export default class cxWorld {
 	constructor () {
 		/**
 		 * @property entities

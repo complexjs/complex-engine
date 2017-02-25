@@ -1,10 +1,11 @@
 'use strict';
 
 let test = require('unit.js');
+let cxEntity = require('../bin/Complex').cxEntity;
 
 describe('cxEntity', function(){
     it('addComponent', function(){
-        let cxEntity = require('../Complex').cxEntity;
+
         let MockComponent = require('./Mock/MockComponent');
 
         let entity = new cxEntity();
@@ -14,7 +15,6 @@ describe('cxEntity', function(){
     });
 
     it('addComponent multiple', function(){
-        let cxEntity = require('../Complex').cxEntity;
         let MockComponent = require('./Mock/MockComponent');
 
         let entity = new cxEntity();
@@ -26,7 +26,6 @@ describe('cxEntity', function(){
     });
 
     it('addComponent invalid', function(){
-        let cxEntity = require('../Complex').cxEntity;
         class MockComponent{
 
         }
@@ -37,7 +36,6 @@ describe('cxEntity', function(){
     });
 
     it('getComponents single', function(){
-        let cxEntity = require('../Complex').cxEntity;
         let MockComponent = require('./Mock/MockComponent');
 
         let entity = new cxEntity();
@@ -48,7 +46,6 @@ describe('cxEntity', function(){
 
 
     it('getComponents multiple components', function(){
-        let cxEntity = require('../Complex').cxEntity;
         let MockComponent = require('./Mock/MockComponent');
 
         let entity = new cxEntity();
@@ -60,14 +57,12 @@ describe('cxEntity', function(){
     });
 
     it('getComponent non existent component', function(){
-        let cxEntity = require('../Complex').cxEntity;
         let entity = new cxEntity();
         let comp = entity.getComponents('mock.component');
         test.array(comp).isEmpty();
     });
 
     it('hasComponent', function(){
-        let cxEntity = require('../Complex').cxEntity;
         let MockComponent = require('./Mock/MockComponent');
 
         let entity = new cxEntity();
@@ -77,14 +72,12 @@ describe('cxEntity', function(){
     });
 
     it('hasComponent non existent', function(){
-        let cxEntity = require('../Complex').cxEntity;
         let entity = new cxEntity();
         let comp = entity.hasComponent('mock.component');
         test.bool(comp).isFalse();
     });
 
     it('removeComponent', function(){
-        let cxEntity = require('../Complex').cxEntity;
         let MockComponent = require('./Mock/MockComponent');
 
         let entity = new cxEntity();
@@ -94,7 +87,6 @@ describe('cxEntity', function(){
     });
 
     it('getAllComponents', function(){
-        let cxEntity = require('../Complex').cxEntity;
         let MockComponent = require('./Mock/MockComponent');
 
         let entity = new cxEntity();
@@ -106,7 +98,6 @@ describe('cxEntity', function(){
 
 
     it('destroy', function(){
-        let cxEntity = require('../Complex').cxEntity;
         let MockComponent = require('./Mock/MockComponent');
 
         let entity = new cxEntity();

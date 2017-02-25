@@ -1,13 +1,13 @@
 "use strict";
 
-let cxWorld = require('./cxWorld');
-let NotImplemented = require('./Exception/NotImplemented');
+import cxWorld from './cxWorld';
+import NotImplemented from './Exception/NotImplemented';
 
 /**
  * The current scene with is rendered on screen
  * @class cxScene
  */
-module.exports = class cxScene {
+export default class cxScene {
     /**
      * @method constructor
      * @param {String} name

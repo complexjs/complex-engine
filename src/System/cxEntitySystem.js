@@ -1,12 +1,12 @@
 "use strict";
 
-let cxSystem = require('../cxSystem');
-let NotImplemented = require('../Exception/NotImplemented');
+import cxSystem from '../cxSystem';
+import NotImplemented from '../Exception/NotImplemented';
 
 /**
 * @class cxEntitySystem
 */
-module.exports = class cxEntitySystem extends cxSystem {
+export default class cxEntitySystem extends cxSystem {
 	constructor () {
 		super();
 
@@ -30,5 +30,4 @@ module.exports = class cxEntitySystem extends cxSystem {
 	update (entity, components) {
 		throw new NotImplemented();
 	}
-
 }

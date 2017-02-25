@@ -1,12 +1,12 @@
 "use strict";
 
-let cxSystem = require('../cxSystem');
-let NotImplemented = require('../Exception/NotImplemented');
+import cxSystem from '../cxSystem';
+import NotImplemented from '../Exception/NotImplemented';
 
 /**
  * @class cxVoidSystem
  */
-module.exports = class cxVoidSystem extends cxSystem
+export default class cxVoidSystem extends cxSystem
 {
     constructor()
     {

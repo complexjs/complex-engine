@@ -1,6 +1,6 @@
 'use strict';
 
-let cxEntitySystem = require('../../Complex').cxEntitySystem;
+let cxEntitySystem = require('../../bin/Complex').cxEntitySystem;
 
 module.exports = class EntitySystem extends cxEntitySystem{
     constructor(){

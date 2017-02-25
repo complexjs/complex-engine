@@ -1,6 +1,6 @@
 'use strict';
 
-let cxVoidSystem = require('../../Complex').cxVoidSystem;
+let cxVoidSystem = require('../../bin/Complex').cxVoidSystem;
 
 module.exports = class VoidSystem extends cxVoidSystem{
     constructor(){

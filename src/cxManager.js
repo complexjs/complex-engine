@@ -3,7 +3,7 @@
 /**
  * @class cxManager
  */
-module.exports = class cxManager {
+export default class cxManager {
     constructor() {
         /**
          * @property tag

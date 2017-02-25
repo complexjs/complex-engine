@@ -1,6 +1,6 @@
 'use strict';
 
-let cxScene = require('../../Complex').cxScene;
+let cxScene = require('../../bin/Complex').cxScene;
 
 module.exports = class MockScene extends cxScene{
     constructor(){
