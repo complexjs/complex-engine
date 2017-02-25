@@ -34,6 +34,6 @@
   },
   "scripts": {
     "test": "mocha test/Run.js",
-    "doc": "documentation build src/** -f html -o doc/html"
+    "doc": "documentation build src/** -f html -o docs"
   }
 }
