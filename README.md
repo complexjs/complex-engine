@@ -1,6 +1,7 @@
 # ComplexJS
 
 ComplexJS is a JS written Component Entity System for HTML5 Gamedevelopment.
+
 ComplexJS has the ability not to minimize your development time.
 With it's Component Entity System there is a high rate of reusable code for your later projects.
 

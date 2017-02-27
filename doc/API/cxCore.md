@@ -1,6 +1,8 @@
+#cxCore
+
 This is the complex core class. Here your app/game will be started and updated every frame.
 
-# API
+# [API](http://complexjs.github.io/complex-engine/index.html#cxcore)
 
 ## loadScene(scene:cxScene):void
 

@@ -1,3 +1,5 @@
+#cxComponent 
+
 The cxComponent class is a simple data holder. There should be no business logic in there. Is just stores the data that is required by the cxSystem to be processed/rendered.
 
 When you write your own components be sure to extend this one and set is a appropriate tag to identify it later.
@@ -24,7 +26,7 @@ Example:
 
 
 
-# API 
+# [API](http://complexjs.github.io/complex-engine/index.html#cxcomponent) 
 
 ## getTag() : String
 returns the tag the component has

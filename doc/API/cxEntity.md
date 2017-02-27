@@ -1,6 +1,8 @@
+#cxEntity
+
 The cxEntity class is the basic entity class. You can attach components to it. Those components are a kind of a dataholder. This data will then be processed by the system, which makes some position calculation or modify values and renders the new data.
 
-# API
+# [API](http://complexjs.github.io/complex-engine/index.html#cxentity)
 
 
 ## constructor( name:String(optional) ) : void
