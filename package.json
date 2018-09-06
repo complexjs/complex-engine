@@ -21,19 +21,22 @@
   "repository": {
     "url": "https://github.com/faebeee/complex-engine"
   },
-  "main": "./bin/Complex.js",
+  "main": "./build/Complex.js",
+  "types": "./build/Complex.d.ts",
+  "typings": "./build/Complex.d.ts",
+  "files": [
+    "build/**/*"
+  ],
   "devDependencies": {
-    "babel-preset-env": "^1.1.10",
-    "babel-preset-es2015": "^6.22.0",
-    "documentation": "^4.0.0-beta.18",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
     "mocha": "^3.0.2",
-    "unit.js": "^2.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "typedoc": "^0.12.0",
+    "typescript": "^3.0.1",
+    "typescript-bundle": "^0.8.9",
+    "unit.js": "^2.0.0"
   },
   "scripts": {
+    "build": "tsc && npx tsc-bundle src/Complex.ts build/bundle.js --exportAs cx",
     "test": "mocha test/Run.js",
-    "doc": "documentation build src/** -f html -o docs"
+    "doc": "npx typedoc --out docs ./src --mode file --readme ./README.md --name Complex"
   }
 }

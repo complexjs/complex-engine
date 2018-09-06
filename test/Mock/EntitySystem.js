@@ -1,10 +1,10 @@
 'use strict';
 
-let cxEntitySystem = require('../../bin/Complex').cxEntitySystem;
+let cxEntitySystem = require('../../').cxEntitySystem;
 
-module.exports = class EntitySystem extends cxEntitySystem{
-    constructor(){
+module.exports = class EntitySystem extends cxEntitySystem {
+    constructor() {
         super();
         this.tag = 'mock.system.entity';
     }
-}
+};

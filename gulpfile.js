@@ -5,7 +5,7 @@ let babel = require("gulp-babel");
 
 
 gulp.task('build', function () {
-    return gulp.src(["src/**/*.js"])
+    return gulp.src(["build/**/*.js"])
         .pipe(babel())
         .pipe(gulp.dest("bin"));
 });
