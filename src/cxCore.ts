@@ -2,7 +2,6 @@
 
 import cxScene from './cxScene';
 
-
 /**
  * Complex Core. This class handles the rendering of the current scene.
  */
@@ -27,6 +26,7 @@ export default class cxCore {
     public loadScene(scene: cxScene): void {
         this.scene = scene;
         this.scene.load();
+        this.scene.run();
     }
 
     /**

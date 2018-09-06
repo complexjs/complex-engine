@@ -202,6 +202,21 @@ var cx = (function () {
               this.tag = null;
               this.world = null;
           }
+          /**
+           * get notified when system is added to world
+           */
+          cxSystem.prototype.addedToWorld = function () {
+          };
+          /**
+           * get notified when entity is added to world
+           */
+          cxSystem.prototype.added = function (entity) {
+          };
+          /**
+           * get notified when entity is removed from world
+           */
+          cxSystem.prototype.removed = function (entity) {
+          };
           cxSystem.prototype.setWorld = function (value) {
               this.world = value;
           };
@@ -493,7 +508,7 @@ var cx = (function () {
               var components = system.getComponents();
               var entities = [];
               for (var i = 0; i < components.length; i++) {
-                  entities.concat.apply(entities, this.getEntitiesWithComponent(components[i]));
+                  entities.push.apply(entities, this.getEntitiesWithComponent(components[i]));
               }
               return entities;
           };
@@ -603,6 +618,12 @@ var cx = (function () {
               this.world = new cxWorld_1["default"]();
           }
           /**
+           * Starts the initialisation of the world
+           */
+          cxScene.prototype.run = function () {
+              this.world.init();
+          };
+          /**
            * Updates the world object
            */
           cxScene.prototype.update = function () {
@@ -634,6 +655,7 @@ var cx = (function () {
           cxCore.prototype.loadScene = function (scene) {
               this.scene = scene;
               this.scene.load();
+              this.scene.run();
           };
           /**
            * render the loaded scene

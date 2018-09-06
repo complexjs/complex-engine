@@ -20,6 +20,13 @@ export default abstract class cxScene {
     public abstract load(): void;
 
     /**
+     * Starts the initialisation of the world
+     */
+    public run(): void {
+        this.world.init();
+    }
+
+    /**
      * Updates the world object
      */
     public update(): void {

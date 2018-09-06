@@ -221,7 +221,7 @@ var cxWorld = /** @class */ (function () {
         var components = system.getComponents();
         var entities = [];
         for (var i = 0; i < components.length; i++) {
-            entities.concat.apply(entities, this.getEntitiesWithComponent(components[i]));
+            entities.push.apply(entities, this.getEntitiesWithComponent(components[i]));
         }
         return entities;
     };

@@ -11,6 +11,8 @@ with a lot of extensions already. Those can be found [here](https://github.com/c
 
 If there is no extension that works for you, you can easily create your own. Check out the `Module` section of this documentation
 
-## Doc
+## How To
+
+
 ### Community modules
 Coming soon...

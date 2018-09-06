@@ -226,9 +226,9 @@ export default class cxWorld {
      * Update entity systems
      */
     private updateEntitySystem(): void {
+
         for (let s = 0, sLen = this.entitySystems.length; s < sLen; s++) {
             const system = this.entitySystems[s];
-
             const entities = this.getEntitiesForSystem(system);
             system.processEntities(entities);
         }
@@ -242,9 +242,8 @@ export default class cxWorld {
         const components = system.getComponents();
         const entities: cxEntity[] = [];
         for (let i = 0; i < components.length; i++) {
-            entities.concat(...this.getEntitiesWithComponent(components[i]));
+            entities.push(...this.getEntitiesWithComponent(components[i]));
         }
-
         return entities;
     }
 

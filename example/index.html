@@ -1,0 +1,58 @@
+<script src="../build/bundle.js"></script>
+
+<script>
+    const complex = cx.Complex.getInstance();
+
+    // Create a custom system to process the compoentns
+    class MySystem extends cx.cxEntitySystem {
+        constructor() {
+            super();
+            this.components = ['my.component'];
+        }
+
+        update(entitiy) {
+        }
+    }
+
+    /**
+     * Create component that holds your data
+     */
+    class MyComponent extends cx.cxComponent {
+        constructor() {
+            super();
+            this.tag = 'my.component';
+        }
+    }
+
+    // create custom scene
+    class MyScene extends cx.cxScene {
+        constructor() {
+            super("MainScene");
+        }
+
+        // Create everything that is required for this scene to be rendered.
+        // Add systems and entities
+        load() {
+            this.world.addSystem(new MySystem());
+            this.createPlayer();
+        }
+
+        createPlayer() {
+            let player = new cx.cxEntity("Player");
+            player.addComponent(new MyComponent('hello'));
+            this.world.addEntity(player);
+        }
+    }
+
+    // Load the scene you wan't to render
+    complex.loadScene(new MyScene());
+
+
+    // Render it
+    function render() {
+        complex.update();
+        requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render);
+
+</script>

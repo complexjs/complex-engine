@@ -13,6 +13,12 @@ var cxScene = /** @class */ (function () {
         this.world = new cxWorld_1.default();
     }
     /**
+     * Starts the initialisation of the world
+     */
+    cxScene.prototype.run = function () {
+        this.world.init();
+    };
+    /**
      * Updates the world object
      */
     cxScene.prototype.update = function () {

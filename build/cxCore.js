@@ -19,6 +19,7 @@ var cxCore = /** @class */ (function () {
     cxCore.prototype.loadScene = function (scene) {
         this.scene = scene;
         this.scene.load();
+        this.scene.run();
     };
     /**
      * render the loaded scene

@@ -11,6 +11,10 @@ export default abstract class cxScene {
      */
     abstract load(): void;
     /**
+     * Starts the initialisation of the world
+     */
+    run(): void;
+    /**
      * Updates the world object
      */
     update(): void;
