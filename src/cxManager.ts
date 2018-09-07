@@ -1,21 +1,17 @@
 "use strict";
 
-import {cxWorld} from './Complex';
+import { cxWorld } from "./Complex";
 
-export default class cxManager {
-    protected tag: string | null = null;
-    protected world: cxWorld | null = null;
+export default abstract class cxManager {
+  protected world: cxWorld | null = null;
 
-    public getTag(): string | null {
-        return this.tag;
-    }
+  public abstract get tag(): string;
 
-    public getWorld(): cxWorld | null {
-        return this.world;
-    }
+  public getWorld(): cxWorld | null {
+    return this.world;
+  }
 
-    public setWorld(world: cxWorld) {
-        this.world = world;
-    }
-
+  public setWorld(world: cxWorld) {
+    this.world = world;
+  }
 }

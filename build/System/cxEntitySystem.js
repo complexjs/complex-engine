@@ -38,3 +38,4 @@ var cxEntitySystem = /** @class */ (function (_super) {
     return cxEntitySystem;
 }(cxSystem_1.default));
 exports.default = cxEntitySystem;
+//# sourceMappingURL=cxEntitySystem.js.map

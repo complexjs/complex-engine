@@ -2,12 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var cxManager = /** @class */ (function () {
     function cxManager() {
-        this.tag = null;
         this.world = null;
     }
-    cxManager.prototype.getTag = function () {
-        return this.tag;
-    };
     cxManager.prototype.getWorld = function () {
         return this.world;
     };
@@ -17,3 +13,4 @@ var cxManager = /** @class */ (function () {
     return cxManager;
 }());
 exports.default = cxManager;
+//# sourceMappingURL=cxManager.js.map

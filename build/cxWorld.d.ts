@@ -1,8 +1,8 @@
-import cxSystem from './cxSystem';
-import cxEntity from './cxEntity';
-import cxManager from './cxManager';
-import cxEntitySystem from './System/cxEntitySystem';
-import cxVoidSystem from './System/cxVoidSystem';
+import cxSystem from "./cxSystem";
+import cxEntity from "./cxEntity";
+import cxManager from "./cxManager";
+import cxEntitySystem from "./System/cxEntitySystem";
+import cxVoidSystem from "./System/cxVoidSystem";
 /**
  * The world contains all entities, systems and managers
  */

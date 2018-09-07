@@ -60,22 +60,21 @@ var cx = (function () {
   })();
   define("cxComponent", ["require", "exports"], function (require, exports) {
       "use strict";
-      exports.__esModule = true;
+      Object.defineProperty(exports, "__esModule", { value: true });
       /**
        * This is a bare component.
        * It's used to store specific data related to an cxEntity. This data will then be processed by a cxSystem.
        */
       var cxComponent = /** @class */ (function () {
           function cxComponent() {
-              this.tag = null;
           }
           return cxComponent;
       }());
-      exports["default"] = cxComponent;
+      exports.default = cxComponent;
   });
   define("cxEntity", ["require", "exports"], function (require, exports) {
       "use strict";
-      exports.__esModule = true;
+      Object.defineProperty(exports, "__esModule", { value: true });
       /**
        * An entity is a object that holds many components. Those components define the behaviour of an entity.
        */
@@ -188,56 +187,45 @@ var cx = (function () {
           };
           return cxEntity;
       }());
-      exports["default"] = cxEntity;
+      exports.default = cxEntity;
   });
   define("cxSystem", ["require", "exports"], function (require, exports) {
       "use strict";
-      exports.__esModule = true;
+      Object.defineProperty(exports, "__esModule", { value: true });
       /**
        * Abstract System. A system is responsible that your game works. It holds all the business logic and processes the
        * entities based on the data in the components
        */
       var cxSystem = /** @class */ (function () {
           function cxSystem() {
-              this.tag = null;
               this.world = null;
           }
           /**
            * get notified when system is added to world
            */
-          cxSystem.prototype.addedToWorld = function () {
-          };
+          cxSystem.prototype.addedToWorld = function () { };
           /**
            * get notified when entity is added to world
            */
-          cxSystem.prototype.added = function (entity) {
-          };
+          cxSystem.prototype.added = function (entity) { };
           /**
            * get notified when entity is removed from world
            */
-          cxSystem.prototype.removed = function (entity) {
-          };
+          cxSystem.prototype.removed = function (entity) { };
           cxSystem.prototype.setWorld = function (value) {
               this.world = value;
           };
-          cxSystem.prototype.getTag = function () {
-              return this.tag;
-          };
           return cxSystem;
       }());
-      exports["default"] = cxSystem;
+      exports.default = cxSystem;
   });
   define("cxManager", ["require", "exports"], function (require, exports) {
       "use strict";
-      exports.__esModule = true;
+      Object.defineProperty(exports, "__esModule", { value: true });
       var cxManager = /** @class */ (function () {
           function cxManager() {
-              this.tag = null;
               this.world = null;
           }
-          cxManager.prototype.getTag = function () {
-              return this.tag;
-          };
           cxManager.prototype.getWorld = function () {
               return this.world;
           };
@@ -246,11 +234,11 @@ var cx = (function () {
           };
           return cxManager;
       }());
-      exports["default"] = cxManager;
+      exports.default = cxManager;
   });
   define("System/cxEntitySystem", ["require", "exports", "cxSystem"], function (require, exports, cxSystem_1) {
       "use strict";
-      exports.__esModule = true;
+      Object.defineProperty(exports, "__esModule", { value: true });
       /**
        * This systems renders only entities that match the required components.
        */
@@ -270,12 +258,12 @@ var cx = (function () {
               return this.components;
           };
           return cxEntitySystem;
-      }(cxSystem_1["default"]));
-      exports["default"] = cxEntitySystem;
+      }(cxSystem_1.default));
+      exports.default = cxEntitySystem;
   });
   define("System/cxVoidSystem", ["require", "exports", "cxSystem"], function (require, exports, cxSystem_2) {
       "use strict";
-      exports.__esModule = true;
+      Object.defineProperty(exports, "__esModule", { value: true });
       /**
        * This system only renders once per update and is decoupled from the entities. This can be used to
        * update some data or clear the canvas on the screen
@@ -286,12 +274,12 @@ var cx = (function () {
               return _super !== null && _super.apply(this, arguments) || this;
           }
           return cxVoidSystem;
-      }(cxSystem_2["default"]));
-      exports["default"] = cxVoidSystem;
+      }(cxSystem_2.default));
+      exports.default = cxVoidSystem;
   });
   define("cxWorld", ["require", "exports", "System/cxEntitySystem", "System/cxVoidSystem"], function (require, exports, cxEntitySystem_1, cxVoidSystem_1) {
       "use strict";
-      exports.__esModule = true;
+      Object.defineProperty(exports, "__esModule", { value: true });
       /**
        * The world contains all entities, systems and managers
        */
@@ -301,7 +289,7 @@ var cx = (function () {
               this.voidSystems = [];
               this.entitySystems = [];
               this.managers = [];
-              this.tag = 'cx.world';
+              this.tag = "cx.world";
               this.initialized = false;
           }
           /**
@@ -326,7 +314,7 @@ var cx = (function () {
           cxWorld.prototype.removeEntity = function (entity) {
               var index = entity.getIndex();
               if (index === null) {
-                  throw new Error('Entity has no index');
+                  throw new Error("Entity has no index");
               }
               this.entityDeleted(entity);
               delete this.entities[index];
@@ -336,7 +324,7 @@ var cx = (function () {
            */
           cxWorld.prototype.getEntity = function (index) {
               if (this.entities[index] == undefined) {
-                  throw new Error('No entity found');
+                  throw new Error("No entity found");
               }
               return this.entities[index];
           };
@@ -359,7 +347,7 @@ var cx = (function () {
            */
           cxWorld.prototype.addSystem = function (system) {
               system.setWorld(this);
-              if (system instanceof cxEntitySystem_1["default"] === true) {
+              if (system instanceof cxEntitySystem_1.default === true) {
                   var slot = this.getFreeEntitySystemSlot();
                   if (slot != null) {
                       this.entitySystems[slot] = system;
@@ -368,7 +356,7 @@ var cx = (function () {
                       this.entitySystems.push(system);
                   }
               }
-              else if (system instanceof cxVoidSystem_1["default"] === true) {
+              else if (system instanceof cxVoidSystem_1.default === true) {
                   var slot = this.getFreeEntitySystemSlot();
                   if (slot != null) {
                       this.voidSystems[slot] = system;
@@ -405,17 +393,17 @@ var cx = (function () {
                   systemName = system;
               }
               else {
-                  systemName = system.getTag() || "";
+                  systemName = system.tag || "";
               }
               for (var i = 0, len = this.entitySystems.length; i < len; i++) {
                   var system_1 = this.entitySystems[i];
-                  if (system_1.getTag() === systemName) {
+                  if (system_1.tag === systemName) {
                       return system_1;
                   }
               }
               for (var i = 0, len = this.voidSystems.length; i < len; i++) {
                   var system_2 = this.voidSystems[i];
-                  if (system_2.getTag() === systemName) {
+                  if (system_2.tag === systemName) {
                       return system_2;
                   }
               }
@@ -430,14 +418,14 @@ var cx = (function () {
                   systemName = system;
               }
               else {
-                  systemName = system.getTag() || '';
+                  systemName = system.tag || "";
               }
               for (var i = 0, len = this.entitySystems.length; i < len; i++) {
                   var system_3 = this.entitySystems[i];
                   if (system_3 === undefined) {
                       continue;
                   }
-                  if (system_3.getTag() == systemName) {
+                  if (system_3.tag == systemName) {
                       delete this.entitySystems[i];
                   }
               }
@@ -446,7 +434,7 @@ var cx = (function () {
                   if (system_4 === undefined) {
                       continue;
                   }
-                  if (system_4.getTag() == systemName) {
+                  if (system_4.tag == systemName) {
                       delete this.voidSystems[i];
                   }
               }
@@ -464,7 +452,7 @@ var cx = (function () {
           cxWorld.prototype.getManager = function (name) {
               for (var i = 0, len = this.managers.length; i < len; i++) {
                   var manager = this.managers[i];
-                  if (manager.getTag() === name) {
+                  if (manager.tag === name) {
                       return this.managers[i];
                   }
               }
@@ -475,7 +463,7 @@ var cx = (function () {
            */
           cxWorld.prototype.update = function () {
               if (this.initialized === false) {
-                  throw new Error('Not initialized');
+                  throw new Error("Not initialized");
               }
               this.updateEntities();
               this.updateVoidSystem();
@@ -604,18 +592,18 @@ var cx = (function () {
           };
           return cxWorld;
       }());
-      exports["default"] = cxWorld;
+      exports.default = cxWorld;
   });
   define("cxScene", ["require", "exports", "cxWorld"], function (require, exports, cxWorld_1) {
       "use strict";
-      exports.__esModule = true;
+      Object.defineProperty(exports, "__esModule", { value: true });
       /**
        * The current scene with is rendered on screen.
        */
       var cxScene = /** @class */ (function () {
           function cxScene(name) {
               this.name = name;
-              this.world = new cxWorld_1["default"]();
+              this.world = new cxWorld_1.default();
           }
           /**
            * Starts the initialisation of the world
@@ -631,11 +619,11 @@ var cx = (function () {
           };
           return cxScene;
       }());
-      exports["default"] = cxScene;
+      exports.default = cxScene;
   });
   define("cxCore", ["require", "exports"], function (require, exports) {
       'use strict';
-      exports.__esModule = true;
+      Object.defineProperty(exports, "__esModule", { value: true });
       /**
        * Complex Core. This class handles the rendering of the current scene.
        */
@@ -671,21 +659,21 @@ var cx = (function () {
           cxCore.instance = null;
           return cxCore;
       }());
-      exports["default"] = cxCore;
+      exports.default = cxCore;
       ;
   });
   define("Complex", ["require", "exports", "cxCore", "cxEntity", "cxComponent", "cxManager", "cxScene", "cxSystem", "System/cxEntitySystem", "System/cxVoidSystem", "cxWorld"], function (require, exports, cxCore_1, cxEntity_1, cxComponent_1, cxManager_1, cxScene_1, cxSystem_3, cxEntitySystem_2, cxVoidSystem_2, cxWorld_2) {
       'use strict';
-      exports.__esModule = true;
-      exports.Complex = cxCore_1["default"];
-      exports.cxEntity = cxEntity_1["default"];
-      exports.cxComponent = cxComponent_1["default"];
-      exports.cxManager = cxManager_1["default"];
-      exports.cxScene = cxScene_1["default"];
-      exports.cxSystem = cxSystem_3["default"];
-      exports.cxEntitySystem = cxEntitySystem_2["default"];
-      exports.cxVoidSystem = cxVoidSystem_2["default"];
-      exports.cxWorld = cxWorld_2["default"];
+      Object.defineProperty(exports, "__esModule", { value: true });
+      exports.Complex = cxCore_1.default;
+      exports.cxEntity = cxEntity_1.default;
+      exports.cxComponent = cxComponent_1.default;
+      exports.cxManager = cxManager_1.default;
+      exports.cxScene = cxScene_1.default;
+      exports.cxSystem = cxSystem_3.default;
+      exports.cxEntitySystem = cxEntitySystem_2.default;
+      exports.cxVoidSystem = cxVoidSystem_2.default;
+      exports.cxWorld = cxWorld_2.default;
   });
   
   return collect(); 

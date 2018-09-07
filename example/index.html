@@ -1,7 +1,6 @@
 <script src="../build/bundle.js"></script>
 
 <script>
-    const complex = cx.Complex.getInstance();
 
     // Create a custom system to process the compoentns
     class MySystem extends cx.cxEntitySystem {
@@ -44,9 +43,10 @@
         }
     }
 
+    const complex = cx.Complex.getInstance();
+
     // Load the scene you wan't to render
     complex.loadScene(new MyScene());
-
 
     // Render it
     function render() {

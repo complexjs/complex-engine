@@ -1,12 +1,12 @@
-import cxEntity from './cxEntity';
-import cxWorld from './cxWorld';
+import cxEntity from "./cxEntity";
+import cxWorld from "./cxWorld";
 /**
  * Abstract System. A system is responsible that your game works. It holds all the business logic and processes the
  * entities based on the data in the components
  */
 export default abstract class cxSystem {
-    protected tag: string | null;
     protected world: cxWorld | null;
+    abstract readonly tag: string;
     /**
      * get notified when system is added to world
      */
@@ -20,5 +20,4 @@ export default abstract class cxSystem {
      */
     removed(entity: cxEntity): void;
     setWorld(value: cxWorld): void;
-    getTag(): string | null;
 }

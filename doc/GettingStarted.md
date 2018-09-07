@@ -1,65 +1,59 @@
 # Installation
 
-* Create a new empty folder for your project
-* Create a new `package.json` for your project
-* Install npm dependencies gulp, browserify, babelify, babel-preset-es2015, complex-engine
-* Create an basic HTML file
-* Create the `src` folder. In here you gamecode will be created
-* Create an `src/App.js`. This will be the entrypoint of your game
-* Create a new scene in `src/Scene/MyNewScene.js`
+# Example
 
-Now we are ready to start coding
+- [Simple](./example/index.html)
 
-## Setup Gulp
-Since it should run in the browser we need to bundle our app/game with browserify. And since wi want to use
-the fancy features from ES6 we need babel to transpile it.
+# Steps to create an game
 
+- Create a `cxScene`
+- Add all the `cxSystem` to the `cxWorld`
+- Create `cxEntities` and add the `cxComponents`
+- Add the `cxEntities` to the `cxWorld`
+- Start the update loop
 
-    gulp.task('build', function () {
-        return browserify({
-            entries: ['./src/App.js'],
-        })
-        .transform(babelify, { presets : ['es2015']})
-        .bundle()
-        .pipe(source('App.js'))
-        .pipe(gulp.dest('dist'));
-    });
+## Create a `cxScene`
 
-## Start Complex
-Now in our entrypoint which is `src/App.js` we have to setup our complex instance, load our desired scene and start the rendering.
-
-
-    import {Complex} from 'complex-engine';
-    import MainScene from './Scene/MainScene';
-
-    let cx = new Complex();
-
-    window.onload = () => {
-        let scene = new MainScene();
-        cx.loadScene(scene);
-    
-        cx.start();
-    };
-
-## Create the cxScene
-
-Now the only thing we need until we can start to code our game, is to create the scene we wan to render
-
-
-    'use strict';
-    
-    import {cxScene, cxEntity} from 'complex-engine';
-    
-    export default class MainScene extends cxScene {
+    class MyScene extends cx.cxScene {
         constructor() {
             super("MainScene");
         }
-    
+
+        // Create everything that is required for this scene to be rendered.
+        // Add systems and entities
         load() {
-            // Here we create all the required entities, load the used systems.
-            ...
-            
-            //At the end we have to call
-            this.world.init();
+            this.world.addSystem(new MySystem());
+            this.createPlayer();
         }
-    };
+
+        createPlayer() {
+            let player = new cx.cxEntity("Player");
+            player.addComponent(new MyComponent('hello'));
+            this.world.addEntity(player);
+        }
+    }
+
+## Create a `cxSystem`
+
+    class MySystem extends cx.cxEntitySystem {
+        constructor() {
+            super();
+            this.components = ['my.component'];
+        }
+
+        update(entitiy) {
+        }
+    }
+
+## Render
+
+    const complex = cx.Complex.getInstance();
+
+    complex.loadScene(new MyScene());
+
+    function render() {
+        complex.update();
+        requestAnimationFrame(render);
+    }
+
+    requestAnimationFrame(render);

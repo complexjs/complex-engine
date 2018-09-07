@@ -6,30 +6,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 var cxSystem = /** @class */ (function () {
     function cxSystem() {
-        this.tag = null;
         this.world = null;
     }
     /**
      * get notified when system is added to world
      */
-    cxSystem.prototype.addedToWorld = function () {
-    };
+    cxSystem.prototype.addedToWorld = function () { };
     /**
      * get notified when entity is added to world
      */
-    cxSystem.prototype.added = function (entity) {
-    };
+    cxSystem.prototype.added = function (entity) { };
     /**
      * get notified when entity is removed from world
      */
-    cxSystem.prototype.removed = function (entity) {
-    };
+    cxSystem.prototype.removed = function (entity) { };
     cxSystem.prototype.setWorld = function (value) {
         this.world = value;
-    };
-    cxSystem.prototype.getTag = function () {
-        return this.tag;
     };
     return cxSystem;
 }());
 exports.default = cxSystem;
+//# sourceMappingURL=cxSystem.js.map

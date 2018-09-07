@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 var cxComponent = /** @class */ (function () {
     function cxComponent() {
-        this.tag = null;
     }
     return cxComponent;
 }());
 exports.default = cxComponent;
+//# sourceMappingURL=cxComponent.js.map

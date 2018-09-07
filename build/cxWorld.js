@@ -14,7 +14,7 @@ var cxWorld = /** @class */ (function () {
         this.voidSystems = [];
         this.entitySystems = [];
         this.managers = [];
-        this.tag = 'cx.world';
+        this.tag = "cx.world";
         this.initialized = false;
     }
     /**
@@ -39,7 +39,7 @@ var cxWorld = /** @class */ (function () {
     cxWorld.prototype.removeEntity = function (entity) {
         var index = entity.getIndex();
         if (index === null) {
-            throw new Error('Entity has no index');
+            throw new Error("Entity has no index");
         }
         this.entityDeleted(entity);
         delete this.entities[index];
@@ -49,7 +49,7 @@ var cxWorld = /** @class */ (function () {
      */
     cxWorld.prototype.getEntity = function (index) {
         if (this.entities[index] == undefined) {
-            throw new Error('No entity found');
+            throw new Error("No entity found");
         }
         return this.entities[index];
     };
@@ -118,17 +118,17 @@ var cxWorld = /** @class */ (function () {
             systemName = system;
         }
         else {
-            systemName = system.getTag() || "";
+            systemName = system.tag || "";
         }
         for (var i = 0, len = this.entitySystems.length; i < len; i++) {
             var system_1 = this.entitySystems[i];
-            if (system_1.getTag() === systemName) {
+            if (system_1.tag === systemName) {
                 return system_1;
             }
         }
         for (var i = 0, len = this.voidSystems.length; i < len; i++) {
             var system_2 = this.voidSystems[i];
-            if (system_2.getTag() === systemName) {
+            if (system_2.tag === systemName) {
                 return system_2;
             }
         }
@@ -143,14 +143,14 @@ var cxWorld = /** @class */ (function () {
             systemName = system;
         }
         else {
-            systemName = system.getTag() || '';
+            systemName = system.tag || "";
         }
         for (var i = 0, len = this.entitySystems.length; i < len; i++) {
             var system_3 = this.entitySystems[i];
             if (system_3 === undefined) {
                 continue;
             }
-            if (system_3.getTag() == systemName) {
+            if (system_3.tag == systemName) {
                 delete this.entitySystems[i];
             }
         }
@@ -159,7 +159,7 @@ var cxWorld = /** @class */ (function () {
             if (system_4 === undefined) {
                 continue;
             }
-            if (system_4.getTag() == systemName) {
+            if (system_4.tag == systemName) {
                 delete this.voidSystems[i];
             }
         }
@@ -177,7 +177,7 @@ var cxWorld = /** @class */ (function () {
     cxWorld.prototype.getManager = function (name) {
         for (var i = 0, len = this.managers.length; i < len; i++) {
             var manager = this.managers[i];
-            if (manager.getTag() === name) {
+            if (manager.tag === name) {
                 return this.managers[i];
             }
         }
@@ -188,7 +188,7 @@ var cxWorld = /** @class */ (function () {
      */
     cxWorld.prototype.update = function () {
         if (this.initialized === false) {
-            throw new Error('Not initialized');
+            throw new Error("Not initialized");
         }
         this.updateEntities();
         this.updateVoidSystem();
@@ -318,3 +318,4 @@ var cxWorld = /** @class */ (function () {
     return cxWorld;
 }());
 exports.default = cxWorld;
+//# sourceMappingURL=cxWorld.js.map

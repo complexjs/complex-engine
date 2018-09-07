@@ -35,7 +35,8 @@
     "unit.js": "^2.0.0"
   },
   "scripts": {
-    "build": "tsc && npx tsc-bundle src/Complex.ts build/bundle.js --exportAs cx",
+    "build": "tsc && npm run bundle && npm run doc",
+    "bundle": "npx tsc-bundle src/Complex.ts build/bundle.js --exportAs cx --target es5",
     "test": "mocha test/Run.js",
     "doc": "npx typedoc --out docs ./src --mode file --readme ./README.md --name Complex"
   }

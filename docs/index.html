@@ -68,13 +68,34 @@
 				<p>ComplexJS is a JS written Component Entity System for HTML5 Gamedevelopment.</p>
 				<p>It&#39;s strong structure enforces you to write seperated code in a very reusable way. This means that you can reuse the components
 				already created in other projects and add them to a new one.</p>
-				<h2 id="concept">Concept</h2>
-				<p>ComplexJS is a Component Entity System Framework. This means it provides you the functionality to build something bigger. It comes
-				with a lot of extensions already. Those can be found <a href="https://github.com/complexjs">here</a>.</p>
-				<p>If there is no extension that works for you, you can easily create your own. Check out the <code>Module</code> section of this documentation</p>
-				<h2 id="how-to">How To</h2>
-				<h3 id="community-modules">Community modules</h3>
-				<p>Coming soon...</p>
+				<p>Due to the Component Entity System architecture you are required to do seperation of concern
+				within your code. Also you (should)have more simpler, clearer and more maintainable files.</p>
+				<p><strong>NOTE</strong> <code>complex</code> is just a game engine. It doesn&#39;t provide any renderer functionality or game logic.</p>
+				<h1 id="installation">Installation</h1>
+				<h2 id="web">Web</h2>
+				<pre><code><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"http://path.to.whatever/build/bundle.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre><p>Now everything is available under the scope <code>cx</code></p>
+				<p>Exp: <code>new cx.cxEntity()</code> or <code>cx.Complex.getInstance()</code></p>
+				<h2 id="npm">Npm</h2>
+				<pre><code>npm i <span class="hljs-keyword">complex</span>-engine --<span class="hljs-keyword">save</span></code></pre><h1 id="how-to">How To</h1>
+				<p><a href="./doc/GettingStarted.md">Getting started</a></p>
+				<h1 id="api">API</h1>
+				<p><a href="./docs/index.html">API Reference</a></p>
+				<h1 id="concept">Concept</h1>
+				<p>You can have multiple scenes. Every scene is a scene or a stage in your game. Within this scene
+				the complete World lives. In that world you have all your entities, managers and systems.</p>
+				<h2 id="system">System</h2>
+				<p>A system is a class that contains business logic to process the data for an entity.</p>
+				<p>Exp. If you want to draw a square at the mouse position, you&#39;ll have two systems. One that draws the square on the canvas/screen
+				and the other that will update the mouse position in the component.</p>
+				<p>You can simply create a system that uses the <a href="">PIXI</a> renderer to draw your sprites or shapes</p>
+				<h2 id="component">Component</h2>
+				<p>A component is similar to a store. It holds data that is bound/mapped to a specific entity. </p>
+				<p>In the example above, we would have a component that will hold four properties. X/Y coordinates and the width and height of the square that have to be drawn.</p>
+				<h2 id="entity">Entity</h2>
+				<p>An entity is bucket with multiple components. Every entity can have an unlimited amount of components.</p>
+				<h2 id="manager">Manager</h2>
+				<p>A manager is something like an interface to external stuff. </p>
+				<p>For our example, we would create a manager that creates eventlistener on the body and then store those mouse position in it&#39;s data. A system then consumes those data and writes it to the components. Our manager would be something like a <code>MouseInputManager</code>. The manager only has the x/y coordinates of the mouse</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
