@@ -1,23 +1,23 @@
 'use strict';
 
-import Complex from './cxCore';
-import cxEntity from './cxEntity';
-import cxComponent from './cxComponent';
-import cxManager from './cxManager';
-import cxScene from './cxScene';
-import cxSystem from './cxSystem';
-import cxEntitySystem from './System/cxEntitySystem';
-import cxVoidSystem from './System/cxVoidSystem';
-import cxWorld from './cxWorld';
+import Complex from './Core';
+import Entity from './Entity';
+import Component from './Component';
+import Manager from './Manager';
+import Scene from './Scene';
+import System from './System';
+import EntitySystem from './System/EntitySystem';
+import VoidSystem from './System/VoidSystem';
+import World from './World';
 
 export {
     Complex,
-    cxEntity,
-    cxComponent,
-    cxManager,
-    cxScene,
-    cxSystem,
-    cxEntitySystem,
-    cxVoidSystem,
-    cxWorld
+    Entity,
+    Component,
+    Manager,
+    Scene,
+    System,
+    EntitySystem,
+    VoidSystem,
+    World
 };

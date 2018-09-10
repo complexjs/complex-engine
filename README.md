@@ -26,10 +26,10 @@ Exp: `new cx.cxEntity()` or `cx.Complex.getInstance()`
 
 
 # How To
-[Getting started](./doc/GettingStarted.md)
+[Getting started](/doc/GettingStarted.md)
 
 # API 
-[API Reference](./docs/index.html)
+[API Reference](http://complexjs.github.io/complex-engine/index.html)
 
 
 # Concept

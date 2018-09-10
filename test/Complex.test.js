@@ -24,6 +24,4 @@ describe('Complex', function () {
             cx.loadScene(new MyScene());
         });
     });
-
-
 });

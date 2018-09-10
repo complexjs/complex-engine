@@ -29,6 +29,7 @@
   ],
   "devDependencies": {
     "mocha": "^3.0.2",
+    "sinon": "^5.0.7",
     "typedoc": "^0.12.0",
     "typescript": "^3.0.1",
     "typescript-bundle": "^0.8.9",
@@ -37,7 +38,7 @@
   "scripts": {
     "build": "tsc && npm run bundle && npm run doc",
     "bundle": "npx tsc-bundle src/Complex.ts build/bundle.js --exportAs cx --target es5",
-    "test": "mocha test/Run.js",
+    "test": "mocha test/**/*.test.js --recursive",
     "doc": "npx typedoc --out docs ./src --mode file --readme ./README.md --name Complex"
   }
 }

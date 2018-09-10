@@ -1,6 +1,6 @@
 'use strict';
 
-let cxComponent = require('../../').cxComponent;
+let cxComponent = require('../../').Component;
 
 module.exports = class MockComponent extends cxComponent {
     constructor() {

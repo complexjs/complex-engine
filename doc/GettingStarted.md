@@ -2,7 +2,7 @@
 
 # Example
 
-- [Simple](./example/index.html)
+- [Simple](./example/tutorial01/index.html)
 
 # Steps to create an game
 

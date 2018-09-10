@@ -58,28 +58,28 @@ var cx = (function () {
           d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
       };
   })();
-  define("cxComponent", ["require", "exports"], function (require, exports) {
+  define("Component", ["require", "exports"], function (require, exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       /**
-       * This is a bare component.
-       * It's used to store specific data related to an cxEntity. This data will then be processed by a cxSystem.
+       * This is a bare Component.
+       * It's used to store specific data related to an Entity. This data will then be processed by a cxSystem.
        */
-      var cxComponent = /** @class */ (function () {
-          function cxComponent() {
+      var Component = /** @class */ (function () {
+          function Component() {
           }
-          return cxComponent;
+          return Component;
       }());
-      exports.default = cxComponent;
+      exports.default = Component;
   });
-  define("cxEntity", ["require", "exports"], function (require, exports) {
+  define("Entity", ["require", "exports"], function (require, exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       /**
        * An entity is a object that holds many components. Those components define the behaviour of an entity.
        */
-      var cxEntity = /** @class */ (function () {
-          function cxEntity(name) {
+      var Entity = /** @class */ (function () {
+          function Entity(name) {
               if (name === void 0) { name = "Entity"; }
               this.components = [];
               this.alive = true;
@@ -89,9 +89,9 @@ var cx = (function () {
               this.name = name;
           }
           /**
-           * Add a component to the entity
+           * Add a Component to the entity
            */
-          cxEntity.prototype.addComponent = function (component) {
+          Entity.prototype.addComponent = function (component) {
               var slot = this._getFreeSlot();
               if (slot != null) {
                   this.components[slot] = component;
@@ -101,37 +101,37 @@ var cx = (function () {
               }
           };
           /**
-           * Get a component from the entity by its tag name
+           * Get a Component from the entity by its tag name
            */
-          cxEntity.prototype.getComponents = function (componentName) {
+          Entity.prototype.getComponents = function (component) {
               var components = [];
               for (var i = 0, len = this.components.length; i < len; i++) {
-                  var component = this.components[i];
-                  if (component.tag === componentName) {
-                      components.push(component);
+                  var c = this.components[i];
+                  if (c instanceof component) {
+                      components.push(c);
                   }
               }
               return components;
           };
           /**
-           * Get a component from the entity by its tag name
+           * Get a Component from the entity by its tag name
            */
-          cxEntity.prototype.hasComponent = function (componentName) {
+          Entity.prototype.hasComponent = function (component) {
               for (var i = 0, len = this.components.length; i < len; i++) {
-                  var component = this.components[i];
-                  if (component.tag === componentName) {
+                  var c = this.components[i];
+                  if (c instanceof component) {
                       return true;
                   }
               }
               return false;
           };
           /**
-           * remove a component from the entity
+           * remove a Component from the entity
            */
-          cxEntity.prototype.removeComponent = function (componentName) {
+          Entity.prototype.removeComponent = function (component) {
               for (var i = 0, len = this.components.length; i < len; i++) {
-                  var component = this.components[i];
-                  if (component.tag == componentName) {
+                  var c = this.components[i];
+                  if (c instanceof component) {
                       delete this.components[i];
                   }
               }
@@ -139,13 +139,13 @@ var cx = (function () {
           /**
            * Get all components from the entity
            */
-          cxEntity.prototype.getAllComponents = function () {
+          Entity.prototype.getAllComponents = function () {
               return this.components;
           };
           /**
-           * Reuses old component slots in the array
+           * Reuses old Component slots in the array
            */
-          cxEntity.prototype._getFreeSlot = function () {
+          Entity.prototype._getFreeSlot = function () {
               for (var c = 0, len = this.components.length; c < len; c++) {
                   var component = this.components[c];
                   if (component == undefined || component == null) {
@@ -157,145 +157,147 @@ var cx = (function () {
           /**
            * Kills the entity
            */
-          cxEntity.prototype.destroy = function () {
+          Entity.prototype.destroy = function () {
               this.alive = false;
               this.remove = true;
           };
           /**
            * Get the worl object from the entity
            */
-          cxEntity.prototype.getWorld = function () {
+          Entity.prototype.getWorld = function () {
               return this.world;
           };
           /**
            * Set the worldobject
            */
-          cxEntity.prototype.setWorld = function (world) {
+          Entity.prototype.setWorld = function (world) {
               this.world = world;
           };
-          cxEntity.prototype.setIndex = function (index) {
+          Entity.prototype.setIndex = function (index) {
               this.index = index;
           };
-          cxEntity.prototype.getIndex = function () {
+          Entity.prototype.getIndex = function () {
               return this.index;
           };
-          cxEntity.prototype.isAlive = function () {
+          Entity.prototype.isAlive = function () {
               return this.alive;
           };
-          cxEntity.prototype.isRemove = function () {
+          Entity.prototype.isRemove = function () {
               return this.remove;
           };
-          return cxEntity;
+          return Entity;
       }());
-      exports.default = cxEntity;
+      exports.default = Entity;
   });
-  define("cxSystem", ["require", "exports"], function (require, exports) {
+  define("System", ["require", "exports"], function (require, exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       /**
-       * Abstract System. A system is responsible that your game works. It holds all the business logic and processes the
+       * Abstract System. A System is responsible that your game works. It holds all the business logic and processes the
        * entities based on the data in the components
        */
-      var cxSystem = /** @class */ (function () {
-          function cxSystem() {
+      var System = /** @class */ (function () {
+          function System() {
               this.world = null;
           }
           /**
-           * get notified when system is added to world
+           * get notified when System is added to world
            */
-          cxSystem.prototype.addedToWorld = function () { };
+          System.prototype.addedToWorld = function () {
+          };
           /**
            * get notified when entity is added to world
            */
-          cxSystem.prototype.added = function (entity) { };
+          System.prototype.added = function (entity) {
+          };
           /**
            * get notified when entity is removed from world
            */
-          cxSystem.prototype.removed = function (entity) { };
-          cxSystem.prototype.setWorld = function (value) {
+          System.prototype.removed = function (entity) {
+          };
+          System.prototype.setWorld = function (value) {
               this.world = value;
           };
-          return cxSystem;
+          return System;
       }());
-      exports.default = cxSystem;
+      exports.default = System;
   });
-  define("cxManager", ["require", "exports"], function (require, exports) {
+  define("Manager", ["require", "exports"], function (require, exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
-      var cxManager = /** @class */ (function () {
-          function cxManager() {
+      var Manager = /** @class */ (function () {
+          function Manager() {
               this.world = null;
           }
-          cxManager.prototype.getWorld = function () {
+          Manager.prototype.getWorld = function () {
               return this.world;
           };
-          cxManager.prototype.setWorld = function (world) {
+          Manager.prototype.setWorld = function (world) {
               this.world = world;
           };
-          return cxManager;
+          return Manager;
       }());
-      exports.default = cxManager;
+      exports.default = Manager;
   });
-  define("System/cxEntitySystem", ["require", "exports", "cxSystem"], function (require, exports, cxSystem_1) {
+  define("System/EntitySystem", ["require", "exports", "System"], function (require, exports, System_1) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       /**
        * This systems renders only entities that match the required components.
        */
-      var cxEntitySystem = /** @class */ (function (_super) {
-          __extends(cxEntitySystem, _super);
-          function cxEntitySystem() {
+      var EntitySystem = /** @class */ (function (_super) {
+          __extends(EntitySystem, _super);
+          function EntitySystem() {
               var _this = _super !== null && _super.apply(this, arguments) || this;
               _this.components = [];
               return _this;
           }
-          cxEntitySystem.prototype.processEntities = function (entities) {
+          EntitySystem.prototype.processEntities = function (entities) {
               for (var i = 0; i < entities.length; i++) {
                   this.update(entities[i]);
               }
           };
-          cxEntitySystem.prototype.getComponents = function () {
+          EntitySystem.prototype.getComponents = function () {
               return this.components;
           };
-          return cxEntitySystem;
-      }(cxSystem_1.default));
-      exports.default = cxEntitySystem;
+          return EntitySystem;
+      }(System_1.default));
+      exports.default = EntitySystem;
   });
-  define("System/cxVoidSystem", ["require", "exports", "cxSystem"], function (require, exports, cxSystem_2) {
+  define("System/VoidSystem", ["require", "exports", "System"], function (require, exports, System_2) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       /**
-       * This system only renders once per update and is decoupled from the entities. This can be used to
+       * This System only renders once per update and is decoupled from the entities. This can be used to
        * update some data or clear the canvas on the screen
        */
-      var cxVoidSystem = /** @class */ (function (_super) {
-          __extends(cxVoidSystem, _super);
-          function cxVoidSystem() {
+      var VoidSystem = /** @class */ (function (_super) {
+          __extends(VoidSystem, _super);
+          function VoidSystem() {
               return _super !== null && _super.apply(this, arguments) || this;
           }
-          return cxVoidSystem;
-      }(cxSystem_2.default));
-      exports.default = cxVoidSystem;
+          return VoidSystem;
+      }(System_2.default));
+      exports.default = VoidSystem;
   });
-  define("cxWorld", ["require", "exports", "System/cxEntitySystem", "System/cxVoidSystem"], function (require, exports, cxEntitySystem_1, cxVoidSystem_1) {
+  define("World", ["require", "exports", "System/EntitySystem", "System/VoidSystem"], function (require, exports, EntitySystem_1, VoidSystem_1) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       /**
        * The world contains all entities, systems and managers
        */
-      var cxWorld = /** @class */ (function () {
-          function cxWorld() {
+      var World = /** @class */ (function () {
+          function World() {
               this.entities = [];
               this.voidSystems = [];
               this.entitySystems = [];
               this.managers = [];
-              this.tag = "cx.world";
               this.initialized = false;
           }
           /**
            * Add entity to the world
            */
-          cxWorld.prototype.addEntity = function (entity) {
+          World.prototype.addEntity = function (entity) {
               var slot = this.getFreeEntitySlot();
               entity.setWorld(this);
               if (slot != null) {
@@ -311,7 +313,7 @@ var cx = (function () {
           /**
            * remove entity from the world
            */
-          cxWorld.prototype.removeEntity = function (entity) {
+          World.prototype.removeEntity = function (entity) {
               var index = entity.getIndex();
               if (index === null) {
                   throw new Error("Entity has no index");
@@ -322,7 +324,7 @@ var cx = (function () {
           /**
            * Get entity from world by its id
            */
-          cxWorld.prototype.getEntity = function (index) {
+          World.prototype.getEntity = function (index) {
               if (this.entities[index] == undefined) {
                   throw new Error("No entity found");
               }
@@ -331,7 +333,7 @@ var cx = (function () {
           /**
            * Get all entities from wold
            */
-          cxWorld.prototype.getEntities = function () {
+          World.prototype.getEntities = function () {
               var entities = [];
               for (var e = 0, len = this.entities.length; e < len; e++) {
                   var entity = this.entities[e];
@@ -343,11 +345,11 @@ var cx = (function () {
               return entities;
           };
           /**
-           * Add a system to world
+           * Add a System to world
            */
-          cxWorld.prototype.addSystem = function (system) {
+          World.prototype.addSystem = function (system) {
               system.setWorld(this);
-              if (system instanceof cxEntitySystem_1.default === true) {
+              if (system instanceof EntitySystem_1.default === true) {
                   var slot = this.getFreeEntitySystemSlot();
                   if (slot != null) {
                       this.entitySystems[slot] = system;
@@ -356,7 +358,7 @@ var cx = (function () {
                       this.entitySystems.push(system);
                   }
               }
-              else if (system instanceof cxVoidSystem_1.default === true) {
+              else if (system instanceof VoidSystem_1.default === true) {
                   var slot = this.getFreeEntitySystemSlot();
                   if (slot != null) {
                       this.voidSystems[slot] = system;
@@ -370,7 +372,7 @@ var cx = (function () {
            * After all systems has been added, this should be called to initiate them
            * @method init
            */
-          cxWorld.prototype.init = function () {
+          World.prototype.init = function () {
               for (var i = 0, len = this.entitySystems.length; i < len; i++) {
                   var system = this.entitySystems[i];
                   system.addedToWorld();
@@ -382,59 +384,45 @@ var cx = (function () {
               this.initialized = true;
           };
           /**
-           * get a system
+           * get a System
            * @method getSystem
-           * @param  {string|cxSystem} system
-           * @return {cxSystem}
+           * @param  {string|System} systemClass
+           * @return {System}
            */
-          cxWorld.prototype.getSystem = function (system) {
-              var systemName = "";
-              if (typeof system === "string") {
-                  systemName = system;
-              }
-              else {
-                  systemName = system.tag || "";
-              }
+          World.prototype.getSystem = function (systemClass) {
               for (var i = 0, len = this.entitySystems.length; i < len; i++) {
-                  var system_1 = this.entitySystems[i];
-                  if (system_1.tag === systemName) {
-                      return system_1;
+                  var s = this.entitySystems[i];
+                  if (s instanceof systemClass) {
+                      return s;
                   }
               }
               for (var i = 0, len = this.voidSystems.length; i < len; i++) {
-                  var system_2 = this.voidSystems[i];
-                  if (system_2.tag === systemName) {
-                      return system_2;
+                  var s = this.voidSystems[i];
+                  if (s instanceof systemClass) {
+                      return s;
                   }
               }
-              throw "System " + systemName + " not found";
+              throw "System " + systemClass + " not found";
           };
           /**
-           * Remove system
+           * Remove System
            */
-          cxWorld.prototype.removeSystem = function (system) {
-              var systemName = "";
-              if (typeof system === "string") {
-                  systemName = system;
-              }
-              else {
-                  systemName = system.tag || "";
-              }
+          World.prototype.removeSystem = function (systemClass) {
               for (var i = 0, len = this.entitySystems.length; i < len; i++) {
-                  var system_3 = this.entitySystems[i];
-                  if (system_3 === undefined) {
+                  var s = this.entitySystems[i];
+                  if (s === undefined) {
                       continue;
                   }
-                  if (system_3.tag == systemName) {
+                  if (s instanceof systemClass) {
                       delete this.entitySystems[i];
                   }
               }
               for (var i = 0, len = this.voidSystems.length; i < len; i++) {
-                  var system_4 = this.voidSystems[i];
-                  if (system_4 === undefined) {
+                  var s = this.voidSystems[i];
+                  if (s === undefined) {
                       continue;
                   }
-                  if (system_4.tag == systemName) {
+                  if (s instanceof systemClass) {
                       delete this.voidSystems[i];
                   }
               }
@@ -442,17 +430,17 @@ var cx = (function () {
           /**
            * Add Manager
            */
-          cxWorld.prototype.addManager = function (manager) {
+          World.prototype.addManager = function (manager) {
               manager.setWorld(this);
               this.managers.push(manager);
           };
           /**
            * Get a manager
            */
-          cxWorld.prototype.getManager = function (name) {
+          World.prototype.getManager = function (managerClass) {
               for (var i = 0, len = this.managers.length; i < len; i++) {
                   var manager = this.managers[i];
-                  if (manager.tag === name) {
+                  if (manager instanceof managerClass) {
                       return this.managers[i];
                   }
               }
@@ -461,7 +449,7 @@ var cx = (function () {
           /**
            * Update the world
            */
-          cxWorld.prototype.update = function () {
+          World.prototype.update = function () {
               if (this.initialized === false) {
                   throw new Error("Not initialized");
               }
@@ -472,7 +460,7 @@ var cx = (function () {
           /**
            * Update void systems
            */
-          cxWorld.prototype.updateVoidSystem = function () {
+          World.prototype.updateVoidSystem = function () {
               for (var s = 0, sLen = this.voidSystems.length; s < sLen; s++) {
                   var system = this.voidSystems[s];
                   system.update();
@@ -481,7 +469,7 @@ var cx = (function () {
           /**
            * Update entity systems
            */
-          cxWorld.prototype.updateEntitySystem = function () {
+          World.prototype.updateEntitySystem = function () {
               for (var s = 0, sLen = this.entitySystems.length; s < sLen; s++) {
                   var system = this.entitySystems[s];
                   var entities = this.getEntitiesForSystem(system);
@@ -492,7 +480,7 @@ var cx = (function () {
            * Get all entities that fit a systems requirements(components)
            * @param system
            */
-          cxWorld.prototype.getEntitiesForSystem = function (system) {
+          World.prototype.getEntitiesForSystem = function (system) {
               var components = system.getComponents();
               var entities = [];
               for (var i = 0; i < components.length; i++) {
@@ -502,15 +490,14 @@ var cx = (function () {
           };
           /**
            * Get a list of entities that match a component
-           * @param name
            */
-          cxWorld.prototype.getEntitiesWithComponent = function (name) {
+          World.prototype.getEntitiesWithComponent = function (component) {
               var entities = this.entities;
               var entitiesLength = entities.length;
               var filteredComponents = [];
               for (var i = 0; i < entitiesLength; i++) {
                   var entity = entities[i];
-                  if (entity.hasComponent(name)) {
+                  if (entity.hasComponent(component)) {
                       filteredComponents.push(entity);
                   }
               }
@@ -519,7 +506,7 @@ var cx = (function () {
           /**
            * Update all entities state
            */
-          cxWorld.prototype.updateEntities = function () {
+          World.prototype.updateEntities = function () {
               var entities = this.entities;
               var entitiesLength = entities.length;
               for (var i = 0; i < entitiesLength; i++) {
@@ -532,7 +519,7 @@ var cx = (function () {
           /**
            * recycle entityslots
            */
-          cxWorld.prototype.getFreeEntitySlot = function () {
+          World.prototype.getFreeEntitySlot = function () {
               for (var e = 0, len = this.entities.length; e < len; e++) {
                   var entity = this.entities[e];
                   if (entity == null || entity == undefined) {
@@ -544,7 +531,7 @@ var cx = (function () {
           /**
            * recycle systemslot
            */
-          cxWorld.prototype.getFreeEntitySystemSlot = function () {
+          World.prototype.getFreeEntitySystemSlot = function () {
               for (var s = 0, len = this.entitySystems.length; s < len; s++) {
                   var system = this.entitySystems[s];
                   if (system == undefined || system == null) {
@@ -556,7 +543,7 @@ var cx = (function () {
           /**
            * notify systems for new entity
            */
-          cxWorld.prototype.entityAdded = function (entity) {
+          World.prototype.entityAdded = function (entity) {
               for (var s = 0, len = this.voidSystems.length; s < len; s++) {
                   var system = this.voidSystems[s];
                   system.added(entity);
@@ -569,9 +556,9 @@ var cx = (function () {
           /**
            * notify systems for deleted entity
            * @method entityDeleted
-           * @param {cxEntity} entity
+           * @param {Entity} entity
            */
-          cxWorld.prototype.entityDeleted = function (entity) {
+          World.prototype.entityDeleted = function (entity) {
               for (var s = 0, len = this.voidSystems.length; s < len; s++) {
                   var system = this.voidSystems[s];
                   system.removed(entity);
@@ -581,66 +568,66 @@ var cx = (function () {
                   system.removed(entity);
               }
           };
-          cxWorld.prototype.getEntitySystems = function () {
+          World.prototype.getEntitySystems = function () {
               return this.entitySystems;
           };
-          cxWorld.prototype.getVoidSystems = function () {
+          World.prototype.getVoidSystems = function () {
               return this.voidSystems;
           };
-          cxWorld.prototype.getManagers = function () {
+          World.prototype.getManagers = function () {
               return this.managers;
           };
-          return cxWorld;
+          return World;
       }());
-      exports.default = cxWorld;
+      exports.default = World;
   });
-  define("cxScene", ["require", "exports", "cxWorld"], function (require, exports, cxWorld_1) {
+  define("Scene", ["require", "exports", "World"], function (require, exports, World_1) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       /**
        * The current scene with is rendered on screen.
        */
-      var cxScene = /** @class */ (function () {
-          function cxScene(name) {
+      var Scene = /** @class */ (function () {
+          function Scene(name) {
               this.name = name;
-              this.world = new cxWorld_1.default();
+              this.world = new World_1.default();
           }
           /**
            * Starts the initialisation of the world
            */
-          cxScene.prototype.run = function () {
+          Scene.prototype.run = function () {
               this.world.init();
           };
           /**
            * Updates the world object
            */
-          cxScene.prototype.update = function () {
+          Scene.prototype.update = function () {
               this.world.update();
           };
-          return cxScene;
+          return Scene;
       }());
-      exports.default = cxScene;
+      exports.default = Scene;
   });
-  define("cxCore", ["require", "exports"], function (require, exports) {
+  define("Core", ["require", "exports"], function (require, exports) {
       'use strict';
       Object.defineProperty(exports, "__esModule", { value: true });
       /**
        * Complex Core. This class handles the rendering of the current scene.
        */
-      var cxCore = /** @class */ (function () {
-          function cxCore() {
+      var Core = /** @class */ (function () {
+          function Core() {
               this.scene = null;
           }
-          cxCore.getInstance = function () {
-              if (!cxCore.instance) {
-                  cxCore.instance = new cxCore();
+          Core.getInstance = function () {
+              if (!Core.instance) {
+                  Core.instance = new Core();
               }
-              return cxCore.instance;
+              return Core.instance;
           };
           /**
            * load a scene to be rendered
            */
-          cxCore.prototype.loadScene = function (scene) {
+          Core.prototype.loadScene = function (scene) {
               this.scene = scene;
               this.scene.load();
               this.scene.run();
@@ -648,32 +635,32 @@ var cx = (function () {
           /**
            * render the loaded scene
            */
-          cxCore.prototype.update = function () {
+          Core.prototype.update = function () {
               if (this.scene) {
                   this.scene.update();
               }
           };
-          cxCore.prototype.getScene = function () {
+          Core.prototype.getScene = function () {
               return this.scene;
           };
-          cxCore.instance = null;
-          return cxCore;
+          Core.instance = null;
+          return Core;
       }());
-      exports.default = cxCore;
+      exports.default = Core;
       ;
   });
-  define("Complex", ["require", "exports", "cxCore", "cxEntity", "cxComponent", "cxManager", "cxScene", "cxSystem", "System/cxEntitySystem", "System/cxVoidSystem", "cxWorld"], function (require, exports, cxCore_1, cxEntity_1, cxComponent_1, cxManager_1, cxScene_1, cxSystem_3, cxEntitySystem_2, cxVoidSystem_2, cxWorld_2) {
+  define("Complex", ["require", "exports", "Core", "Entity", "Component", "Manager", "Scene", "System", "System/EntitySystem", "System/VoidSystem", "World"], function (require, exports, Core_1, Entity_1, Component_1, Manager_1, Scene_1, System_3, EntitySystem_2, VoidSystem_2, World_2) {
       'use strict';
       Object.defineProperty(exports, "__esModule", { value: true });
-      exports.Complex = cxCore_1.default;
-      exports.cxEntity = cxEntity_1.default;
-      exports.cxComponent = cxComponent_1.default;
-      exports.cxManager = cxManager_1.default;
-      exports.cxScene = cxScene_1.default;
-      exports.cxSystem = cxSystem_3.default;
-      exports.cxEntitySystem = cxEntitySystem_2.default;
-      exports.cxVoidSystem = cxVoidSystem_2.default;
-      exports.cxWorld = cxWorld_2.default;
+      exports.Complex = Core_1.default;
+      exports.Entity = Entity_1.default;
+      exports.Component = Component_1.default;
+      exports.Manager = Manager_1.default;
+      exports.Scene = Scene_1.default;
+      exports.System = System_3.default;
+      exports.EntitySystem = EntitySystem_2.default;
+      exports.VoidSystem = VoidSystem_2.default;
+      exports.World = World_2.default;
   });
   
   return collect(); 
