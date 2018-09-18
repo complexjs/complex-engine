@@ -14,6 +14,7 @@
 
 ## Create a `cxScene`
 
+```js
     class MyScene extends cx.cxScene {
         constructor() {
             super("MainScene");
@@ -32,9 +33,11 @@
             this.world.addEntity(player);
         }
     }
+```
 
 ## Create a `cxSystem`
 
+```js
     class MySystem extends cx.cxEntitySystem {
         constructor() {
             super();
@@ -44,9 +47,11 @@
         update(entitiy) {
         }
     }
+```
 
 ## Render
 
+```js
     const complex = cx.Complex.getInstance();
 
     complex.loadScene(new MyScene());
@@ -57,3 +62,4 @@
     }
 
     requestAnimationFrame(render);
+```
