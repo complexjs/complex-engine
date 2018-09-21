@@ -14,7 +14,7 @@ within your code. Also you (should)have more simpler, clearer and more maintaina
 
 ## Web
 
-    <script src="https://unpkg.com/complex-engine"></script>
+    <script src="https://unpkg.com/complex-engine@/build/bundle.js"></script>
 
 Now everything is available under the scope `cx`
 
