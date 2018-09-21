@@ -18,7 +18,7 @@ export default class Entity {
     /**
      * Get a Component from the entity by its tag name
      */
-    getComponents<T extends Component>(component: Function): T[];
+    getComponents<T>(component: Function): T[];
     /**
      * Get a Component from the entity by its tag name
      */

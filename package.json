@@ -21,7 +21,7 @@
   "repository": {
     "url": "https://github.com/faebeee/complex-engine"
   },
-  "main": "./build/bundle.js",
+  "main": "./build/Complex.js",
   "types": "./build/Complex.d.ts",
   "typings": "./build/Complex.d.ts",
   "files": [
