@@ -1,5 +1,3 @@
-"use strict";
-
 import Entity from "./Entity";
 import World from "./World";
 
@@ -8,7 +6,7 @@ import World from "./World";
  * entities based on the data in the components
  */
 export default abstract class System {
-    protected world: World | null = null;
+    world: World | null = null;
 
     /**
      * get notified when System is added to world

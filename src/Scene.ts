@@ -1,6 +1,5 @@
-"use strict";
-
 import World from './World';
+import Core from './Core';
 
 /**
  * The current scene with is rendered on screen.
@@ -22,7 +21,8 @@ export default abstract class Scene {
     /**
      * Starts the initialisation of the world
      */
-    public run(): void {
+	public run(): void {
+		Core.getInstance().log(`Scene`, `Initializing scene ${this.name}`);
         this.world.init();
     }
 
@@ -31,5 +31,12 @@ export default abstract class Scene {
      */
     public update(): void {
         this.world.update();
-    }
+	}
+	
+	/**
+	 * Get scene name
+	 */
+	public getName() {
+		return this.name;
+	}
 }

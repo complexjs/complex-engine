@@ -1,5 +1,3 @@
-'use strict';
-
 import Complex from './Core';
 import Entity from './Entity';
 import Component from './Component';

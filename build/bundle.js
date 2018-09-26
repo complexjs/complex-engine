@@ -609,7 +609,7 @@ var cx = (function () {
       exports.default = Scene;
   });
   define("Core", ["require", "exports"], function (require, exports) {
-      'use strict';
+      "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       /**
        * Complex Core. This class handles the rendering of the current scene.
@@ -650,7 +650,7 @@ var cx = (function () {
       ;
   });
   define("Complex", ["require", "exports", "Core", "Entity", "Component", "Manager", "Scene", "System", "System/EntitySystem", "System/VoidSystem", "World"], function (require, exports, Core_1, Entity_1, Component_1, Manager_1, Scene_1, System_3, EntitySystem_2, VoidSystem_2, World_2) {
-      'use strict';
+      "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.Complex = Core_1.default;
       exports.Entity = Entity_1.default;

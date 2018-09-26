@@ -1,5 +1,3 @@
-"use strict";
-
 import Component from './Component';
 import {World} from './Complex';
 

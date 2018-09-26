@@ -1,10 +1,10 @@
-import System from '../System';
-import Entity from '../Entity';
+import System from "../System";
+import Entity from "../Entity";
 /**
  * This systems renders only entities that match the required components.
  */
 export default abstract class EntitySystem extends System {
-    protected components: Function[];
+    components: Function[];
     processEntities(entities: Entity[]): void;
     /**
      * @method update

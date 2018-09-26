@@ -18,4 +18,8 @@ export default abstract class Scene {
      * Updates the world object
      */
     update(): void;
+    /**
+     * Get scene name
+     */
+    getName(): string;
 }

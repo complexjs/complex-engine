@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Complex Core. This class handles the rendering of the current scene.
@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Core = /** @class */ (function () {
     function Core() {
         this.scene = null;
+        this.logger = console.log;
     }
     Core.getInstance = function () {
         if (!Core.instance) {
@@ -14,10 +15,21 @@ var Core = /** @class */ (function () {
         return Core.instance;
     };
     /**
+     *
+     */
+    Core.prototype.log = function (tag) {
+        var data = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            data[_i - 1] = arguments[_i];
+        }
+        this.logger.apply(this, [tag].concat(data));
+    };
+    /**
      * load a scene to be rendered
      */
     Core.prototype.loadScene = function (scene) {
         this.scene = scene;
+        Core.getInstance().log("Core", "Scene " + scene.getName() + " loaded");
         this.scene.load();
         this.scene.run();
     };

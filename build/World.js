@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var EntitySystem_1 = __importDefault(require("./System/EntitySystem"));
 var VoidSystem_1 = __importDefault(require("./System/VoidSystem"));
+var Core_1 = __importDefault(require("./Core"));
 /**
  * The world contains all entities, systems and managers
  */
@@ -79,6 +80,7 @@ var World = /** @class */ (function () {
             else {
                 this.entitySystems.push(system);
             }
+            Core_1.default.getInstance().log("World", "Added EntitySystem", system);
         }
         else if (system instanceof VoidSystem_1.default === true) {
             var slot = this.getFreeEntitySystemSlot();
@@ -88,6 +90,7 @@ var World = /** @class */ (function () {
             else {
                 this.voidSystems.push(system);
             }
+            Core_1.default.getInstance().log("World", "Added VoidSystem", system);
         }
     };
     /**
@@ -95,6 +98,7 @@ var World = /** @class */ (function () {
      * @method init
      */
     World.prototype.init = function () {
+        Core_1.default.getInstance().log("World", "Initializing");
         for (var i = 0, len = this.entitySystems.length; i < len; i++) {
             var system = this.entitySystems[i];
             system.addedToWorld();
@@ -154,6 +158,7 @@ var World = /** @class */ (function () {
      */
     World.prototype.addManager = function (manager) {
         manager.setWorld(this);
+        Core_1.default.getInstance().log("World", "Manager added", manager);
         this.managers.push(manager);
     };
     /**

@@ -5,7 +5,7 @@ import World from "./World";
  * entities based on the data in the components
  */
 export default abstract class System {
-    protected world: World | null;
+    world: World | null;
     /**
      * get notified when System is added to world
      */

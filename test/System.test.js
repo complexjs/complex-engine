@@ -26,7 +26,41 @@ class MyVoidSystem extends VoidSystem {
 
 }
 
+class MyNotSystem {
+    constructor() {
+	}
+	
+	setWorld(){}
+}
+
 describe('System', function () {
+	it('add invalid system', function () {
+		let world = new World();
+		let system = new MyNotSystem();
+
+		world.addSystem(system);
+		unit.array(world.entitySystems).hasLength(0);
+		unit.array(world.voidSystems).hasLength(0);
+	});
+
+	it('add valid voidsystem', function () {
+		let world = new World();
+		let system = new MyVoidSystem();
+
+		world.addSystem(system);
+		unit.array(world.entitySystems).hasLength(0);
+		unit.array(world.voidSystems).hasLength(1);
+	});
+
+	it('add valid entitysystem', function () {
+		let world = new World();
+		let system = new MyEntitySystem();
+
+		world.addSystem(system);
+		unit.array(world.entitySystems).hasLength(1);
+		unit.array(world.voidSystems).hasLength(0);
+	});
+
     describe('VoidSystem', function () {
         it('update', function () {
             let world = new World();
@@ -38,7 +72,9 @@ describe('System', function () {
             world.init();
             world.update();
             unit.bool(update.called).isTrue();
-        });
+		});
+		
+       
     });
 
 

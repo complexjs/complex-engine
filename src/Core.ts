@@ -1,5 +1,3 @@
-'use strict';
-
 import Scene from './Scene';
 
 /**
@@ -8,6 +6,7 @@ import Scene from './Scene';
 export default class Core {
     protected scene: Scene | null = null;
     private static instance: Core | null = null;
+    protected logger: Function = console.log;
 
     private constructor() {
 
@@ -18,13 +17,21 @@ export default class Core {
             Core.instance = new Core();
         }
         return Core.instance;
-    }
+	}
+	
+	/**
+	 * 
+	 */
+	log(tag: string, ...data:any[]) {
+		this.logger(tag, ...data);
+	}
 
     /**
      * load a scene to be rendered
      */
     public loadScene(scene: Scene): void {
-        this.scene = scene;
+		this.scene = scene;
+		Core.getInstance().log(`Core`, `Scene ${scene.getName()} loaded`);
         this.scene.load();
         this.scene.run();
     }

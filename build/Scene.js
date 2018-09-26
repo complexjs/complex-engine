@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var World_1 = __importDefault(require("./World"));
+var Core_1 = __importDefault(require("./Core"));
 /**
  * The current scene with is rendered on screen.
  */
@@ -16,6 +17,7 @@ var Scene = /** @class */ (function () {
      * Starts the initialisation of the world
      */
     Scene.prototype.run = function () {
+        Core_1.default.getInstance().log("Scene", "Initializing scene " + this.name);
         this.world.init();
     };
     /**
@@ -23,6 +25,12 @@ var Scene = /** @class */ (function () {
      */
     Scene.prototype.update = function () {
         this.world.update();
+    };
+    /**
+     * Get scene name
+     */
+    Scene.prototype.getName = function () {
+        return this.name;
     };
     return Scene;
 }());

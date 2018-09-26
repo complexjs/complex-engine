@@ -1,5 +1,3 @@
-"use strict";
-
 import {World} from "./Complex";
 
 export default abstract class Manager {
