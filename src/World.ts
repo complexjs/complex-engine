@@ -174,11 +174,11 @@ export default class World {
     /**
      * Get a manager
      */
-    public getManager(managerClass: Function): Manager {
+    public getManager<T extends Manager>(managerClass: Function): T {
         for (let i = 0, len = this.managers.length; i < len; i++) {
             let manager = this.managers[i];
             if (manager instanceof managerClass) {
-                return this.managers[i];
+                return <T>this.managers[i];
             }
         }
 

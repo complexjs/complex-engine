@@ -55,7 +55,7 @@ export default class World {
     /**
      * Get a manager
      */
-    getManager(managerClass: Function): Manager;
+    getManager<T extends Manager>(managerClass: Function): T;
     /**
      * Update the world
      */
