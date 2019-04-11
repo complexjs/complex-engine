@@ -7,28 +7,25 @@ import World from "./World";
  * Abstract System. A System is responsible that your game works. It holds all the business logic and processes the
  * entities based on the data in the components
  */
-export default abstract class System {
-    protected world: World | null = null;
-
+export interface System {
     /**
      * get notified when System is added to world
      */
-    public addedToWorld(): void {
-    }
+    addedToWorld(): void;
 
     /**
      * get notified when entity is added to world
      */
-    public added(entity: Entity): void {
-    }
+    added(entity: Entity): void;
 
     /**
      * get notified when entity is removed from world
      */
-    public removed(entity: Entity): void {
-    }
-
-    public setWorld(value: World): void {
-        this.world = value;
-    }
+    removed(entity: Entity): void;
+    
+    /**
+     * Attach system to a world instance
+     * @param {World} value
+     */
+    setWorld(value: World): void;
 }

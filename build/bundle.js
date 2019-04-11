@@ -45,19 +45,6 @@ var cx = (function () {
         : undefined
   }
 
-  var __extends = (this && this.__extends) || (function () {
-      var extendStatics = function (d, b) {
-          extendStatics = Object.setPrototypeOf ||
-              ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-              function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-          return extendStatics(d, b);
-      }
-      return function (d, b) {
-          extendStatics(d, b);
-          function __() { this.constructor = d; }
-          d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-      };
-  })();
   define("Component", ["require", "exports"], function (require, exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
@@ -192,35 +179,6 @@ var cx = (function () {
   define("System", ["require", "exports"], function (require, exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
-      /**
-       * Abstract System. A System is responsible that your game works. It holds all the business logic and processes the
-       * entities based on the data in the components
-       */
-      var System = /** @class */ (function () {
-          function System() {
-              this.world = null;
-          }
-          /**
-           * get notified when System is added to world
-           */
-          System.prototype.addedToWorld = function () {
-          };
-          /**
-           * get notified when entity is added to world
-           */
-          System.prototype.added = function (entity) {
-          };
-          /**
-           * get notified when entity is removed from world
-           */
-          System.prototype.removed = function (entity) {
-          };
-          System.prototype.setWorld = function (value) {
-              this.world = value;
-          };
-          return System;
-      }());
-      exports.default = System;
   });
   define("Manager", ["require", "exports"], function (require, exports) {
       "use strict";
@@ -239,45 +197,67 @@ var cx = (function () {
       }());
       exports.default = Manager;
   });
-  define("System/EntitySystem", ["require", "exports", "System"], function (require, exports, System_1) {
-      "use strict";
+  define("System/EntitySystem", ["require", "exports"], function (require, exports) {
+      'use strict';
       Object.defineProperty(exports, "__esModule", { value: true });
       /**
        * This systems renders only entities that match the required components.
        */
-      var EntitySystem = /** @class */ (function (_super) {
-          __extends(EntitySystem, _super);
+      var EntitySystem = /** @class */ (function () {
           function EntitySystem() {
-              var _this = _super !== null && _super.apply(this, arguments) || this;
-              _this.components = [];
-              return _this;
+              this.components = [];
+              this.world = null;
           }
           EntitySystem.prototype.processEntities = function (entities) {
               for (var i = 0; i < entities.length; i++) {
                   this.update(entities[i]);
               }
           };
+          /**
+           * Get list of components to work with this system
+           */
           EntitySystem.prototype.getComponents = function () {
               return this.components;
           };
+          EntitySystem.prototype.added = function (entity) {
+          };
+          ;
+          EntitySystem.prototype.addedToWorld = function () {
+          };
+          ;
+          EntitySystem.prototype.removed = function (entity) {
+          };
+          EntitySystem.prototype.setWorld = function (world) {
+              this.world = world;
+          };
           return EntitySystem;
-      }(System_1.default));
+      }());
       exports.default = EntitySystem;
   });
-  define("System/VoidSystem", ["require", "exports", "System"], function (require, exports, System_2) {
-      "use strict";
+  define("System/VoidSystem", ["require", "exports"], function (require, exports) {
+      'use strict';
       Object.defineProperty(exports, "__esModule", { value: true });
       /**
        * This System only renders once per update and is decoupled from the entities. This can be used to
        * update some data or clear the canvas on the screen
        */
-      var VoidSystem = /** @class */ (function (_super) {
-          __extends(VoidSystem, _super);
+      var VoidSystem = /** @class */ (function () {
           function VoidSystem() {
-              return _super !== null && _super.apply(this, arguments) || this;
+              this.world = null;
           }
+          VoidSystem.prototype.added = function (entity) {
+          };
+          ;
+          VoidSystem.prototype.addedToWorld = function () {
+          };
+          ;
+          VoidSystem.prototype.removed = function (entity) {
+          };
+          VoidSystem.prototype.setWorld = function (world) {
+              this.world = world;
+          };
           return VoidSystem;
-      }(System_2.default));
+      }());
       exports.default = VoidSystem;
   });
   define("World", ["require", "exports", "System/EntitySystem", "System/VoidSystem"], function (require, exports, EntitySystem_1, VoidSystem_1) {
@@ -649,7 +629,7 @@ var cx = (function () {
       exports.default = Core;
       ;
   });
-  define("Complex", ["require", "exports", "Core", "Entity", "Component", "Manager", "Scene", "System", "System/EntitySystem", "System/VoidSystem", "World"], function (require, exports, Core_1, Entity_1, Component_1, Manager_1, Scene_1, System_3, EntitySystem_2, VoidSystem_2, World_2) {
+  define("Complex", ["require", "exports", "Core", "Entity", "Component", "Manager", "Scene", "System/EntitySystem", "System/VoidSystem", "World"], function (require, exports, Core_1, Entity_1, Component_1, Manager_1, Scene_1, EntitySystem_2, VoidSystem_2, World_2) {
       'use strict';
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.Complex = Core_1.default;
@@ -657,7 +637,6 @@ var cx = (function () {
       exports.Component = Component_1.default;
       exports.Manager = Manager_1.default;
       exports.Scene = Scene_1.default;
-      exports.System = System_3.default;
       exports.EntitySystem = EntitySystem_2.default;
       exports.VoidSystem = VoidSystem_2.default;
       exports.World = World_2.default;

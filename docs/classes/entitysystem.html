@@ -77,13 +77,14 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="system.html" class="tsd-signature-type">System</a>
-						<ul class="tsd-hierarchy">
-							<li>
-								<span class="target">EntitySystem</span>
-							</li>
-						</ul>
+						<span class="target">EntitySystem</span>
 					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/system.html" class="tsd-signature-type">System</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -94,18 +95,18 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="entitysystem.html#components" class="tsd-kind-icon">components</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="entitysystem.html#world" class="tsd-kind-icon">world</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="entitysystem.html#world" class="tsd-kind-icon">world</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="entitysystem.html#added" class="tsd-kind-icon">added</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="entitysystem.html#addedtoworld" class="tsd-kind-icon">added<wbr>ToWorld</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="entitysystem.html#added" class="tsd-kind-icon">added</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="entitysystem.html#addedtoworld" class="tsd-kind-icon">added<wbr>ToWorld</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="entitysystem.html#getcomponents" class="tsd-kind-icon">get<wbr>Components</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="entitysystem.html#processentities" class="tsd-kind-icon">process<wbr>Entities</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="entitysystem.html#removed" class="tsd-kind-icon">removed</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="entitysystem.html#setworld" class="tsd-kind-icon">set<wbr>World</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="entitysystem.html#removed" class="tsd-kind-icon">removed</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="entitysystem.html#setworld" class="tsd-kind-icon">set<wbr>World</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="entitysystem.html#update" class="tsd-kind-icon">update</a></li>
 							</ul>
 						</section>
@@ -120,43 +121,37 @@
 					<div class="tsd-signature tsd-kind-icon">components<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/complexjs/complex-engine/blob/a9d457d/src/System/EntitySystem.ts#L10">System/EntitySystem.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/complexjs/complex-engine/blob/e0d6371/src/System/EntitySystem.ts#L11">System/EntitySystem.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a name="world" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> world</h3>
 					<div class="tsd-signature tsd-kind-icon">world<span class="tsd-signature-symbol">:</span> <a href="world.html" class="tsd-signature-type">World</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> =&nbsp;null</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="system.html">System</a>.<a href="system.html#world">world</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/complexjs/complex-engine/blob/a9d457d/src/System.ts#L11">System.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/complexjs/complex-engine/blob/e0d6371/src/System/EntitySystem.ts#L12">System/EntitySystem.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="added" class="tsd-anchor"></a>
 					<h3>added</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 						<li class="tsd-signature tsd-kind-icon">added<span class="tsd-signature-symbol">(</span>entity<span class="tsd-signature-symbol">: </span><a href="entity.html" class="tsd-signature-type">Entity</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="system.html">System</a>.<a href="system.html#added">added</a></p>
+								<p>Implementation of <a href="../interfaces/system.html">System</a>.<a href="../interfaces/system.html#added">added</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/complexjs/complex-engine/blob/a9d457d/src/System.ts#L22">System.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/complexjs/complex-engine/blob/e0d6371/src/System/EntitySystem.ts#L35">System/EntitySystem.ts:35</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>get notified when entity is added to world</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -167,25 +162,20 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="addedtoworld" class="tsd-anchor"></a>
 					<h3>added<wbr>ToWorld</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 						<li class="tsd-signature tsd-kind-icon">added<wbr>ToWorld<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="system.html">System</a>.<a href="system.html#addedtoworld">addedToWorld</a></p>
+								<p>Implementation of <a href="../interfaces/system.html">System</a>.<a href="../interfaces/system.html#addedtoworld">addedToWorld</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/complexjs/complex-engine/blob/a9d457d/src/System.ts#L16">System.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/complexjs/complex-engine/blob/e0d6371/src/System/EntitySystem.ts#L39">System/EntitySystem.ts:39</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>get notified when System is added to world</p>
-								</div>
-							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -200,9 +190,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/complexjs/complex-engine/blob/a9d457d/src/System/EntitySystem.ts#L24">System/EntitySystem.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/complexjs/complex-engine/blob/e0d6371/src/System/EntitySystem.ts#L23">System/EntitySystem.ts:23</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get list of components to work with this system</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">[]</span></h4>
 						</li>
 					</ul>
@@ -217,7 +212,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/complexjs/complex-engine/blob/a9d457d/src/System/EntitySystem.ts#L12">System/EntitySystem.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/complexjs/complex-engine/blob/e0d6371/src/System/EntitySystem.ts#L14">System/EntitySystem.ts:14</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -230,25 +225,20 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="removed" class="tsd-anchor"></a>
 					<h3>removed</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 						<li class="tsd-signature tsd-kind-icon">removed<span class="tsd-signature-symbol">(</span>entity<span class="tsd-signature-symbol">: </span><a href="entity.html" class="tsd-signature-type">Entity</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="system.html">System</a>.<a href="system.html#removed">removed</a></p>
+								<p>Implementation of <a href="../interfaces/system.html">System</a>.<a href="../interfaces/system.html#removed">removed</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/complexjs/complex-engine/blob/a9d457d/src/System.ts#L28">System.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/complexjs/complex-engine/blob/e0d6371/src/System/EntitySystem.ts#L43">System/EntitySystem.ts:43</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>get notified when entity is removed from world</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -259,24 +249,24 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="setworld" class="tsd-anchor"></a>
 					<h3>set<wbr>World</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>World<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><a href="world.html" class="tsd-signature-type">World</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>World<span class="tsd-signature-symbol">(</span>world<span class="tsd-signature-symbol">: </span><a href="world.html" class="tsd-signature-type">World</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="system.html">System</a>.<a href="system.html#setworld">setWorld</a></p>
+								<p>Implementation of <a href="../interfaces/system.html">System</a>.<a href="../interfaces/system.html#setworld">setWorld</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/complexjs/complex-engine/blob/a9d457d/src/System.ts#L31">System.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/complexjs/complex-engine/blob/e0d6371/src/System/EntitySystem.ts#L47">System/EntitySystem.ts:47</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>value: <a href="world.html" class="tsd-signature-type">World</a></h5>
+									<h5>world: <a href="world.html" class="tsd-signature-type">World</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -293,7 +283,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/complexjs/complex-engine/blob/a9d457d/src/System/EntitySystem.ts#L22">System/EntitySystem.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/complexjs/complex-engine/blob/e0d6371/src/System/EntitySystem.ts#L32">System/EntitySystem.ts:32</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -344,13 +334,13 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="entitysystem.html#components" class="tsd-kind-icon">components</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="entitysystem.html#world" class="tsd-kind-icon">world</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="entitysystem.html#added" class="tsd-kind-icon">added</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="entitysystem.html#addedtoworld" class="tsd-kind-icon">added<wbr>ToWorld</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -359,10 +349,10 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="entitysystem.html#processentities" class="tsd-kind-icon">process<wbr>Entities</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="entitysystem.html#removed" class="tsd-kind-icon">removed</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="entitysystem.html#setworld" class="tsd-kind-icon">set<wbr>World</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
@@ -379,13 +369,13 @@
 						<a href="scene.html" class="tsd-kind-icon">Scene</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="system.html" class="tsd-kind-icon">System</a>
-					</li>
-					<li class=" tsd-kind-class">
 						<a href="voidsystem.html" class="tsd-kind-icon">Void<wbr>System</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="world.html" class="tsd-kind-icon">World</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/system.html" class="tsd-kind-icon">System</a>
 					</li>
 				</ul>
 			</nav>

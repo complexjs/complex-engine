@@ -1,4 +1,4 @@
-import System from "./System";
+import { System } from "./System";
 import Entity from "./Entity";
 import Manager from "./Manager";
 import EntitySystem from "./System/EntitySystem";
