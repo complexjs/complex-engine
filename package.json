@@ -2,7 +2,7 @@
     "name": "complex-engine",
     "description": "JS Component Entity Framework for Gamedevelopment",
     "license": "MIT",
-    "version": "6.0.3",
+    "version": "7.0.0",
     "keywords": [
         "engine",
         "game",
