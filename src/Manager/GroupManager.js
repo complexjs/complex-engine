@@ -1,5 +1,8 @@
 import Manager from '../Manager';
 
+/**
+ *
+ */
 class GroupManager extends Manager {
     constructor() {
         super();

@@ -34,7 +34,7 @@
     },
     "scripts": {
         "test": "mocha test/**/*.spec.js -r @babel/register",
-        "doc": "npx jsdoc -d docs src/**"
+        "doc": "npx jsdoc -d docs src -r"
     },
     "dependencies": {
         "chai": "^4.2.0"

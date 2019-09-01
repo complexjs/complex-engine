@@ -1,5 +1,8 @@
 import World from "./World";
 
+/**
+ * Manager to handle entity stuff
+ */
 class Manager {
     constructor() {
         /** @var { World | null} */

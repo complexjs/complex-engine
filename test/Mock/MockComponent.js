@@ -1,8 +1,6 @@
-'use strict';
+import Component from '../../src/Component'
 
-import cxComponent from '../../src/Component'
-
-module.exports = class MockComponent extends cxComponent {
+export default class MockComponent extends Component {
     constructor() {
         super();
         this.tag = 'mock.component';

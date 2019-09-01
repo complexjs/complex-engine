@@ -10,7 +10,7 @@ class Entity {
      *
      * @param {string} name
      */
-    constructor(name = "Entity") {
+    constructor(name = 'Entity') {
         /** @var {string} */
         this.name = name;
 
@@ -79,12 +79,9 @@ class Entity {
      * @param {Function} component
      */
     removeComponent(component) {
-        for (let i = 0, len = this.components.length; i < len; i++) {
-            let c = this.components[i];
-            if (c instanceof component) {
-                delete this.components[i];
-            }
-        }
+        this.components = this.components.filter(entry => {
+            return !(entry instanceof component);
+        });
     }
 
     /**

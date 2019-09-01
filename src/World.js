@@ -3,7 +3,6 @@ import Entity from './Entity';
 import Manager from './Manager';
 import EntitySystem from './System/EntitySystem';
 import VoidSystem from './System/VoidSystem';
-import isInstanceOf from './utils/isInstanceOf';
 
 /**
  * The world contains all entities, systems and managers
@@ -156,26 +155,13 @@ class World {
      * @param {Function} systemClass
      */
     removeSystem(systemClass) {
-        for (let i = 0, len = this.entitySystems.length; i < len; i++) {
-            let s = this.entitySystems[i];
-            if (s === undefined) {
-                continue;
-            }
+        this.entitySystems = this.entitySystems.filter((system) => {
+            return !(system instanceof systemClass);
+        });
 
-            if (s instanceof systemClass) {
-                delete this.entitySystems[i];
-            }
-        }
-
-        for (let i = 0, len = this.voidSystems.length; i < len; i++) {
-            let s = this.voidSystems[i];
-            if (s === undefined) {
-                continue;
-            }
-            if (s instanceof systemClass) {
-                delete this.voidSystems[i];
-            }
-        }
+        this.voidSystems = this.voidSystems.filter((system) => {
+            return !(system instanceof systemClass);
+        });
     }
 
     /**

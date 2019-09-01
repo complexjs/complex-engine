@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: System</title>
+    <title>JSDoc: Class: GroupManager</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: System</h1>
+    <h1 class="page-title">Class: GroupManager</h1>
 
     
 
@@ -28,10 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>System<span class="signature">()</span><span class="type-signature"></span></h2>
-        
-            <div class="class-description">Abstract System. A System is responsible that your game works. It holds all the business logic and processes the
-entities based on the data in the components</div>
+        <h2><span class="attribs"><span class="type-signature"></span></span>GroupManager<span class="signature">()</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -42,11 +39,9 @@ entities based on the data in the components</div>
         
 
     
-    <h2>Constructor</h2>
-    
 
     
-    <h4 class="name" id="System"><span class="type-signature"></span>new System<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="GroupManager"><span class="type-signature"></span>new GroupManager<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -94,7 +89,7 @@ entities based on the data in the components</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="System.js.html">System.js</a>, <a href="System.js.html#line9">line 9</a>
+        <a href="Manager_GroupManager.js.html">Manager/GroupManager.js</a>, <a href="Manager_GroupManager.js.html#line7">line 7</a>
     </li></ul></dd>
     
 
@@ -140,81 +135,6 @@ entities based on the data in the components</div>
     
 
     
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="world"><span class="type-signature"></span>world<span class="type-signature"> :<a href="World.html">World</a>|null</span></h4>
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><a href="World.html">World</a></span>
-|
-
-<span class="param-type">null</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="System.js.html">System.js</a>, <a href="System.js.html#line11">line 11</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -225,7 +145,7 @@ entities based on the data in the components</div>
     
 
     
-    <h4 class="name" id="added"><span class="type-signature"></span>added<span class="signature">(entity)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="addToGroup"><span class="type-signature"></span>addToGroup<span class="signature">(entity, groupName)</span><span class="type-signature"></span></h4>
     
 
     
@@ -233,7 +153,7 @@ entities based on the data in the components</div>
 
 
 <div class="description">
-    get notified when entity is added to world
+    Add entity to group
 </div>
 
 
@@ -289,6 +209,29 @@ entities based on the data in the components</div>
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>groupName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -326,7 +269,7 @@ entities based on the data in the components</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="System.js.html">System.js</a>, <a href="System.js.html#line23">line 23</a>
+        <a href="Manager_GroupManager.js.html">Manager/GroupManager.js</a>, <a href="Manager_GroupManager.js.html#line17">line 17</a>
     </li></ul></dd>
     
 
@@ -362,7 +305,7 @@ entities based on the data in the components</div>
     
 
     
-    <h4 class="name" id="addedToWorld"><span class="type-signature"></span>addedToWorld<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="getGroup"><span class="type-signature"></span>getGroup<span class="signature">(name)</span><span class="type-signature"> &rarr; {Array.&lt;<a href="Entity.html">Entity</a>>}</span></h4>
     
 
     
@@ -370,7 +313,7 @@ entities based on the data in the components</div>
 
 
 <div class="description">
-    get notified when System is added to world
+    Get a group
 </div>
 
 
@@ -379,6 +322,55 @@ entities based on the data in the components</div>
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -414,7 +406,7 @@ entities based on the data in the components</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="System.js.html">System.js</a>, <a href="System.js.html#line17">line 17</a>
+        <a href="Manager_GroupManager.js.html">Manager/GroupManager.js</a>, <a href="Manager_GroupManager.js.html#line44">line 44</a>
     </li></ul></dd>
     
 
@@ -439,6 +431,24 @@ entities based on the data in the components</div>
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;<a href="Entity.html">Entity</a>></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -450,16 +460,12 @@ entities based on the data in the components</div>
     
 
     
-    <h4 class="name" id="removed"><span class="type-signature"></span>removed<span class="signature">(entity)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="removeFromGroup"><span class="type-signature"></span>removeFromGroup<span class="signature">(entity, groupName)</span><span class="type-signature"></span></h4>
     
 
     
 
 
-
-<div class="description">
-    get notified when entity is removed from world
-</div>
 
 
 
@@ -514,126 +520,16 @@ entities based on the data in the components</div>
         </tr>
 
     
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="System.js.html">System.js</a>, <a href="System.js.html#line29">line 29</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="setWorld"><span class="type-signature"></span>setWorld<span class="signature">(world)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
 
         <tr>
             
-                <td class="name"><code>world</code></td>
+                <td class="name"><code>groupName</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="World.html">World</a></span>
+<span class="param-type">string</span>
 
 
             
@@ -684,7 +580,7 @@ entities based on the data in the components</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="System.js.html">System.js</a>, <a href="System.js.html#line35">line 35</a>
+        <a href="Manager_GroupManager.js.html">Manager/GroupManager.js</a>, <a href="Manager_GroupManager.js.html#line29">line 29</a>
     </li></ul></dd>
     
 

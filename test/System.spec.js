@@ -1,7 +1,7 @@
-const unit = require('unit.js');
-const sinon = require('sinon');
+import sinon from 'sinon';
+import {expect} from 'chai';
 
-import { EntitySystem, World, VoidSystem, Component, Entity, } from 'src';
+import { Component, Entity, EntitySystem, VoidSystem, World, } from '../src';
 
 
 class MyComponent extends Component {
@@ -24,9 +24,9 @@ class MyVoidSystem extends VoidSystem {
 
 }
 
-describe('System', function () {
-    describe('VoidSystem', function () {
-        it('update', function () {
+describe('System', function() {
+    describe('VoidSystem', function() {
+        it('update', function() {
             let world = new World();
             let system = new MyVoidSystem();
             let update = sinon.spy();
@@ -35,13 +35,13 @@ describe('System', function () {
             world.addSystem(system);
             world.init();
             world.update();
-            unit.bool(update.called).isTrue();
+            expect(update.called).to.be.true;
         });
     });
 
 
-    describe('EntitySystem', function () {
-        it('update', function () {
+    describe('EntitySystem', function() {
+        it('update', function() {
             let world = new World();
             let system = new MyEntitySystem();
             let entity = new Entity();
@@ -55,7 +55,7 @@ describe('System', function () {
             world.init();
             world.update();
 
-            unit.bool(update.called).isTrue();
+            expect(update.called).to.be.true;
         });
     });
 

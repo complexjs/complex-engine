@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Component</title>
+    <title>JSDoc: Source: Manager/GroupManager.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,138 +17,68 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Component</h1>
+    <h1 class="page-title">Source: Manager/GroupManager.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Component<span class="signature">()</span><span class="type-signature"></span></h2>
-        
-            <div class="class-description">This is a bare Component.
-It's used to store specific data related to an Entity. This data will then be processed by a cxSystem.</div>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-    
-    <h2>Constructor</h2>
-    
-
-    
-    <h4 class="name" id="Component"><span class="type-signature"></span>new Component<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Component.js.html">Component.js</a>, <a href="Component.js.html#line6">line 6</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Manager from '../Manager';
+
+/**
+ *
+ */
+class GroupManager extends Manager {
+    constructor() {
+        super();
+        this.groups = {};
+    }
+
+    /**
+     * Add entity to group
+     * @param {Entity} entity
+     * @param {string} groupName
+     */
+    addToGroup(entity, groupName) {
+        if (!this.groups[groupName]) {
+            this.groups[groupName] = [];
+        }
+        this.groups[groupName].push(entity);
+    }
+
+    /**
+     *
+     * @param {Entity} entity
+     * @param {string} groupName
+     */
+    removeFromGroup(entity, groupName) {
+        if (!this.groups[groupName]) {
+            return;
+        }
+
+        this.groups[groupName] = this.groups[groupName].filter((entry) => {
+            return entry.index !== entity.index;
+        })
+    }
+
+    /**
+     * Get a group
+     * @param {string} name
+     * @return {Entity[]}
+     */
+    getGroup(name) {
+        return this.groups[name] || [];
+    }
+
+}
+
+export default GroupManager;
+</code></pre>
+        </article>
+    </section>
 
 
 
