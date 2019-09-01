@@ -18,13 +18,14 @@ export interface World {
     addManager(manager: Manager): void;
     getManager<T extends Manager>(managerClass: Function): T
     uodate(): void;
-    private updateVoidSystem();
-    private updateEntitySystem();
-    private getEntitiesForSystem(system: EntitySystem): Entity[];
-    private getEntitiesWithComponent(componentClass: Function): Entity[];
-    private updateEntities(): void;
-    private getFreeEntitySlot(): number | null;
-    private getFreeEntitySystemSlot(): number | null;
+    
+    updateVoidSystem();
+    updateEntitySystem();
+    getEntitiesForSystem(system: EntitySystem): Entity[];
+    getEntitiesWithComponent(componentClass: Function): Entity[];
+    updateEntities(): void;
+    getFreeEntitySlot(): number | null;
+    getFreeEntitySystemSlot(): number | null;
 
     entityAdded(entity: Entity): void;
     entityDeleted(entity: Entity): void;

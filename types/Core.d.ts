@@ -1,9 +1,11 @@
+import { Scene } from './Scene';
+
 export interface Core {
     scene: Scene | null;
     instance: Core | null;
 
-    private constructor();
-    static getInstance(): Core;
+    constructor();
+    getInstance(): Core;
 
     loadScene(scene: Scene): void;
     update(): void;
