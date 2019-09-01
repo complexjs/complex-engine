@@ -9,7 +9,7 @@ export interface Entity {
     index: number | null;
 
     addComponent(component: Component): void;
-    getComponents(component: Function): Component[];
+    getComponents<T extends Component>(component: Function): T[];
     getAllComponents(): Component[];
     hasComponent(component: Function): boolean;
     removeComponent(component: Function): void;
