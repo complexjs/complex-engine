@@ -1,6 +1,6 @@
 'use strict';
 
-import System from '../System';
+import System from '../../types/System';
 import Entity from '../Entity';
 import World from '../World';
 
