@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import cxEntity from '../src/Entity';
 import MockComponent from './Mock/MockComponent';
+import sinon from 'sinon';
 
 describe('Entity', function() {
 
@@ -81,4 +82,62 @@ describe('Entity', function() {
         expect(entity.isAlive()).to.be.false;
         expect(entity.isRemove()).to.be.true;
     });
+
+    it('add listener', function() {
+        const entity = new cxEntity();
+        const callback = sinon.spy();
+        entity.addListener('foo', function() {
+            callback();
+        });
+
+        entity.emit('foo');
+        expect(callback.called).to.be.true;
+    });
+
+    it('add multiple listener', function() {
+        const entity = new cxEntity();
+        const callback = sinon.spy();
+        const callback2 = sinon.spy();
+        entity.addListener('foo', function() {
+            callback();
+        });
+
+        entity.addListener('foo', function() {
+            callback2();
+        });
+
+        entity.emit('foo');
+        expect(callback.called).to.be.true;
+        expect(callback2.called).to.be.true;
+    });
+
+    it('remove listener', function() {
+        const entity = new cxEntity();
+        const callback = sinon.spy();
+        entity.addListener('foo', function() {
+            callback();
+        });
+
+        entity.removeListener('foo');
+
+        expect(entity.listeners).to.be.empty
+    });
+
+    it('emit event', function() {
+        const entity = new cxEntity();
+        const callback = sinon.spy();
+        const callback2 = sinon.spy();
+        entity.addListener('foo', function() {
+            callback();
+        });
+
+        entity.addListener('bar', function() {
+            callback2();
+        });
+
+        entity.emit('foo');
+        expect(callback.called).to.be.true;
+        expect(callback2.called).to.be.false;
+    });
+
 });
