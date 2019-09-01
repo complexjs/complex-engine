@@ -21,22 +21,15 @@
     "repository": {
         "url": "https://github.com/faebeee/complex-engine"
     },
-    "main": "./dist/bundle.js",
+    "main": "./src/Complex.js",
     "types": "./types",
     "devDependencies": {
-        "@babel/core": "^7.4.5",
-        "@babel/preset-env": "^7.4.5",
-        "@babel/register": "^7.5.5",
         "jsdoc": "^3.6.3",
         "mocha": "^6.1.2",
-        "rollup-plugin-babel": "^4.3.3",
-        "rollup-plugin-node-resolve": "^5.2.0",
         "sinon": "^7.3.1",
         "unit.js": "^2.1.0"
     },
     "scripts": {
-        "build": "npm run test && npm run doc && npm run bundle",
-        "bundle": "npx rollup -c",
         "test": "mocha test/**/*.test.js -r @babel/register",
         "doc": "npx jsdoc -d docs src/**"
     }

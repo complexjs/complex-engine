@@ -1,8 +1,9 @@
-import System from "./System";
-import Entity from "./Entity";
-import Manager from "./Manager";
-import EntitySystem from "./System/EntitySystem";
-import VoidSystem from "./System/VoidSystem";
+import System from './System';
+import Entity from './Entity';
+import Manager from './Manager';
+import EntitySystem from './System/EntitySystem';
+import VoidSystem from './System/VoidSystem';
+import isInstanceOf from './utils/isInstanceOf';
 
 /**
  * The world contains all entities, systems and managers
@@ -51,7 +52,7 @@ class World {
     removeEntity(entity) {
         const index = entity.getIndex();
         if (index === null) {
-            throw new Error("Entity has no index");
+            throw new Error('Entity has no index');
         }
 
         this.entityDeleted(entity);
@@ -65,7 +66,7 @@ class World {
      */
     getEntity(index) {
         if (this.entities[index] == undefined) {
-            throw new Error("No entity found");
+            throw new Error('No entity found');
         }
         return this.entities[index];
     }
@@ -92,8 +93,6 @@ class World {
      */
     addSystem(system) {
         system.setWorld(this);
-
-        console.log(system);
 
         if (system instanceof EntitySystem === true) {
             let slot = this.getFreeEntitySystemSlot();
@@ -131,9 +130,9 @@ class World {
 
     /**
      * get a System
-    * @param  {string | System} systemClass
-    * @return {System}
-            */
+     * @param  {string | System} systemClass
+     * @return {System}
+     */
     getSystem(systemClass) {
         for (let i = 0, len = this.entitySystems.length; i < len; i++) {
             let s = this.entitySystems[i];
@@ -149,7 +148,7 @@ class World {
             }
         }
 
-        throw "System " + systemClass + " not found";
+        throw 'System ' + systemClass + ' not found';
     }
 
     /**
@@ -201,7 +200,7 @@ class World {
             }
         }
 
-        throw "Manager " + name + " not found";
+        throw 'Manager ' + name + ' not found';
     }
 
     /**
@@ -209,7 +208,7 @@ class World {
      */
     update() {
         if (this.initialized === false) {
-            throw new Error("Not initialized");
+            throw new Error('Not initialized');
         }
 
         this.updateEntities();

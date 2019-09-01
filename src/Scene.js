@@ -6,7 +6,7 @@ import World from './World';
 class Scene {
 
     /**
-     * @param {string} name 
+     * @param {string} name
      */
     constructor(name) {
         /** @var {string} */
