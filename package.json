@@ -1,44 +1,45 @@
 {
-  "name": "complex-engine",
-  "description": "JS Component Entity Framework for Gamedevelopment",
-  "license": "MIT",
-  "version": "6.0.3",
-  "keywords": [
-    "engine",
-    "game",
-    "gamedev",
-    "development",
-    "html5",
-    "gameengine",
-    "indie",
-    "component",
-    "entity",
-    "system"
-  ],
-  "author": {
-    "name": "Fabio Gianini"
-  },
-  "repository": {
-    "url": "https://github.com/faebeee/complex-engine"
-  },
-  "main": "./build/Complex.js",
-  "types": "./build/Complex.d.ts",
-  "typings": "./build/Complex.d.ts",
-  "files": [
-    "build/**/*"
-  ],
-  "devDependencies": {
-    "mocha": "^6.1.2",
-    "sinon": "^7.3.1",
-    "typedoc": "^0.14.0",
-    "typescript": "^3.4.3",
-    "typescript-bundle": "^0.8.9",
-    "unit.js": "^2.1.0"
-  },
-  "scripts": {
-    "build": "tsc && npm run bundle && npm run doc && npm run test",
-    "bundle": "npx tsc-bundle src/Complex.ts build/bundle.js --exportAs cx --target es5",
-    "test": "tsc && mocha test/**/*.test.js --recursive",
-    "doc": "npx typedoc --out docs ./src --mode file --readme ./README.md --name Complex"
-  }
+    "name": "complex-engine",
+    "description": "JS Component Entity Framework for Gamedevelopment",
+    "license": "MIT",
+    "version": "6.0.3",
+    "keywords": [
+        "engine",
+        "game",
+        "gamedev",
+        "development",
+        "html5",
+        "gameengine",
+        "indie",
+        "component",
+        "entity",
+        "system"
+    ],
+    "author": {
+        "name": "Fabio Gianini"
+    },
+    "repository": {
+        "url": "https://github.com/faebeee/complex-engine"
+    },
+    "main": "./dist/bundle.js",
+    "files": [
+        "dist/**/*"
+    ],
+    "devDependencies": {
+        "@babel/core": "^7.4.5",
+        "@babel/preset-env": "^7.4.5",
+        "@babel/register": "^7.5.5",
+        "jsdoc": "^3.6.3",
+        "mocha": "^6.1.2",
+        "rollup-plugin-babel": "^4.3.3",
+        "rollup-plugin-node-resolve": "^5.2.0",
+        "sinon": "^7.3.1",
+        "unit.js": "^2.1.0"
+    },
+    "scripts": {
+        "build": "npm run test && npm run doc && npm run bundle",
+        "bundle": "npx rollup -c",
+        "test": "mocha test/**/*.test.js -r @babel/register",
+        "doc": "npx jsdoc -d docs src/**"
+    }
 }

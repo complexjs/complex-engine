@@ -1,7 +1,5 @@
-'use strict';
-
 let test = require('unit.js');
-const { Manager } = require('../');
+import Manager from '../src/Manager';
 
 class MyManager extends Manager {
     constructor() {

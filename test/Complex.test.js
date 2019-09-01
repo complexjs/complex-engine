@@ -1,7 +1,7 @@
 'use strict';
 
 let test = require('unit.js');
-let Complex = require('../').Complex;
+import { Complex } from '../src/Complex';
 
 describe('Complex', function () {
     it('should load a scene', function () {

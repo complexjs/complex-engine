@@ -1,6 +1,6 @@
 'use strict';
 
-let cxComponent = require('../../').Component;
+import cxComponent from '../../src/Component'
 
 module.exports = class MockComponent extends cxComponent {
     constructor() {

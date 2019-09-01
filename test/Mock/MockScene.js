@@ -1,6 +1,6 @@
 'use strict';
 
-let cxScene = require('../../').Scene;
+import cxScene from '../../src/Scene';
 
 module.exports = class MockScene extends cxScene {
     constructor() {

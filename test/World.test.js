@@ -1,8 +1,7 @@
 'use strict';
 
 let test = require('unit.js');
-let Entity = require('../').Entity;
-let World = require('../').World;
+import { Entity, World } from '../src/Complex';
 
 let MockEntitySystem = require('./Mock/EntitySystem.js');
 let MockVoidSystem = require('./Mock/VoidSystem.js');

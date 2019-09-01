@@ -1,9 +1,7 @@
-'use strict';
-
 const unit = require('unit.js');
 const sinon = require('sinon');
 
-const { EntitySystem, World, VoidSystem, Component, Entity, } = require('../');
+import { EntitySystem, World, VoidSystem, Component, Entity, } from '../src/Complex';
 
 
 class MyComponent extends Component {

@@ -1,7 +1,5 @@
-'use strict';
-
 let test = require('unit.js');
-let cxEntity = require('../').Entity;
+import cxEntity from '../src/Entity';
 
 describe('Entity', function () {
 

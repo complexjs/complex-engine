@@ -1,13 +1,7 @@
-'use strict';
-
 const unit = require('unit.js');
-const { Component, } = require('../');
+import Component from '../src/Component';
 
 class MyComponent extends Component {
-    constructor() {
-        super();
-    }
-
     static get tag() {
         return 'my.component'
     }

@@ -1,6 +1,6 @@
 'use strict';
 
-let cxManager = require('../../').Manager;
+import cxManager from '../../src/Manager';
 
 module.exports = class MockManager extends cxManager {
     constructor() {
