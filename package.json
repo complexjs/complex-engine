@@ -22,9 +22,6 @@
         "url": "https://github.com/faebeee/complex-engine"
     },
     "main": "./dist/bundle.js",
-    "files": [
-        "dist/**/*"
-    ],
     "devDependencies": {
         "@babel/core": "^7.4.5",
         "@babel/preset-env": "^7.4.5",
