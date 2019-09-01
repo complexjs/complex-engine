@@ -30,13 +30,12 @@
         "jsdoc": "^3.6.3",
         "mocha": "^6.1.2",
         "sinon": "^7.3.1",
-        "unit.js": "^2.1.0"
+        "chai": "^4.2.0"
     },
     "scripts": {
         "test": "mocha test/**/*.spec.js -r @babel/register",
         "doc": "npx jsdoc -d docs src -r"
     },
     "dependencies": {
-        "chai": "^4.2.0"
     }
 }
