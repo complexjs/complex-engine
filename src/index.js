@@ -7,6 +7,7 @@ import System from './System';
 import EntitySystem from './System/EntitySystem';
 import VoidSystem from './System/VoidSystem';
 import World from './World';
+import GroupManager from './Manager/GroupManager';
 
 export {
     Complex,
@@ -17,5 +18,6 @@ export {
     System,
     EntitySystem,
     VoidSystem,
-    World
+    World,
+    GroupManager,
 };

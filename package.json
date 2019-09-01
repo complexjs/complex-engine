@@ -21,16 +21,22 @@
     "repository": {
         "url": "https://github.com/faebeee/complex-engine"
     },
-    "main": "./src/Complex.js",
+    "main": "src/index.js",
     "types": "./types",
     "devDependencies": {
+        "@babel/core": "^7.5.5",
+        "@babel/preset-env": "^7.5.5",
+        "@babel/register": "^7.5.5",
         "jsdoc": "^3.6.3",
         "mocha": "^6.1.2",
         "sinon": "^7.3.1",
         "unit.js": "^2.1.0"
     },
     "scripts": {
-        "test": "mocha test/**/*.test.js -r @babel/register",
+        "test": "mocha test/**/*.spec.js -r @babel/register",
         "doc": "npx jsdoc -d docs src/**"
+    },
+    "dependencies": {
+        "chai": "^4.2.0"
     }
 }

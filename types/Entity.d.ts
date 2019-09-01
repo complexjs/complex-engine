@@ -1,4 +1,4 @@
-import { Component } from '../src/Complex';
+import { Component } from '../src/index';
 
 export interface Entity {
     name: string;

@@ -1,7 +1,7 @@
 const unit = require('unit.js');
 const sinon = require('sinon');
 
-import { EntitySystem, World, VoidSystem, Component, Entity, } from '../src/Complex';
+import { EntitySystem, World, VoidSystem, Component, Entity, } from 'src';
 
 
 class MyComponent extends Component {

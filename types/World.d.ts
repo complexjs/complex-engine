@@ -1,4 +1,4 @@
-import { VoidSystem, EntitySystem, Manager, Entity } from '../src/Complex';
+import { VoidSystem, EntitySystem, Manager, Entity } from '../src/index';
 
 export interface World {
     entities: Entity[];
