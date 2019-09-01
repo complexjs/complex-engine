@@ -1,5 +1,3 @@
-"use strict";
-
 import Entity from "./Entity";
 import World from "./World";
 
@@ -31,8 +29,8 @@ class System {
     removed(entity) { }
 
     /**
-     * 
-     * @param {World} world 
+     *
+     * @param {World} world
      */
     setWorld(world) {
         this.world = world;

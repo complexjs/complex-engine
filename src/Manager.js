@@ -1,4 +1,4 @@
-import { World } from "./Complex";
+import World from "./World";
 
 class Manager {
     constructor() {
@@ -14,7 +14,7 @@ class Manager {
     }
 
     /**
-     * 
+     *
      * @param {World | null} world
      */
     setWorld(world) {

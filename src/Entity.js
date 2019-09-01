@@ -1,5 +1,5 @@
 import Component from './Component';
-import { World } from './Complex';
+import World from './World';
 
 /**
  * An entity is a object that holds many components. Those components define the behaviour of an entity.
@@ -7,8 +7,8 @@ import { World } from './Complex';
 class Entity {
 
     /**
-     * 
-     * @param {string} name 
+     *
+     * @param {string} name
      */
     constructor(name = "Entity") {
         /** @var {string} */
@@ -136,8 +136,8 @@ class Entity {
     }
 
     /**
-     * 
-     * @param {number} index 
+     *
+     * @param {number} index
      */
     setIndex(index) {
         this.index = index;

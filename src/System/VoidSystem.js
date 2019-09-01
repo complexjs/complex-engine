@@ -1,8 +1,6 @@
 'use strict';
 
-import System from '../../types/System';
-import Entity from '../Entity';
-import World from '../World';
+import System from '../System';
 
 /**
  * This System only renders once per update and is decoupled from the entities. This can be used to

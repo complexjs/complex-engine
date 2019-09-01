@@ -103,8 +103,8 @@ var Entity =
 /*#__PURE__*/
 function () {
   /**
-   * 
-   * @param {string} name 
+   *
+   * @param {string} name
    */
   function Entity() {
     var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "Entity";
@@ -263,8 +263,8 @@ function () {
       this.world = world;
     }
     /**
-     * 
-     * @param {number} index 
+     *
+     * @param {number} index
      */
 
   }, {
@@ -343,8 +343,8 @@ function () {
     key: "removed",
     value: function removed(entity) {}
     /**
-     * 
-     * @param {World} world 
+     *
+     * @param {World} world
      */
 
   }, {
@@ -377,7 +377,7 @@ function () {
       return this.world;
     }
     /**
-     * 
+     *
      * @param {World | null} world
      */
 
@@ -584,6 +584,7 @@ function () {
     key: "addSystem",
     value: function addSystem(system) {
       system.setWorld(this);
+      console.log(system);
 
       if (system instanceof EntitySystem === true) {
         var slot = this.getFreeEntitySystemSlot();

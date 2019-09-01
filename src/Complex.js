@@ -3,7 +3,7 @@ import Entity from './Entity';
 import Component from './Component';
 import Manager from './Manager';
 import Scene from './Scene';
-import System from '../types/System';
+import System from './System';
 import EntitySystem from './System/EntitySystem';
 import VoidSystem from './System/VoidSystem';
 import World from './World';
