@@ -33,7 +33,7 @@
     },
     "scripts": {
         "test": "mocha test/**/*.spec.js -r @babel/register",
-        "doc": "npx jsdoc -d docs src -r"
+        "doc": "npx jsdoc -d docs -R ./README.md src -r"
     },
     "dependencies": {}
 }
