@@ -26,12 +26,34 @@ class World {
     }
 
     /**
+     * Creates and adds a new entity
+     * @param {Component[]} components
+     * @return {Entity}
+     */
+    createEntity(components) {
+        let slot = this._getFreeEntitySlot();
+        const entity = new Entity();
+
+        if (slot != null) {
+            this.entities[slot] = entity;
+        } else {
+            slot = this.entities.length;
+            this.entities.push(entity);
+        }
+
+        components.forEach(c => entity.addComponent(c));
+        entity.setIndex(slot);
+        this._entityAdded(entity);
+        return entity;
+    }
+
+    /**
      * Add entity to the world
      * @param { Entity} entity
+     * @returns { World }
      */
     addEntity(entity) {
-        let slot = this.getFreeEntitySlot();
-        entity.setWorld(this);
+        let slot = this._getFreeEntitySlot();
 
         if (slot != null) {
             this.entities[slot] = entity;
@@ -41,12 +63,15 @@ class World {
         }
 
         entity.setIndex(slot);
-        this.entityAdded(entity);
+        this._entityAdded(entity);
+        return this;
     }
 
     /**
      * remove entity from the world
      * @param {Entity} entity
+     * @returns {World}
+     * @throws Error
      */
     removeEntity(entity) {
         const index = entity.getIndex();
@@ -54,14 +79,17 @@ class World {
             throw new Error('Entity has no index');
         }
 
-        this.entityDeleted(entity);
+        this._entityDeleted(entity);
         delete this.entities[index];
+
+        return this;
     }
 
     /**
      * Get entity from world by its id
      * @param {number} index
      * @returns {Entity}
+     * @throws Error
      */
     getEntity(index) {
         if (this.entities[index] == undefined) {
@@ -88,26 +116,31 @@ class World {
 
     /**
      * Add a System to world
-     * @param { EntitySystem | VoidSystem} system
+     * @param { EntitySystem | VoidSystem} system System instance
+     * @returns {World}
+     * @throws Error
      */
     addSystem(system) {
         system.setWorld(this);
 
         if (system instanceof EntitySystem === true) {
-            let slot = this.getFreeEntitySystemSlot();
+            let slot = this._getFreeEntitySystemSlot();
             if (slot != null) {
                 this.entitySystems[slot] = system;
             } else {
                 this.entitySystems.push(system);
             }
         } else if (system instanceof VoidSystem === true) {
-            let slot = this.getFreeEntitySystemSlot();
+            let slot = this._getFreeEntitySystemSlot();
             if (slot != null) {
                 this.voidSystems[slot] = system;
             } else {
                 this.voidSystems.push(system);
             }
+        } else {
+            throw new Error('Object seems not to be a System');
         }
+        return this;
     }
 
     /**
@@ -129,8 +162,9 @@ class World {
 
     /**
      * get a System
-     * @param  {string | System} systemClass
+     * @param  {Function} systemClass Class constructor
      * @return {System}
+     * @throws Error
      */
     getSystem(systemClass) {
         for (let i = 0, len = this.entitySystems.length; i < len; i++) {
@@ -152,7 +186,8 @@ class World {
 
     /**
      * Remove System
-     * @param {Function} systemClass
+     * @param {Function} systemClass Class constructor
+     * @returns {World}
      */
     removeSystem(systemClass) {
         this.entitySystems = this.entitySystems.filter((system) => {
@@ -162,21 +197,27 @@ class World {
         this.voidSystems = this.voidSystems.filter((system) => {
             return !(system instanceof systemClass);
         });
+
+        return this;
     }
 
     /**
      * Add Manager
-     * @param{Manager} manager
+     * @param {Manager} manager Manager instance
+     * @returns {World}
      */
     addManager(manager) {
         manager.setWorld(this);
         this.managers.push(manager);
+
+        return this;
     }
 
     /**
      * Get a manager
-     * @param { Function} managerClass
+     * @param { Function} managerClass Manager class constructor
      * @returns {Manager}
+     * @throws Error
      */
     getManager(managerClass) {
         for (let i = 0, len = this.managers.length; i < len; i++) {
@@ -191,34 +232,40 @@ class World {
 
     /**
      * Update the world
+     * @throws Error
      */
     update() {
         if (this.initialized === false) {
             throw new Error('Not initialized');
         }
 
-        this.updateEntities();
-        this.updateVoidSystem();
-        this.updateEntitySystem();
+        this._updateEntities()
+            ._updateVoidSystem()
+            ._updateEntitySystem();
     }
 
     /**
      * Update void systems
+     * @private
+     * @returns {World}
      */
-    updateVoidSystem() {
+    _updateVoidSystem() {
         for (let s = 0, sLen = this.voidSystems.length; s < sLen; s++) {
             let system = this.voidSystems[s];
             system.update();
         }
+        return this;
     }
 
     /**
      * Update entity systems
+     * @private
+     * @returns {World}
      */
-    updateEntitySystem() {
+    _updateEntitySystem() {
         for (let s = 0, sLen = this.entitySystems.length; s < sLen; s++) {
             const system = this.entitySystems[s];
-            const entities = this.getEntitiesForSystem(system);
+            const entities = this._getEntitiesForSystem(system);
             system.processEntities(entities);
         }
     }
@@ -226,9 +273,10 @@ class World {
     /**
      * Get all entities that fit a systems requirements(components)
      * @param {EntitySystem} system
+     * @private
      * @returns {Entity[]}
      */
-    getEntitiesForSystem(system) {
+    _getEntitiesForSystem(system) {
         const components = system.getComponents();
         const entities = [];
         for (let i = 0; i < components.length; i++) {
@@ -259,8 +307,10 @@ class World {
 
     /**
      * Update all entities state
+     * @private
+     * @returns {World}
      */
-    updateEntities() {
+    _updateEntities() {
         const entities = this.entities;
         const entitiesLength = entities.length;
 
@@ -271,16 +321,19 @@ class World {
                 this.removeEntity(entity);
             }
         }
+
+        return this;
     }
 
     /**
      * recycle entityslots
+     * @private
      * @returns {number | null}
      */
-    getFreeEntitySlot() {
+    _getFreeEntitySlot() {
         for (let e = 0, len = this.entities.length; e < len; e++) {
             let entity = this.entities[e];
-            if (entity == null || entity == undefined) {
+            if (entity === null || entity === undefined) {
                 return e;
             }
         }
@@ -289,12 +342,13 @@ class World {
 
     /**
      * recycle systemslot
+     * @private
      * @return {number | null}
      */
-    getFreeEntitySystemSlot() {
+    _getFreeEntitySystemSlot() {
         for (let s = 0, len = this.entitySystems.length; s < len; s++) {
             let system = this.entitySystems[s];
-            if (system == undefined || system == null) {
+            if (system === undefined || system === null) {
                 return s;
             }
         }
@@ -304,9 +358,10 @@ class World {
     /**
      * notify systems for new entity
      * @param {Entity} entity
-     * @protected
+     * @private
+     * @returns {World}
      */
-    entityAdded(entity) {
+    _entityAdded(entity) {
         for (let s = 0, len = this.voidSystems.length; s < len; s++) {
             let system = this.voidSystems[s];
             system.added(entity);
@@ -316,14 +371,16 @@ class World {
             let system = this.entitySystems[s];
             system.added(entity);
         }
+        return this;
     }
 
     /**
      * notify systems for deleted entity
      * @param {Entity} entity
-     * @protected
+     * @private
+     * @returns {World}
      */
-    entityDeleted(entity) {
+    _entityDeleted(entity) {
         for (let s = 0, len = this.voidSystems.length; s < len; s++) {
             let system = this.voidSystems[s];
             system.removed(entity);

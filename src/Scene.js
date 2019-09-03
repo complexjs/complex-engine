@@ -17,9 +17,9 @@ class Scene {
 
     /**
      * Called when the world is loaded by the ComplexCore. In this method your stage should be loaded/created
+     * @abstract
      */
     load() {
-
     }
 
     /**

@@ -8,138 +8,158 @@ import MockManager from './Mock/MockManager.js';
 
 
 describe('World', function() {
-    describe('entities', function() {
-        it('add', function() {
-            let world = new World();
-            let entity = new Entity();
+    it('createEntity', function() {
+        let world = new World();
+        const entity = world.createEntity([]);
 
-            world.addEntity(entity);
-
-            expect(world.getEntities()).to.have.lengthOf(1);
-        });
-
-        it('add invalid', function() {
-            let world = new World();
-            expect(function() {
-                world.addEntity({ 'foo': 'bar' });
-            }).to.throw();
-
-            expect(world.getEntities()).to.have.lengthOf(0);
-        });
-
-        it('remove', function() {
-            let world = new World();
-            let entity = new Entity();
-
-            world.addEntity(entity);
-            world.removeEntity(entity);
-
-            expect(world.getEntities()).to.have.lengthOf(0);
-        });
-
-        it('get', function() {
-            let world = new World();
-            let entity = new Entity();
-
-            world.addEntity(entity);
-            let e = world.getEntity(entity.getIndex());
-
-            expect(3).to.be.not.null;
-        });
-
-        it('get all', function() {
-            let world = new World();
-            let entity = new Entity();
-
-            world.addEntity(entity);
-            let e = world.getEntities();
-
-            expect(e).to.have.lengthOf(1);
-        });
+        expect(entity.getIndex()).to.be.equal(0);
     });
 
-    describe('system', function() {
-        it('add', function() {
-            let world = new World();
-            let eSys = new MockEntitySystem();
-            let vSys = new MockVoidSystem();
+    it('addEntity', function() {
+        let world = new World();
+        let entity = new Entity();
 
-            world.addSystem(eSys);
-            world.addSystem(vSys);
+        world.addEntity(entity);
 
-            expect(world.getEntitySystems()).to.have.lengthOf(1);
-            expect(world.getVoidSystems()).to.have.lengthOf(1);
-        });
-
-        it('add invalid', function() {
-            let world = new World();
-
-            expect(function() {
-                world.addSystem({ 'foo': 'bar' });
-            }).to.throw();
-
-            expect(world.getEntitySystems()).to.have.lengthOf(0);
-            expect(world.getVoidSystems()).to.have.lengthOf(0);
-        });
-
-        it('get', function() {
-            let world = new World();
-            let eSys = new MockEntitySystem();
-            let vSys = new MockVoidSystem();
-
-            world.addSystem(eSys);
-            world.addSystem(vSys);
-
-            expect(world.getSystem(MockEntitySystem)).to.be.not.null;
-            expect(world.getSystem(MockVoidSystem)).to.be.not.null;
-        });
-
-        it('remove', function() {
-            let world = new World();
-            let eSys = new MockEntitySystem();
-            let vSys = new MockVoidSystem();
-
-            world.addSystem(eSys);
-            world.addSystem(vSys);
-
-            world.removeSystem(MockEntitySystem);
-            world.removeSystem(MockVoidSystem);
-
-            expect(world.getEntitySystems()).to.have.lengthOf(0);
-            expect(world.getVoidSystems()).to.have.lengthOf(0);
-        });
+        expect(world.getEntities()).to.have.lengthOf(1);
     });
 
-    describe('manager', function() {
-        it('add', function() {
-            let world = new World();
-            let mngr = new MockManager();
+    it('removeEntity', function() {
+        let world = new World();
+        let entity = new Entity();
 
-            world.addManager(mngr);
-            expect(world.getManagers()).to.have.lengthOf(1);
-        });
+        world.addEntity(entity);
+        world.removeEntity(entity);
 
-        it('add invalid', function() {
-            let world = new World();
-            expect(function() {
-                world.addManager({ 'foo': 'bar' });
-            }).to.throw();
-
-            expect(world.getManagers()).to.have.lengthOf(0);
-        });
-
-        it('get', function() {
-            let world = new World();
-            let mngr = new MockManager();
-
-            world.addManager(mngr);
-            let m = world.getManager(MockManager);
-            expect(m).to.be.not.null
-        });
+        expect(world.getEntities()).to.have.lengthOf(0);
     });
 
+    it('getEntity', function() {
+        let world = new World();
+        let entity = new Entity();
 
-    it('update', function() {
+        world.addEntity(entity);
+        let e = world.getEntity(entity.getIndex());
+
+        expect(e).to.be.not.null;
+    });
+
+    it('getEntity with wrong index', function() {
+        let world = new World();
+        let entity = new Entity();
+
+        world.addEntity(entity);
+        expect(() => {
+            world.getEntity(500);
+        }).to.throw();
+    });
+
+    it('getEntities', function() {
+        let world = new World();
+        let entity = new Entity();
+
+        world.addEntity(entity);
+        let e = world.getEntities();
+
+        expect(e).to.have.lengthOf(1);
+    });
+
+    it('addSystem EntitySystem', function() {
+        let world = new World();
+        let eSys = new MockEntitySystem();
+
+        world.addSystem(eSys);
+
+        expect(world.getEntitySystems()).to.have.lengthOf(1);
+    });
+
+    it('addSystem VoidSystem', function() {
+        let world = new World();
+        let vSys = new MockVoidSystem();
+
+        world.addSystem(vSys);
+
+        expect(world.getVoidSystems()).to.have.lengthOf(1);
+    });
+
+    it('addSystem invalid', function() {
+        let world = new World();
+
+        expect(function() {
+            world.addSystem({ 'foo': 'bar' });
+        }).to.throw();
+
+        expect(world.getEntitySystems()).to.have.lengthOf(0);
+        expect(world.getVoidSystems()).to.have.lengthOf(0);
+    });
+
+    it('getSystem EntitySystem', function() {
+        let world = new World();
+        let eSys = new MockEntitySystem();
+
+        world.addSystem(eSys);
+
+        expect(world.getSystem(MockEntitySystem)).to.be.not.null;
+    });
+
+    it('getSystem VoidSystem', function() {
+        let world = new World();
+        let vSys = new MockVoidSystem();
+
+        world.addSystem(vSys);
+
+        expect(world.getSystem(MockVoidSystem)).to.be.not.null;
+    });
+
+    it('removeSystem EntitySystem', function() {
+        let world = new World();
+        let eSys = new MockEntitySystem();
+
+        world.addSystem(eSys);
+
+        world.removeSystem(MockEntitySystem);
+
+        expect(world.getEntitySystems()).to.have.lengthOf(0);
+    });
+
+    it('removeSystem VoidSystem', function() {
+        let world = new World();
+        let vSys = new MockVoidSystem();
+
+        world.addSystem(vSys);
+
+        world.removeSystem(MockVoidSystem);
+
+        expect(world.getVoidSystems()).to.have.lengthOf(0);
+    });
+
+    it('addManager', function() {
+        let world = new World();
+        let mngr = new MockManager();
+
+        world.addManager(mngr);
+        expect(world.getManagers()).to.have.lengthOf(1);
+    });
+
+    it('addManager invalid', function() {
+        let world = new World();
+        expect(function() {
+            world.addManager({ 'foo': 'bar' });
+        }).to.throw();
+
+        expect(world.getManagers()).to.have.lengthOf(0);
+    });
+
+    it('getManager', function() {
+        let world = new World();
+        let mngr = new MockManager();
+
+        world.addManager(mngr);
+        let m = world.getManager(MockManager);
+        expect(m).to.be.not.null
+    });
+
+    it('step', function() {
         let world = new World();
         let eSys = new MockEntitySystem();
         let vSys = new MockVoidSystem();
@@ -149,11 +169,11 @@ describe('World', function() {
         world.init();
 
         expect(function() {
-            world.step();
-        }).to.throw();
+            world.update();
+        }).to.not.throw();
     });
 
-    it('update invalid', function() {
+    it('step invalid', function() {
         let world = new World();
         let eSys = new MockEntitySystem();
         let vSys = new MockVoidSystem();
@@ -162,7 +182,7 @@ describe('World', function() {
         world.addSystem(vSys);
 
         expect(function() {
-            world.step();
+            world.update();
         }).to.throw();
     });
 

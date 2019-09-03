@@ -1,5 +1,4 @@
 import Component from './Component';
-import World from './World';
 
 /**
  * An entity is a object that holds many components. Those components define the behaviour of an entity.
@@ -23,9 +22,6 @@ class Entity {
         /** @var {boolean} */
         this.remove = false;
 
-        /** @var {World | null} */
-        this.world = null;
-
         /** @var {number | null} */
         this.index = null;
 
@@ -35,6 +31,7 @@ class Entity {
     /**
      * Add a Component to the entity
      * @param {Component} component
+     * @returns {Entity}
      */
     addComponent(component) {
         let slot = this._getFreeSlot();
@@ -43,32 +40,40 @@ class Entity {
         } else {
             this.components.push(component);
         }
+
+        return this;
     }
 
     /**
      * Add eventlistener to entity
      * @param {string} event
      * @param {function} callback
+     * @returns {Entity}
      */
     addListener(event, callback) {
         this.listeners.push({ event, callback });
+
+        return this;
     }
 
     /**
      * Remove event listener
      * @param {string} event
-     * @param {function} callback
+     * @returns {Entity}
      */
     removeListener(event) {
         this.listeners = this.listeners.filter((listener) => {
             return !(listener.event === event);
-        })
+        });
+
+        return this;
     }
 
     /**
      * Emit event with data
      * @param {string} event
      * @param {object} data
+     * @returns {Entity}
      */
     emit(event, data) {
         this.listeners.filter((listener) => {
@@ -77,11 +82,13 @@ class Entity {
             .map((listener) => {
                 listener.callback(data);
             });
+
+        return this;
     }
 
     /**
-     * Get a Component from the entity by its tag name
-     * @param {Function} component
+     * Get all mathing components
+     * @param {Function} component component constructor
      * @return {Component[]}
      */
     getComponents(component) {
@@ -93,6 +100,22 @@ class Entity {
             }
         }
         return components;
+    }
+
+    /**
+     * Get a Component from the entity
+     * @param {Function} component component constructor
+     * @return {Component}
+     * @throws Error
+     */
+    getComponent(component) {
+        for (let i = 0, len = this.components.length; i < len; i++) {
+            let c = this.components[i];
+            if (c instanceof component) {
+                return c
+            }
+        }
+        throw new Error('Component not found');
     }
 
     /**
@@ -113,11 +136,14 @@ class Entity {
     /**
      * remove a Component from the entity
      * @param {Function} component
+     * @returns {Entity}
      */
     removeComponent(component) {
         this.components = this.components.filter(entry => {
             return !(entry instanceof component);
         });
+
+        return this;
     }
 
     /**
@@ -152,24 +178,7 @@ class Entity {
     }
 
     /**
-     * Get the worl object from the entity
-     * @returns {World | null}
-     */
-    getWorld() {
-        return this.world;
-    }
-
-    /**
-     * Set the worldobject
-     * @param {World} world
-     *
-     */
-    setWorld(world) {
-        this.world = world;
-    }
-
-    /**
-     *
+     * Set index value of entity
      * @param {number} index
      */
     setIndex(index) {
@@ -177,6 +186,7 @@ class Entity {
     }
 
     /**
+     * Get index of entity
      * @returns {number | null}
      */
     getIndex() {
@@ -184,6 +194,7 @@ class Entity {
     }
 
     /**
+     * Check if entity is alive
      * @returns {boolean}
      */
     isAlive() {
@@ -191,6 +202,7 @@ class Entity {
     }
 
     /**
+     * Check if entity should be removed in next cycle
      * @returns {boolean}
      */
     isRemove() {

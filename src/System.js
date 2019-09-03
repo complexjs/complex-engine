@@ -13,18 +13,21 @@ class System {
 
     /**
      * get notified when System is added to world
+     * @abstract
      */
     addedToWorld() { }
 
     /**
      * get notified when entity is added to world
      * @param {Entity} entity
+     * @abstract
      */
     added(entity) { }
 
     /**
      * get notified when entity is removed from world
      * @param {Entity} entity
+     * @abstract
      */
     removed(entity) { }
 

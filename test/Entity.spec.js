@@ -2,10 +2,21 @@ import { expect } from 'chai';
 import cxEntity from '../src/Entity';
 import MockComponent from './Mock/MockComponent';
 import sinon from 'sinon';
+import SecondMockComponent from './Mock/SecondMockComponent';
 
 describe('Entity', function() {
 
-    it('add single component', function() {
+    it('getComponent', function() {
+        let entity = new cxEntity();
+        entity.addComponent(new MockComponent());
+        entity.addComponent(new SecondMockComponent());
+        const component = entity.getComponent(SecondMockComponent);
+        expect(component).to.be.not.null;
+        expect(component.foo).to.be.equal('bar');
+
+    });
+
+    it('getAllComponents', function() {
         let entity = new cxEntity();
         entity.addComponent(new MockComponent());
         expect(entity.getAllComponents()).to.have.lengthOf(1);
@@ -19,18 +30,19 @@ describe('Entity', function() {
         expect(entity.getAllComponents()).to.have.lengthOf(3);
     });
 
-    it('get single component ', function() {
+    it('getComponents single', function() {
         let entity = new cxEntity();
         entity.addComponent(new MockComponent());
         let comp = entity.getComponents(MockComponent);
         expect(comp).to.have.lengthOf(1);
     });
 
-    it('get multiple components', function() {
+    it('getComponents multiple', function() {
         let entity = new cxEntity();
         entity.addComponent(new MockComponent());
         entity.addComponent(new MockComponent());
         entity.addComponent(new MockComponent());
+        entity.addComponent(new SecondMockComponent());
         let comp = entity.getComponents(MockComponent);
         expect(comp).to.have.lengthOf(3);
     });
