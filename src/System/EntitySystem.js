@@ -16,7 +16,7 @@ class EntitySystem extends System {
     }
 
     /**
-     * 
+     *
      * @param {Entity[]} entities
      */
     processEntities(entities) {
