@@ -16,9 +16,15 @@ within your code. Also you (should)have more simpler, clearer and more maintaina
 # How To
 [Getting started](/doc/GettingStarted.md)
 
+# Modules
+To improve your dev experience there are some modules
+which provide already written systems and other helpers
+
+0. [complex-theejs](https://github.com/complexjs/complex-threejs)
+0. [complex-scripting](https://github.com/complexjs/complex-scripting)
+
 # API 
 [API Reference](http://complexjs.github.io/complex-engine/index.html)
-
 
 # Concept
 The idea behind (yet another game engine) `complex-engine` to have a lot of reusable code which you can reuse
