@@ -16,18 +16,21 @@ class Scene {
     }
 
     /**
+     * Is called as soon you use this scene
+     */
+    prepare(){
+        this.world.init();
+        this.load();
+    }
+
+
+    /**
      * Called when the world is loaded by the ComplexCore. In this method your stage should be loaded/created
      * @abstract
      */
     load() {
     }
 
-    /**
-     * Starts the initialisation of the world
-     */
-    run() {
-        this.world.init();
-    }
 
     /**
      * Updates the world object

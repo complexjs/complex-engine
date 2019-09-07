@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>EntitySystem<span class="signature">()</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature">(abstract) </span></span>EntitySystem<span class="signature">(components)</span><span class="type-signature"></span></h2>
         
             <div class="class-description">This systems renders only entities that match the required components.</div>
         
@@ -45,19 +45,72 @@
     
 
     
-    <h4 class="name" id="EntitySystem"><span class="type-signature"></span>new EntitySystem<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="EntitySystem"><span class="type-signature">(abstract) </span>new EntitySystem<span class="signature">(components)</span><span class="type-signature"></span></h4>
     
 
     
 
 
 
+<div class="description">
+    Define required components
+</div>
 
 
 
 
 
 
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>components</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;function()></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -93,7 +146,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="System_EntitySystem.js.html">System/EntitySystem.js</a>, <a href="System_EntitySystem.js.html#line12">line 12</a>
+        <a href="System_EntitySystem.js.html">System/EntitySystem.js</a>, <a href="System_EntitySystem.js.html#line17">line 17</a>
     </li></ul></dd>
     
 
@@ -193,7 +246,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="System_EntitySystem.js.html">System/EntitySystem.js</a>, <a href="System_EntitySystem.js.html#line15">line 15</a>
+        <a href="System_EntitySystem.js.html">System/EntitySystem.js</a>, <a href="System_EntitySystem.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -273,7 +326,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="System_EntitySystem.js.html">System/EntitySystem.js</a>, <a href="System_EntitySystem.js.html#line32">line 32</a>
+        <a href="System_EntitySystem.js.html">System/EntitySystem.js</a>, <a href="System_EntitySystem.js.html#line37">line 37</a>
     </li></ul></dd>
     
 
@@ -333,6 +386,10 @@
     
 
 
+
+<div class="description">
+    Process all entities matching the required components
+</div>
 
 
 
@@ -424,7 +481,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="System_EntitySystem.js.html">System/EntitySystem.js</a>, <a href="System_EntitySystem.js.html#line22">line 22</a>
+        <a href="System_EntitySystem.js.html">System/EntitySystem.js</a>, <a href="System_EntitySystem.js.html#line27">line 27</a>
     </li></ul></dd>
     
 
@@ -557,7 +614,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="System_EntitySystem.js.html">System/EntitySystem.js</a>, <a href="System_EntitySystem.js.html#line40">line 40</a>
+        <a href="System_EntitySystem.js.html">System/EntitySystem.js</a>, <a href="System_EntitySystem.js.html#line44">line 44</a>
     </li></ul></dd>
     
 
@@ -603,13 +660,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Core.html">Core</a></li><li><a href="Entity.html">Entity</a></li><li><a href="EntitySystem.html">EntitySystem</a></li><li><a href="GroupManager.html">GroupManager</a></li><li><a href="Manager.html">Manager</a></li><li><a href="Scene.html">Scene</a></li><li><a href="System.html">System</a></li><li><a href="VoidSystem.html">VoidSystem</a></li><li><a href="World.html">World</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Component.html">Component</a></li><li><a href="Engine.html">Engine</a></li><li><a href="Entity.html">Entity</a></li><li><a href="EntitySystem.html">EntitySystem</a></li><li><a href="GroupManager.html">GroupManager</a></li><li><a href="Manager.html">Manager</a></li><li><a href="Scene.html">Scene</a></li><li><a href="System.html">System</a></li><li><a href="VoidSystem.html">VoidSystem</a></li><li><a href="World.html">World</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Sep 05 2019 21:13:34 GMT+0200 (Central European Summer Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Sat Sep 07 2019 21:39:31 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>

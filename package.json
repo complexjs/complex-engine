@@ -21,7 +21,7 @@
     "repository": {
         "url": "https://github.com/faebeee/complex-engine"
     },
-    "main": "src/index.js",
+    "main": "index.js",
     "devDependencies": {
         "@babel/core": "^7.5.5",
         "@babel/preset-env": "^7.5.5",

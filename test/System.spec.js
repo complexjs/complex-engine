@@ -1,7 +1,11 @@
+import { expect } from 'chai';
 import sinon from 'sinon';
-import {expect} from 'chai';
 
-import { Component, Entity, EntitySystem, VoidSystem, World, } from '../src';
+import Component from '../src/Component';
+import Entity from '../src/Entity';
+import EntitySystem from '../src/System/EntitySystem';
+import VoidSystem from '../src/System/VoidSystem';
+import World from '../src/World';
 
 
 class MyComponent extends Component {
@@ -12,8 +16,7 @@ class MyComponent extends Component {
 
 class MyEntitySystem extends EntitySystem {
     constructor() {
-        super();
-        this.components = [MyComponent];
+        super([MyComponent]);
     }
 }
 
@@ -32,9 +35,10 @@ describe('System', function() {
             let update = sinon.spy();
             system.update = update;
 
-            world.addSystem(system);
-            world.init();
-            world.update();
+            world.addVoidSystem(system)
+                .init()
+                .update();
+
             expect(update.called).to.be.true;
         });
     });
@@ -50,10 +54,10 @@ describe('System', function() {
             system.update = update;
 
             entity.addComponent(new MyComponent());
-            world.addEntity(entity);
-            world.addSystem(system);
-            world.init();
-            world.update();
+            world.addEntity(entity)
+                .addEntitySystem(system)
+                .init()
+                .update();
 
             expect(update.called).to.be.true;
         });

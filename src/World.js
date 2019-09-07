@@ -64,6 +64,7 @@ class World {
 
         entity.setIndex(slot);
         this._entityAdded(entity);
+
         return this;
     }
 
@@ -115,30 +116,31 @@ class World {
     }
 
     /**
-     * Add a System to world
-     * @param { EntitySystem | VoidSystem} system System instance
-     * @returns {World}
-     * @throws Error
+     * Add new void system to the world
+     * @param {VoidSystem} system
      */
-    addSystem(system) {
+    addVoidSystem(system) {
         system.setWorld(this);
-
-        if (system instanceof EntitySystem === true) {
-            let slot = this._getFreeEntitySystemSlot();
-            if (slot != null) {
-                this.entitySystems[slot] = system;
-            } else {
-                this.entitySystems.push(system);
-            }
-        } else if (system instanceof VoidSystem === true) {
-            let slot = this._getFreeEntitySystemSlot();
-            if (slot != null) {
-                this.voidSystems[slot] = system;
-            } else {
-                this.voidSystems.push(system);
-            }
+        let slot = this._getFreeEntitySystemSlot();
+        if (slot != null) {
+            this.voidSystems[slot] = system;
         } else {
-            throw new Error('Object seems not to be a System');
+            this.voidSystems.push(system);
+        }
+        return this;
+    }
+
+    /**
+     * Add new entity system to the world
+     * @param {EntitySystem} system
+     */
+    addEntitySystem(system) {
+        system.setWorld(this);
+        let slot = this._getFreeEntitySystemSlot();
+        if (slot != null) {
+            this.entitySystems[slot] = system;
+        } else {
+            this.entitySystems.push(system);
         }
         return this;
     }
@@ -158,6 +160,8 @@ class World {
         }
 
         this.initialized = true;
+
+        return this;
     }
 
     /**

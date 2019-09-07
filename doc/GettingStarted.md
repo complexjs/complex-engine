@@ -1,65 +1,20 @@
 # Installation
 
-# Example
+## HTML
+Create the a basic markup
 
-- [Simple](./example/tutorial01/index.html)
+```
+<html>
+    <head></head>
+    <body>
+        <script src="./dist/bundle.js"></script>
+    </body>
+</html>
 
-# Steps to create an game
-
-- Create a `cxScene`
-- Add all the `cxSystem` to the `cxWorld`
-- Create `cxEntities` and add the `cxComponents`
-- Add the `cxEntities` to the `cxWorld`
-- Start the update loop
-
-## Create a `cxScene`
-
-```js
-    class MyScene extends cx.cxScene {
-        constructor() {
-            super("MainScene");
-        }
-
-        // Create everything that is required for this scene to be rendered.
-        // Add systems and entities
-        load() {
-            this.world.addSystem(new MySystem());
-            this.createPlayer();
-        }
-
-        createPlayer() {
-            let player = new cx.cxEntity("Player");
-            player.addComponent(new MyComponent('hello'));
-            this.world.addEntity(player);
-        }
-    }
 ```
 
-## Create a `cxSystem`
+## JS
+Create an entry point for your app/game. In this file, we will spinn up our engine, load
+the desired scene and render it
 
-```js
-    class MySystem extends cx.cxEntitySystem {
-        constructor() {
-            super();
-            this.components = ['my.component'];
-        }
-
-        update(entitiy) {
-        }
-    }
-```
-
-## Render
-
-```js
-    const complex = cx.Complex.getInstance();
-
-    complex.loadScene(new MyScene());
-
-    function render() {
-        complex.update();
-        requestAnimationFrame(render);
-    }
-
-    requestAnimationFrame(render);
 ```

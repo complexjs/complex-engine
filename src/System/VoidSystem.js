@@ -5,6 +5,7 @@ import System from '../System';
 /**
  * This System only renders once per update and is decoupled from the entities. This can be used to
  * update some data or clear the canvas on the screen
+ * @abstract
  */
 class VoidSystem extends System {
 
@@ -13,7 +14,6 @@ class VoidSystem extends System {
      */
     update() {
 
-    };
-
+    }
 }
 export default VoidSystem;

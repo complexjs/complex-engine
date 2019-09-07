@@ -6,17 +6,22 @@ import World from '../World';
 
 /**
  * This systems renders only entities that match the required components.
+ * @abstract
  */
 class EntitySystem extends System {
 
-    constructor() {
+    /**
+     * Define required components
+     * @param {Function[]} components
+     */
+    constructor(components = []) {
         super();
         /** @var {Function[]}  */
-        this.components = [];
+        this.components = components;
     }
 
     /**
-     *
+     * Process all entities matching the required components
      * @param {Entity[]} entities
      */
     processEntities(entities) {
@@ -32,7 +37,6 @@ class EntitySystem extends System {
     getComponents() {
         return this.components;
     }
-
 
     /**
      * @param {Entity} entity

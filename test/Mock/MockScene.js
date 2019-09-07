@@ -1,8 +1,8 @@
 'use strict';
 
-import cxScene from '../../src/Scene';
+import Scene from '../../src/Scene';
 
-module.exports = class MockScene extends cxScene {
+export default class MockScene extends Scene {
     constructor() {
         super();
     }
