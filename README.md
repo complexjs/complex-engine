@@ -10,20 +10,8 @@ within your code. Also you (should)have more simpler, clearer and more maintaina
 
 **NOTE** `complex` is just a game engine. It doesn't provide any renderer functionality or game logic.
 
-# Installation
-
-## Web
-
-    <script src="https://unpkg.com/complex-engine@/build/bundle.js"></script>
-
-Now everything is available under the scope `cx`
-
-Exp: `new cx.cxEntity()` or `cx.Complex.getInstance()`
-
 ## Npm
-
     npm i complex-engine --save
-
 
 # How To
 [Getting started](/doc/GettingStarted.md)
@@ -33,26 +21,12 @@ Exp: `new cx.cxEntity()` or `cx.Complex.getInstance()`
 
 
 # Concept
-You can have multiple scenes. Every scene is a scene or a stage in your game. Within this scene
-the complete World lives. In that world you have all your entities, managers and systems.
+The idea behind (yet another game engine) `complex-engine` to have a lot of reusable code which you can reuse
+across multiple projects. `complex-engine` follows the [Component Entity System](https://en.wikipedia.org/wiki/Entity_component_system) pattern.
 
-## System
-A system is a class that contains business logic to process the data for an entity.
-
-Exp. If you want to draw a square at the mouse position, you'll have two systems. One that draws the square on the canvas/screen
-and the other that will update the mouse position in the component.
-
-You can simply create a system that uses the [PIXI]() renderer to draw your sprites or shapes
-
-## Component
-A component is similar to a store. It holds data that is bound/mapped to a specific entity. 
-
-In the example above, we would have a component that will hold four properties. X/Y coordinates and the width and height of the square that have to be drawn.
-
-## Entity
-An entity is bucket with multiple components. Every entity can have an unlimited amount of components.
-
-## Manager
-A manager is something like an interface to external stuff. 
-
-For our example, we would create a manager that creates eventlistener on the body and then store those mouse position in it's data. A system then consumes those data and writes it to the components. Our manager would be something like a `MouseInputManager`. The manager only has the x/y coordinates of the mouse
+Basically you have entities on the screen which represents all single instances of something. Those entities
+hold a list of components which define it's behaviour. The component is just like a store for data.
+For example if we want a entitiy to be drawn at a certain position, we need some coordinates. Lets say we need a
+`x`, `y`, `width` and `height` variable for that. Those variable will be stored in the component. 
+The business logic (in our case the rendering/drawing) will be written in a system. The system
+receives every entity, and does something with it's attached components data.
