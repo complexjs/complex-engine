@@ -62,10 +62,18 @@ class Entity {
      * @returns {Entity}
      */
     removeListener(event) {
-        this.listeners = this.listeners.filter((listener) => {
-            return !(listener.event === event);
-        });
+        const listeners = this.listeners;
+        const newListeners = [];
+        const len = listeners.length;
 
+        for (let i = 0; i < len; i++) {
+            const listener = listeners[i];
+            if ((listener.event !== event)) {
+                newListeners.push(listeners);
+            }
+        }
+
+        this.listeners = newListeners;
         return this;
     }
 
@@ -76,13 +84,15 @@ class Entity {
      * @returns {Entity}
      */
     emit(event, data) {
-        this.listeners.filter((listener) => {
-            return (listener.event === event);
-        })
-            .map((listener) => {
-                listener.callback(data);
-            });
+        const listeners = this.listeners;
+        const len = listeners.length;
 
+        for (let i = 0; i < len; i++) {
+            const listener = listeners[i];
+            if ((listener.event === event)) {
+                listener.callback(data);
+            }
+        }
         return this;
     }
 
@@ -139,10 +149,18 @@ class Entity {
      * @returns {Entity}
      */
     removeComponent(component) {
-        this.components = this.components.filter(entry => {
-            return !(entry instanceof component);
-        });
+        const components = [];
+        const currentComponents = this.components;
+        const len = currentComponents.length;
 
+        for (let i = 0; i < len; i++) {
+            const compo = currentComponents[i];
+            if (!(compo instanceof component)) {
+                components.push(compo);
+            }
+        }
+
+        this.components = components;
         return this;
     }
 

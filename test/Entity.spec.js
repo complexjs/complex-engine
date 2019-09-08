@@ -13,7 +13,14 @@ describe('Entity', function() {
         const component = entity.getComponent(SecondMockComponent);
         expect(component).to.be.not.null;
         expect(component.foo).to.be.equal('bar');
+    });
 
+    it('hasComponent', function() {
+        let entity = new cxEntity();
+        entity.addComponent(new MockComponent());
+        entity.addComponent(new SecondMockComponent());
+        const hasComp = entity.hasComponent(SecondMockComponent);
+        expect(hasComp).to.be.true;
     });
 
     it('getAllComponents', function() {

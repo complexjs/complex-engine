@@ -4,7 +4,10 @@ import Entity from '../src/Entity';
 import World from '../src/World';
 
 import MockEntitySystem from './Mock/EntitySystem.js';
+import MockComponent from './Mock/MockComponent';
 import MockManager from './Mock/MockManager.js';
+import MultiComponentSystem from './Mock/MultiComponentSystem';
+import SecondMockComponent from './Mock/SecondMockComponent';
 import MockVoidSystem from './Mock/VoidSystem.js';
 
 
@@ -29,8 +32,10 @@ describe('World', function() {
         let world = new World();
         let entity = new Entity();
 
+        world.init();
         world.addEntity(entity);
-        world.removeEntity(entity);
+        entity.destroy();
+        world.update();
 
         expect(world.getEntities()).to.have.lengthOf(0);
     });
@@ -165,7 +170,7 @@ describe('World', function() {
         let vSys = new MockVoidSystem();
 
         world
-            //.addEntitySystem(eSys)
+        //.addEntitySystem(eSys)
             .addVoidSystem(vSys)
             .init();
 
@@ -187,4 +192,41 @@ describe('World', function() {
         }).to.throw();
     });
 
+    it('_checkIfEntityHasComponents when all components match', function() {
+        const world = new World();
+        const multiComponentEntity = world.createEntity([new MockComponent(), new SecondMockComponent()]);
+        const hasAllComponents = world._checkIfEntityHasComponents(multiComponentEntity, MockComponent, SecondMockComponent);
+        expect(hasAllComponents).to.be.true;
+    });
+
+    it('_checkIfEntityHasComponents should not match if only one component matches', function() {
+        const world = new World();
+        const multiComponentEntity = world.createEntity([new MockComponent()]);
+        const hasAllComponents = world._checkIfEntityHasComponents(multiComponentEntity, MockComponent, SecondMockComponent);
+        expect(hasAllComponents).to.be.true;
+    });
+
+    it('getEntitiesWithComponents', function() {
+        const world = new World();
+        world.addEntitySystem(new MultiComponentSystem());
+
+        world.createEntity([new MockComponent()]);
+        world.createEntity([new MockComponent(), new SecondMockComponent()]);
+        const entities = world.getEntitiesWithComponents(world.getSystem(MultiComponentSystem).components);
+        expect(entities).to.have.lengthOf(1);
+    });
+
+    it('remove destroyed entities', function() {
+        const world = new World();
+        const entity = world.createEntity([new MockComponent()]);
+        expect(world.getEntities()).to.have.lengthOf(1);
+        world
+            .init()
+            .update();
+
+        expect(world.getEntities()).to.have.lengthOf(1);
+        entity.destroy();
+        world.update();
+        expect(world.getEntities()).to.have.lengthOf(0);
+    });
 });

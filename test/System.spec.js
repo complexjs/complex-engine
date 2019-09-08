@@ -62,5 +62,4 @@ describe('System', function() {
             expect(update.called).to.be.true;
         });
     });
-
 });

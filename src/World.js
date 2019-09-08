@@ -1,6 +1,6 @@
-import System from './System';
 import Entity from './Entity';
 import Manager from './Manager';
+import System from './System';
 import EntitySystem from './System/EntitySystem';
 import VoidSystem from './System/VoidSystem';
 
@@ -23,6 +23,9 @@ class World {
 
         /** @var { boolean}  */
         this.initialized = false;
+
+        /** @var {number} */
+        this.ticks = 0;
     }
 
     /**
@@ -72,17 +75,16 @@ class World {
      * remove entity from the world
      * @param {Entity} entity
      * @returns {World}
+     * @private
      * @throws Error
      */
-    removeEntity(entity) {
+    _removeEntity(entity) {
         const index = entity.getIndex();
         if (index === null) {
             throw new Error('Entity has no index');
         }
 
         this._entityDeleted(entity);
-        delete this.entities[index];
-
         return this;
     }
 
@@ -104,15 +106,7 @@ class World {
      * @returns {Entity[]}
      */
     getEntities() {
-        let entities = [];
-        for (let e = 0, len = this.entities.length; e < len; e++) {
-            let entity = this.entities[e];
-            if (entity == undefined || entity == null) {
-                continue;
-            }
-            entities.push(entity);
-        }
-        return entities;
+        return this.entities;
     }
 
     /**
@@ -147,6 +141,7 @@ class World {
 
     /**
      * After all systems has been added, this should be called to initiate them
+     * @return {World}
      */
     init() {
         for (let i = 0, len = this.entitySystems.length; i < len; i++) {
@@ -194,13 +189,30 @@ class World {
      * @returns {World}
      */
     removeSystem(systemClass) {
-        this.entitySystems = this.entitySystems.filter((system) => {
-            return !(system instanceof systemClass);
-        });
+        const entitySystems = this.entitySystems;
+        const eLen = entitySystems.length;
+        const newESystems = [];
 
-        this.voidSystems = this.voidSystems.filter((system) => {
-            return !(system instanceof systemClass);
-        });
+        for (let i = 0; i < eLen; i++) {
+            const system = entitySystems[i];
+            if (!system instanceof systemClass) {
+                newESystems.push(system);
+            }
+        }
+
+        this.entitySystems = newESystems;
+
+        const voidSystems = this.voidSystems;
+        const vLen = voidSystems.length;
+        const newVSystems = [];
+
+        for (let i = 0; i < vLen; i++) {
+            const system = voidSystems[i];
+            if (!system instanceof systemClass) {
+                newVSystems.push(system);
+            }
+        }
+        this.voidSystems = newVSystems;
 
         return this;
     }
@@ -246,6 +258,8 @@ class World {
         this._updateEntities()
             ._updateVoidSystem()
             ._updateEntitySystem();
+
+        this.ticks++;
     }
 
     /**
@@ -269,24 +283,24 @@ class World {
     _updateEntitySystem() {
         for (let s = 0, sLen = this.entitySystems.length; s < sLen; s++) {
             const system = this.entitySystems[s];
-            const entities = this._getEntitiesForSystem(system);
+            const entities = this.getEntitiesWithComponents(system.components);
             system.processEntities(entities);
         }
     }
 
     /**
-     * Get all entities that fit a systems requirements(components)
-     * @param {EntitySystem} system
+     *
+     * @param {Entity} entity
+     * @param components
      * @private
-     * @returns {Entity[]}
      */
-    _getEntitiesForSystem(system) {
-        const components = system.getComponents();
-        const entities = [];
+    _checkIfEntityHasComponents(entity, components) {
         for (let i = 0; i < components.length; i++) {
-            entities.push(...this.getEntitiesWithComponent(components[i]));
+            if (!entity.hasComponent(components[i])) {
+                return false;
+            }
         }
-        return entities;
+        return true;
     }
 
     /**
@@ -310,21 +324,34 @@ class World {
     }
 
     /**
+     * Get a list of entities that match a component
+     * @param {Function[]} components
+     * @returns {Entity[]}
+     */
+    getEntitiesWithComponents(components) {
+        const matchingEntities = [];
+        for (let i = 0; i < this.entities.length; i++) {
+            const entity = this.entities[i];
+            if (this._checkIfEntityHasComponents(entity, components)) {
+                matchingEntities.push(entity);
+            }
+        }
+        return matchingEntities;
+    }
+
+    /**
      * Update all entities state
      * @private
      * @returns {World}
      */
     _updateEntities() {
-        const entities = this.entities;
-        const entitiesLength = entities.length;
-
-        for (let i = 0; i < entitiesLength; i++) {
-            const entity = entities[i];
-
+        this.entities = this.entities.filter((entity) => {
             if (!entity.isAlive() && entity.isRemove()) {
-                this.removeEntity(entity);
+                this._removeEntity(entity);
+                return false;
             }
-        }
+            return true;
+        });
 
         return this;
     }

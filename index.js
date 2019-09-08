@@ -8,6 +8,7 @@ import EntitySystem from './src/System/EntitySystem';
 import VoidSystem from './src/System/VoidSystem';
 import World from './src/World';
 import GroupManager from './src/Manager/GroupManager';
+import DatGuiManager from './src/Manager/DatGuiManager';
 
 export {
     Engine,
@@ -20,4 +21,5 @@ export {
     VoidSystem,
     World,
     GroupManager,
+    DatGuiManager,
 };
